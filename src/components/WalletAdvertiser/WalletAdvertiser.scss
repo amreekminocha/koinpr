@@ -1,0 +1,38 @@
+.WalletAdvertiser {
+    padding: 82px;
+
+    .content {
+        background: #F9F9F9;
+        border-radius: 3px;
+
+        .heading{
+            padding: 35px 0 0 44px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .table{
+            padding: 51px 110px;
+
+            .walletTable {
+                box-sizing: border-box;
+                width: 100%;
+                border-spacing: 0;
+                border: 0.5px solid black;
+                border-radius: 3px;
+                font-size: 16px;
+    
+                th {
+                    font-weight: 600;
+                }
+    
+                th,
+                td {
+                    padding: 17px 0;
+                    border: 0.5px solid black;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

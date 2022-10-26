@@ -1,0 +1,73 @@
+.signin{
+    padding: 105px 540px;
+
+    input:focus {
+        outline: 1px solid black;
+    }
+
+    p{
+        margin: 0;
+        padding: 0;
+    }
+
+    .content{
+        box-sizing: border-box;
+        background-color: #f9f9f9;
+        padding: 0 54px;
+        height: 463px;
+        width: 360px;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 7px solid black;
+        border-radius: 3px;
+
+        .chead{
+            font-size: 25px;
+            font-weight: 600;
+            margin-top: 38px;
+        }
+
+        .signUp{
+            margin-top: 8px;
+            font-size: 14px;
+            a{
+                text-decoration: none;
+                color: #108FB7;
+            }
+        }
+
+        .email{
+            box-sizing: border-box;
+            padding: 11px 18px;
+            margin-top: 33px;
+            width: 251px;
+            height: 41px;
+        }
+
+        .password{
+            box-sizing: border-box;
+            padding: 11px 18px;
+            margin-top: 19px;
+            width: 251px;
+            height: 41px;
+        }
+
+        .submitButton{
+            margin-top: 26px;
+            height: 43px;
+            width: 113px;
+            background-color: black;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+        }
+
+        .forgot{
+            margin-top: 111px;
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+        }
+    }
+}

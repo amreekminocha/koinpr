@@ -39,6 +39,10 @@
                 border: 1px solid black;
                 box-sizing: border-box;
 
+                input[name="category"] {
+                    accent-color: black;
+                }
+
                 input {
                     width: 16.6px;
                     height: 16.6px;
@@ -48,13 +52,8 @@
     }
 
     .mpRight{
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: auto auto auto;
         gap: 30px;
-        
-        .row{
-            display: flex;
-            gap: 47px;
-        }
     }
 }

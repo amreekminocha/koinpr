@@ -1,4 +1,4 @@
-.header{
+.Header{
     height: 63px;
     box-sizing: border-box;
     background-color: black;
@@ -11,6 +11,7 @@
     .left{
         display: flex;
         flex-direction: column;
+        cursor: pointer;
 
         .heading{
             font-size: 27px;
@@ -23,11 +24,42 @@
             font-weight: 400;
         }
     }
+    // .left:hover{
+    //     cu
+    // }
 
     .right{
         font-size: 16px;
         font-weight: 600;
         display: flex;
         gap: 75px;
+        
+        .myAccount{
+            position: relative;      
+            
+            .dropdown{
+                color: white;
+                background-color: black;
+                position: absolute;
+                top: 40px;
+                left: -48px;
+                display: flex;
+                flex-direction: column;
+                // gap: 5px;
+                width: 180px;
+                span{
+                    padding: 10px;
+                    text-align: end;
+                }
+                span:hover{
+                    background-color: white;
+                    color: black;
+                }
+            }
+        }
+        
+        span:hover{
+            cursor: pointer;
+        }
     }
 }

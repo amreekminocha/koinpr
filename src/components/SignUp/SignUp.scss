@@ -47,6 +47,19 @@
                 display: flex;
                 gap: 50px;
 
+                .col{
+                    display: flex;
+                    flex-direction: column;
+
+                    .error{
+                        color: red;
+                        font-size: 13px;
+                        margin-top: 5px;
+                        width: 254px;
+                        accent-color: none;
+                    }
+                }
+
                 .input {
 
                     display: flex;
@@ -78,6 +91,13 @@
                     padding: 11px 18px;
                     border: 1px solid black;
                     border-radius: 3px;
+                }
+
+                .err{
+                    border: 1px solid red;
+                }
+                .err:focus{
+                    outline: none;
                 }
             }
         }

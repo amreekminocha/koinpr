@@ -24,6 +24,7 @@ function App() {
           <Route path='/sign-in' exact element={<SignIn />}/>
           <Route path='/sign-up' exact element={<SignUp />}/>
           <Route path='/profile' exact element={<ProfileAdvertiser />}/>
+          {/* <Route path='/profile' exact element={<ProfileAdvertiser />}/> */}
           {/* <Route path='/marketplace' exact element={<ProfileAdvertiser />}/> */}
         {/* <Expanded/> */} 
         {/* <WalletPublisher /> */}

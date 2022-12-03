@@ -51,7 +51,7 @@ const Expanded = () => {
         return (
             <div className='expanded'>
                 <div className='back'>
-                    <span>Continue Shopping</span>
+                    <span onClick={()=>navigate('/')}>Continue Shopping</span>
                 </div>
                 <div className='mainExp'>
                     <div className='left'>

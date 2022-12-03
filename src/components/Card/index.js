@@ -12,7 +12,7 @@ const Card = (props) => {
     console.log(props.cart );
 
     return (
-        <div onClick={()=>navigate('/expand/12')} className='card'>
+        <div onClick={()=>navigate(`/expand/${props.name}`)} className='card'>
             <div className='cardHead'>
                 <span className='image'></span>
                 <span className='name'>{props.name}</span>

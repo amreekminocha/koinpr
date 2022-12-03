@@ -53,7 +53,7 @@ const Header = () =>{
                     My Account
                     {isOpenAcc && (
                     <div className='dropdown'>
-                        <span>My Profile</span>
+                        <span onClick={()=>navigate('/profile')}>My Profile</span>
                         <span>Order History</span>
                         <span>Telegram</span>
                     </div>

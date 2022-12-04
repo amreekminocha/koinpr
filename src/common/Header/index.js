@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 import axios from '../../axios';
 
 import './Header.scss';
+import MobileHeader from './headerMobile/MobileHeader';
 
 const Header = () =>{
 
@@ -42,6 +43,9 @@ const Header = () =>{
     };
 
     return (
+        <>
+        <div className='hidden md:block lg:block' >
+
         <div className='Header' onClick={()=>setIsOpenAcc(false)}>
             <div className='left' onClick={()=>navigate('/')}>
                 <span className='heading'>Koinpr</span>
@@ -62,6 +66,12 @@ const Header = () =>{
                 <span onClick={signOutHandler}>{isLoggedIn ? 'Sign Out' : 'Sign-In'}</span>
             </div>
         </div>
+        </div>
+        
+        <div className='md:hidden lg:hidden sm:block'>
+<MobileHeader/>
+        </div>
+        </>
     );
 };
 

@@ -2,12 +2,12 @@ import { useState } from 'react';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 
-import './SignUp.scss';
-import axios from '../../axios';
-import SignUpMobile from './signupMobile/SignupMobile';
+import styles from "./signupmobile.module.css";
+import axios from '../../../axios';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Button, Divider } from '@mui/material';
 
-
-const SignUp = () => {
+const SignUpMobile = () => {
 
     const navigate = useNavigate();
 
@@ -101,70 +101,76 @@ const SignUp = () => {
     }
 
     return (
-        <>
-        <div className='hidden md:block lg:block'>
+        <div className='w-11/12 m-auto p-4 bg-[#F9F9F9]' >
 
-
-        <div className='signup'>
-            <div className='content'>
-                <div className='head'>
-                    <span className='heading'>Let's Get Started</span>
-                    <span className='subHeading'>Already have an account? <a href='/'>Sign In</a></span>
+            <div >
+                <div >
+                    <span style={{width:"280px",fontWeight:600,fontSize:"21px",fontWeight:"bold",fontFamily:"Inter"}} >Let's Get Started</span>
+                </div>
+                    
+                <div style={{width:"272px",fontWeight:400,fontSize:"12px",color:"black",lineHeight:"14.52px",marginTop:"5px",fontFamily:"Inter"}}>
+                    <span >Already have an account? <a style={{color:"#108FB7"}} href='/'>Sign In <ArrowForwardIcon fontSize='12px'/></a></span>
                 </div>
                 <form onSubmit={submitHandler}>
-                    <div className='caard'>
-                        <p>Choose Your Account Type</p>
-                        <div className='inputs'>
-                            <div onClick={() => setType('ADVERTISER')} className='input'>
+                    <div style={{width:"295px",marginTop:"25px",fontWeight:700,marginBottom:"24px"}} >
+                        <p className={styles.caard}>Choose Your Account Type</p>
+
+                        </div>
+                        <div className={styles.inputs} >
+                            <div onClick={() => setType('ADVERTISER')} className={styles.input} >
                                 <label htmlFor='adv'>I'm an advertiser</label>
                                 <input type='radio' name='account' className='round' id='adv' checked={type === 'ADVERTISER'} />
                             </div>
-                            <div onClick={() => setType('PUBLISHER')} className='input'>
+                            <div onClick={() => setType('PUBLISHER')} className={styles.input}>
                                 <label htmlFor='pub'>I'm a publisher</label>
                                 <input type='radio' name='account' className='round' id='pub' checked={type === 'PUBLISHER'} />
                             </div>
                         </div>
-                    </div>
-                    <div className='caard textIp'>
-                        <p>Enter Your Account Details</p>
-                        <div className='inputs'>
-                            <div className='col'>
+                    
+                    <div className={styles.caard}>
+                        <p>Account Details</p>
+                        <div style={{marginTop:"24px"}} className={styles.inputs} >
+                        <div className={styles.input}>
                                 <input type='text' className={errors.fullName ? 'input-text err' : 'input-text'} placeholder='Full Name' value={fullName} onChange={e => setFullName(e.target.value)} />
                                 <span className='error'>{errors.fullName}</span>
                             </div>
-                            <div className='col'>
-                                <input type='email' className={errors.email ? 'input-text err' : 'input-text'} placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} />
-                                <span className='error'>{errors.email}</span>
+                            <div className={styles.input} >
+                                <input type='email'  placeholder='Email' value={email} onChange={e => setEmail(e.target.value)} />
+                                <span >{errors.email}</span>
                             </div>
                         </div>
-                        <div className='inputs m-t-23'>
-                            <div className='col'>
+                        <div >
+                            <div className={styles.input}>
                                 <input type='password' className={errors.password ? 'input-text err' : 'input-text'} placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
                                 <span className='error'>{errors.password}</span>
                             </div>
-                            <div className='col'>
+                            <div className={styles.input}>
                                 <input type='password' className={errors.cpassword ? 'input-text err' : 'input-text'} placeholder='Confirm Password' value={cpassword} onChange={e => setCpassword(e.target.value)} />
                                 <span className='error'>{errors.cpassword}</span>
                             </div>
                         </div>
                     </div>
-                    <div className='proceed'>
-                        <div className='tNc'>
-                            <span>By proceeding you agree to Koinpr terms and conditions</span>
-                        </div>
-                        <button type='submit' className='submit'>Proceed</button>
-                    </div>
+                    <p >
+                     
+                            By proceeding you agree to Koinpr terms and conditions
+                 
+                    </p>
+                    <div className='p-5'>
+
+<Button type="submit" sx={{ marginTop: "2em", background: "black" }} variant='contained'>
+    Proceed<span><ArrowForwardIcon /></span>
+</Button>
+</div>
                 </form>
             </div>
-        </div>
+            <Divider variant='middle' sx={{ width: "93%", margin: "auto", height: "0.5em", marginTop: "1em", background: "black" }} />
+    
+<p style={{marginTop:"3em",fontSize:"14px"}}>
 
-  
+            All rights reserved by Koinpr Marketing Private Limited
+</p>
         </div>
-        <div  className='sm:block md:hidden lg:hidden'>
-<SignUpMobile/>
-            </div>
-        </>
     );
 };
 
-export default SignUp;
+export default SignUpMobile;

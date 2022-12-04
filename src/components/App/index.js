@@ -1,17 +1,21 @@
 import Header from '../../common/Header';
 import AddListing from '../AddListing/Index';
-import Expanded from '../Expanded';
-import Marketplace from '../Marketplace';
-import ProfileAdvertiser from '../Profile/ProfileAdvertiser';
+// import Expanded from '../Expanded';
+// import Marketplace from '../Marketplace';
+// import ProfileAdvertiser from '../Profile/ProfileAdvertiser';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
-import WalletAdvertiser from '../WalletAdvertiser';
-import WalletPublisher from '../WalletPublisher';
+import WalletAdvertiser from '../WalletAdvertiser/newWalletComponent/index';
+// import WalletPublisher from '../WalletPublisher';
 import CommonPopup from '../../common/Popup';
 import Cart from '../Cart';
 
 import './App.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MarketPlace from '../Marketplace/marketplace/MarketPlace';
+import Expand from '../Expanded/expand/Expand';
+import WalletPublisher from '../WalletPublisher/walletPublisher/WalletPublisher';
+import ProfileAdvertiser from '../Profile/profileAdvertiser/ProfileAdvertiser';
 
 function App() {
   return (
@@ -19,10 +23,13 @@ function App() {
       <BrowserRouter> 
         <Header />
         <Routes>
-          <Route path='/' exact element={<Marketplace />}/>
-          <Route path='/expand/:id' exact element={<Expanded />}/>
+          <Route path='/' exact element={<MarketPlace />}/>
+          <Route path='/expand' exact element={<Expand />}/>
+          <Route path='/expand/:id' exact element={<Expand />}/>
           <Route path='/sign-in' exact element={<SignIn />}/>
           <Route path='/sign-up' exact element={<SignUp />}/>
+          <Route path='/wallet-publisher' exact element={<WalletPublisher />}/>
+          <Route path='/wallet-advertiser' exact element={<WalletAdvertiser />}/>
           <Route path='/profile' exact element={<ProfileAdvertiser />}/>
           {/* <Route path='/profile' exact element={<ProfileAdvertiser />}/> */}
           {/* <Route path='/marketplace' exact element={<ProfileAdvertiser />}/> */}

@@ -1,10 +1,9 @@
+import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import axios from '../../axios';
 import './Profile.scss';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
 
 const ProfileAdvertiser = () => {
 
@@ -64,12 +63,11 @@ const ProfileAdvertiser = () => {
     };
 
     return (
-        <>
-        
-       
+        <Grid container>
+        <div className='md:flex  sm-full'>
 
-        <div  className='Profile'>
-            <div   className='pLeft'>
+<Grid item xs={12} md={4}>
+<div className='pLeft'>
                 <h2 className='lHead'>Account Details</h2>
                 <p className='cStatus'>Current Status : <span className='status'>Not Verified</span></p>
                 <div className='inputs mt40'>
@@ -89,6 +87,9 @@ const ProfileAdvertiser = () => {
                     )}
                 </div>
             </div>
+</Grid>
+           <Grid item xs={12} md={8}>
+
             <div className='pRight'>
                 {step ===1 && (
                     <>
@@ -117,7 +118,7 @@ const ProfileAdvertiser = () => {
                             <input className='wInput' placeholder='Country' onChange={changeHandler} name="country"/>
                             <input className='wInput' placeholder='Address' onChange={changeHandler} name="walletAddress"/>
                         </div>
-                        <button type='button' className='pButton mt40' onClick={step1Handler}>Proceed<ArrowForwardIcon/></button>
+                        <button type='button' className='pButton mt40' onClick={step1Handler}>Proceed</button>
                         <p className='pBottom'>Please make sure that the details you enter here matches the documents you will be providing for verification.</p>
                     </>
                 )}
@@ -156,16 +157,14 @@ const ProfileAdvertiser = () => {
                                 <input type='text' placeholder='SWIFT Code' className='wInput'></input>
                                 <input type='text' placeholder='Bank Name' className='wInput'></input>
                         </div>
-                        <button  type='button' className='pButton mt40'>Proceed<ArrowForwardIcon/></button>
+                        <button type='button' className='pButton mt40'>Proceed</button>
                         <p className='pBottom'>We will automatically generate a withdrawal request at the end of every month depending on your selected preference. </p>
                     </>
                 )}
             </div>
+            </Grid>
         </div>
-     
-
-    
-        </>
+        </Grid>
     )
 }
 

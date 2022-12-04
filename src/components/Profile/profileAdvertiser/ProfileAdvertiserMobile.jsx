@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import axios from '../../axios';
-import './Profile.scss';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import axios from '../../../axios';
+import './profileAdvertiserMobile.scss';
 
-
-const ProfileAdvertiser = () => {
+const ProfileAdvertiserMobile = () => {
 
     const cookies = new Cookies();
     const navigate = useNavigate();
@@ -64,12 +62,8 @@ const ProfileAdvertiser = () => {
     };
 
     return (
-        <>
-        
-       
-
-        <div  className='Profile'>
-            <div   className='pLeft'>
+        <div className='Profile'>
+            <div className='pLeft'>
                 <h2 className='lHead'>Account Details</h2>
                 <p className='cStatus'>Current Status : <span className='status'>Not Verified</span></p>
                 <div className='inputs mt40'>
@@ -117,7 +111,7 @@ const ProfileAdvertiser = () => {
                             <input className='wInput' placeholder='Country' onChange={changeHandler} name="country"/>
                             <input className='wInput' placeholder='Address' onChange={changeHandler} name="walletAddress"/>
                         </div>
-                        <button type='button' className='pButton mt40' onClick={step1Handler}>Proceed<ArrowForwardIcon/></button>
+                        <button type='button' className='pButton mt40' onClick={step1Handler}>Proceed</button>
                         <p className='pBottom'>Please make sure that the details you enter here matches the documents you will be providing for verification.</p>
                     </>
                 )}
@@ -156,17 +150,13 @@ const ProfileAdvertiser = () => {
                                 <input type='text' placeholder='SWIFT Code' className='wInput'></input>
                                 <input type='text' placeholder='Bank Name' className='wInput'></input>
                         </div>
-                        <button  type='button' className='pButton mt40'>Proceed<ArrowForwardIcon/></button>
+                        <button type='button' className='pButton mt40'>Proceed</button>
                         <p className='pBottom'>We will automatically generate a withdrawal request at the end of every month depending on your selected preference. </p>
                     </>
                 )}
             </div>
         </div>
-     
-
-    
-        </>
     )
 }
 
-export default ProfileAdvertiser
+export default ProfileAdvertiserMobile

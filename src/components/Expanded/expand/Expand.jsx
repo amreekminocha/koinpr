@@ -1,9 +1,13 @@
 import { Grid, Table, TableBody, TableCell, tableCellClasses, TableRow, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandCard from './ExpandCard';
 import { styled } from '@mui/material/styles';
 import styles from "./expand.module.css"
+import Cookies from 'universal-cookie';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from '../../../axios';
+
 const data = [
   { name: "Website", link: "https://www.google.com" },
   { name: "Visitors ", link: "1M per month" },
@@ -19,6 +23,51 @@ const data = [
 ]
 
 function Expand() {
+
+//state for table Data
+
+const [displayData, setDisplayData] = useState({});
+
+
+const cookies = new Cookies();
+const navigate = useNavigate();
+const [userId, setUserId] = useState();
+
+
+// useEffect(()=>{
+//   const auth = cookies.get('auth-token');
+//   // if(!auth){
+//   //     navigate('/sign-in');
+//   // }
+//   axios.post('/api/user/get-user-by-token',{},{
+//       headers:{
+//           Authorization: 'Bearer ' + auth
+//       }
+//   }).then(res=>{
+//       if(!res.data.success){
+//           navigate('/sign-in');
+//       }
+//       setUserId(res.data.user._id);
+//   }).catch(err=>{
+//       console.log(err,'err');
+//       navigate('/sign-in');
+//   })
+// }, []);
+
+const {id} = useParams();
+
+useEffect(()=>{
+  if(userId){
+      axios.get(`/api/listing/get-all?userId=635c60cce1f9a1c40b03bef3&offerTitle=${id}`
+      ).then(res=>{
+          setDisplayData(res.data.data[0]);
+          console.log(res.data.data);
+      }).catch(err=>{
+          console.log(err,'err');
+      });
+  }
+},[userId]);
+
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {

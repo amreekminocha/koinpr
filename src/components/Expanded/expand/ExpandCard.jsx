@@ -6,7 +6,8 @@ function ExpandCard({name,details,image,price}) {
   return (
     <>
     <Paper 
-className='md:w-[484px] h-[380px] sm:w-full bg-[#F9F9F9] p-1'
+    style={{background:"#F9F9F9"}}
+className='md:w-[484px] h-[380px] sm:w-full  p-6'
 
     >
         <div style={{display:"flex",marginTop:"22px"}}>

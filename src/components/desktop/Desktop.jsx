@@ -3,6 +3,13 @@ import React from "react";
 import DesktopLeftPaper from "./LeftCard";
 import RightCard from "./RightCard";
 import image1 from "../assets/Right1.png";
+import image2 from "../assets/Right2.png";
+import image3 from "../assets/Right3.png";
+import image4 from "../assets/Right4.png";
+import image5 from "../assets/Right5.png";
+import image6 from "../assets/Right6.png";
+import image7 from "../assets/Right7.png";
+// import image8 from "../assets/Right8.png";
 import { Box } from "@mui/system";
 import styles from "./desktopstyle.module.css";
 function Desktop() {
@@ -41,7 +48,7 @@ function Desktop() {
               subheader={"Cointelegraph"}
               date={"23 Nov, 2022"}
               time={"4:29 PM"}
-              image={image1}
+              image={image2}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -53,7 +60,7 @@ function Desktop() {
               subheader={"Cointelegraph"}
               date={"23 Nov, 2022"}
               time={"4:29 PM"}
-              image={image1}
+              image={image3}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -65,7 +72,7 @@ function Desktop() {
               subheader={"Cointelegraph"}
               date={"23 Nov, 2022"}
               time={"4:29 PM"}
-              image={image1}
+              image={image4}
             />
           </Grid>
         </Grid>
@@ -96,7 +103,7 @@ function Desktop() {
                 subheader={"Cointelegraph"}
                 date={"23 Nov, 2022"}
                 time={"4:29 PM"}
-                image={image1}
+                image={image5}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -108,7 +115,7 @@ function Desktop() {
                 subheader={"Cointelegraph"}
                 date={"23 Nov, 2022"}
                 time={"4:29 PM"}
-                image={image1}
+                image={image6}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -120,7 +127,7 @@ function Desktop() {
                 subheader={"Cointelegraph"}
                 date={"23 Nov, 2022"}
                 time={"4:29 PM"}
-                image={image1}
+                image={image7}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -132,7 +139,7 @@ function Desktop() {
                 subheader={"Cointelegraph"}
                 date={"23 Nov, 2022"}
                 time={"4:29 PM"}
-                image={image1}
+                image={image7}
               />
             </Grid>
           </Grid>

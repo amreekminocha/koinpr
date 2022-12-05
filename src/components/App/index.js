@@ -30,7 +30,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          {/* <Route path="/" exact element={<MarketPlace />} /> */}
+          <Route path="/marketplace" exact element={<MarketPlace />} />
           <Route path="/" exact element={<Desktop />} />
           <Route path="/expand" exact element={<Expand />} />
           <Route path="/expand/:id" exact element={<Expand />} />

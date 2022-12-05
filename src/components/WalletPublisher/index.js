@@ -2,6 +2,7 @@ import "./WalletPublisher.scss";
 
 import React from "react";
 import WalletPublisherTable from "./walletPublisher/WalletPublisherTable";
+import WalletPublisherTableVertical from "./walletPublisher/WalletPublisherVertical";
 
 const WalletPublisher = () => {
   return (
@@ -43,8 +44,16 @@ const WalletPublisher = () => {
         <div className="cRight">
           <div className="mainHeading">Wallet History</div>
           <div className="walletTableComponent">
+            <div className="hidden md:block">
             <WalletPublisherTable />
+
+            </div>
+            <div className="md:hidden sm:block">
+            <WalletPublisherTableVertical />
+
+            </div>
           </div>
+         
         </div>
       </div>
     </div>

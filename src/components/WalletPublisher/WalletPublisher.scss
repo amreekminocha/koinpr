@@ -135,14 +135,17 @@
             display: grid;
             margin-top: 54px;
             gap: 94px;
-
+width:90%;
+margin: auto;
+padding:50px;
             .mainHeading {
                 font-weight: 600;
                 font-size: 18px;
+                    width: 100%;
             }
 
             .cLeft {
-                padding: 45px 42px 90px 37px;
+                // padding: 45px 42px 90px 37px;
                 background: #F9F9F9;
                 border-radius: 3px;
 
@@ -150,12 +153,13 @@
                     font-weight: 700;
                     font-size: 13px;
                     margin-top: 15px;
+                    width: 100%;
                 }
 
                 .wInput {
                     font-size: 15px;
                     height: 41px;
-                    width: 251px;
+                    width: 90%;
                     margin-top: 28px;
                     padding: 11px 18px;
                     box-sizing: border-box;

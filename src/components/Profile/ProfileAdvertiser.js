@@ -11,6 +11,7 @@ const ProfileAdvertiser = () => {
 
   const [isCompany, setIsCompany] = useState(false);
   const [step, setStep] = useState(1);
+  const [withMethod, setWithMethod] = useState("bt");
   const [userId, setUserId] = useState();
 
   const [formState, setFormState] = useState({});
@@ -41,7 +42,22 @@ const ProfileAdvertiser = () => {
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    setFormState({ ...formState, [name]: value });
+  };
+
+  // const handleAccountDetalsCheck = (e) => {
+  //   console.log(e.target.name);
+  //   console.log(e.target.value);
+  // };
+
+  const handleAccountDetalsCheck = (e) => {
+    // string passed in
+    // a string returned by default
+    console.log(e.currentTarget.value);
+    // add + to the event to make the value a number
+    setStep(+e.currentTarget.value);
+  };
+  const handleWithdrawlMethod = (e) => {
+    setWithMethod(e.currentTarget.value);
   };
 
   const step1Handler = () => {
@@ -72,16 +88,34 @@ const ProfileAdvertiser = () => {
           <div className="inputs mt40">
             <div className="wInput">
               <label>Identification Details</label>
-              <input type="radio" name="a" checked={step === 1}></input>
+              <input
+                value="1"
+                type="radio"
+                name="a"
+                onChange={handleAccountDetalsCheck}
+                checked={step === 1}
+              ></input>
             </div>
             <div className="wInput mt20">
               <label>Upload Documents</label>
-              <input type="radio" name="a" checked={step === 2}></input>
+              <input
+                value="2"
+                type="radio"
+                name="a"
+                onChange={handleAccountDetalsCheck}
+                checked={step === 2}
+              ></input>
             </div>
             {isCompany && (
               <div className="wInput mt20">
                 <label>Withdrawl Options</label>
-                <input type="radio" name="a" checked={step === 3}></input>
+                <input
+                  type="radio"
+                  onChange={handleAccountDetalsCheck}
+                  name="a"
+                  value="3"
+                  checked={step === 3}
+                ></input>
               </div>
             )}
           </div>
@@ -193,7 +227,7 @@ const ProfileAdvertiser = () => {
             <>
               <h2 className="pHeading">Withdrawal Option</h2>
               <p className="cStatus mt15">Select Your Withdrawal Method</p>
-              <div className="inputs">
+              {/* <div className="inputs">
                 <div className="inputs df mt25">
                   <input
                     type="text"
@@ -206,32 +240,78 @@ const ProfileAdvertiser = () => {
                     placeholder="Cryptocurrency"
                   ></input>
                 </div>
+              </div> */}
+              <div className="inputs withopt">
+                <div className="wInput mt20">
+                  <label>Bank Transfer/SWIFT</label>
+                  <input
+                    value="bt"
+                    type="radio"
+                    name="withmet"
+                    onChange={handleWithdrawlMethod}
+                    checked={withMethod === "bt"}
+                  ></input>
+                </div>
+                <div className="wInput mt20">
+                  <label>Cryptocurrency</label>
+                  <input
+                    value="crypto"
+                    type="radio"
+                    name="withmet"
+                    onChange={handleWithdrawlMethod}
+                    checked={withMethod === "crypto"}
+                  ></input>
+                </div>
               </div>
-              <p className="cStatus mt40">Enter your bank details</p>
-              <div className="inputs df mt25">
-                <input
-                  type="text"
-                  placeholder="Beneficiary Name"
-                  className="wInput"
-                ></input>
-                <input
-                  type="text"
-                  placeholder="IBAN/Account No."
-                  className="wInput"
-                ></input>
-              </div>
-              <div className="inputs df mt25">
-                <input
-                  type="text"
-                  placeholder="SWIFT Code"
-                  className="wInput"
-                ></input>
-                <input
-                  type="text"
-                  placeholder="Bank Name"
-                  className="wInput"
-                ></input>
-              </div>
+              <p className="cStatus mt40">
+                {withMethod === "bt"
+                  ? "Enter your bank details"
+                  : "Enter Your Wallet Details"}
+              </p>
+              {withMethod === "bt" ? (
+                <>
+                  <div className="inputs df mt25">
+                    <input
+                      type="text"
+                      placeholder="Beneficiary Name"
+                      className="wInput"
+                    ></input>
+                    <input
+                      type="text"
+                      placeholder="IBAN/Account No."
+                      className="wInput"
+                    ></input>
+                  </div>
+                  <div className="inputs df mt25">
+                    <input
+                      type="text"
+                      placeholder="SWIFT Code"
+                      className="wInput"
+                    ></input>
+                    <input
+                      type="text"
+                      placeholder="Bank Name"
+                      className="wInput"
+                    ></input>
+                  </div>
+                </>
+              ) : withMethod === "crypto" ? (
+                <>
+                  <div className="inputs df mt25">
+                    <input
+                      type="text"
+                      placeholder="Token Type: USDT (TRC20)"
+                      className="wInput"
+                    ></input>
+                    <input
+                      type="text"
+                      placeholder="Wallet Address"
+                      className="wInput"
+                    ></input>
+                  </div>
+                </>
+              ) : null}
+
               <button type="button" className="pButton mt40">
                 Proceed
                 <ArrowForwardIcon />

@@ -38,6 +38,11 @@
     .mt40{
         margin-top: 40px!important;
     }
+    .withopt{
+        display: flex;
+        justify-content: space-between;
+        width: 42%;
+    }
     .cStatus{
         font-weight: 500;
         font-size: 14px;
@@ -146,6 +151,11 @@
         .mt40{
             margin-top: 40px!important;
         }
+                  .withopt {
+                      display: grid;
+                    //   justify-content: space-between;
+                    //   width: 42%;
+                  }
         .cStatus{
             font-weight: 500;
             font-size: 14px;

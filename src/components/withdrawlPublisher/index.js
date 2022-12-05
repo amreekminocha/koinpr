@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "../../axios";
-import "./Profile.scss";
+import "./withdrawl.scss";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const ProfileAdvertiser = () => {
@@ -10,7 +10,7 @@ const ProfileAdvertiser = () => {
   const navigate = useNavigate();
 
   const [isCompany, setIsCompany] = useState(false);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(3);
   const [userId, setUserId] = useState();
 
   const [formState, setFormState] = useState({});

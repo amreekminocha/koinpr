@@ -1,10 +1,8 @@
 import React from "react";
-import "./AddListing.scss";
-import AddlistingMobile from "./AddlistingMobile";
 
-const AddListing = () => {
+function AddlistingMobile() {
   return (
-    <>
+    <div>
       <div className="AddListing">
         <div className="content">
           <div className="mainHeading">Add Your Listing</div>
@@ -26,34 +24,18 @@ const AddListing = () => {
           </div>
           <div className="subHeading">More Details</div>
           <div className="inputs">
-            <input
-              type="text"
-              placeholder="Your Website Language"
-              className="input"
-            />
-            <input
-              type="text"
-              placeholder="No-Follow Links Allowed"
-              className="input"
-            />
-            <input
-              type="text"
-              placeholder="Do-Follow Links Allowed"
-              className="input"
-            />
+            <input type="text" placeholder="Full Name" className="input" />
+            <input type="text" placeholder="Email" className="input" />
+            <input type="text" placeholder="Password" className="input" />
           </div>
           <div className="inputs">
             <input
               type="text"
-              placeholder="Indexed Article"
+              placeholder="Confirm Password"
               className="input"
             />
             <input type="text" placeholder="LinkedIn Link" className="input" />
-            <input
-              type="text"
-              placeholder="Google News Visibilty"
-              className="input"
-            />
+            <input type="text" placeholder="Full Name" className="input" />
           </div>
           <div className="inputs">
             <input type="text" placeholder="Social Share" className="input" />
@@ -65,8 +47,8 @@ const AddListing = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
-};
+}
 
-export default AddListing;
+export default AddlistingMobile;

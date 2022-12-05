@@ -37,6 +37,8 @@
             p {
                 font-size: 15px;
                 font-weight: 700;
+                margin-bottom: 12px;
+                margin-top: 12px;
             }
 
             .m-t-23{
@@ -118,8 +120,18 @@
                 color: white;
                 border: none;
             }
+                         
         }
+              
     }
+        
+         
+}
+.allRight {
+    margin-top: 97px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
 }
 .signupMobile {
     // padding: 63px 408px 0 393px;
@@ -153,6 +165,7 @@
         }
 
         .textIp{
+            
             input:focus {
                 outline: 1px solid black;
             }

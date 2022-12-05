@@ -99,12 +99,18 @@
                     text-align: center;
                 }
             }
+                        .walletTableComponent{
+                margin-top: 39px;
+                        }
         }
     }
 }
 @media screen and (max-width: 540px) {
 .WalletPublisher {
-        padding: 64px 87px;
+        // padding: 64px 87px;
+        padding: 0;
+        width: 100%;
+        display: grid;
 
         .head {
             display: flex;
@@ -126,7 +132,7 @@
         }
 
         .content {
-            display: flex;
+            display: grid;
             margin-top: 54px;
             gap: 94px;
 

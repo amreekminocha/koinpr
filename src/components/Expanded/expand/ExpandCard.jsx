@@ -2,7 +2,14 @@ import { Avatar, Paper } from "@mui/material";
 import React from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import styles from "./expand.module.css";
-function ExpandCard({ name, details, image, price = 10 }) {
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../redux/actions";
+function ExpandCard({ id, name, details, image, price = 10 }) {
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    const payload = { id, name, details, image, price, quantity: 1 };
+    dispatch(addToCart(payload));
+  };
   return (
     <>
       <Paper
@@ -43,7 +50,9 @@ function ExpandCard({ name, details, image, price = 10 }) {
           }}
         >
           <p>${price}</p>
-          <AddCircleOutlineIcon />
+          <span onClick={handleAddToCart}>
+            <AddCircleOutlineIcon />
+          </span>
         </div>
       </Paper>
     </>

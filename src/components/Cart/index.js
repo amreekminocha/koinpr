@@ -2,7 +2,20 @@ import React from "react";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import "./Cart.scss";
 import coingate from "../assets/coinsgate.png";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 const Cart = () => {
+  const cartData = useSelector((state) => state?.cart?.products);
+  let cartDataArray = [];
+  for (let i in cartData) {
+    console.log(cartData[i], "iiiii");
+    cartDataArray.push(cartData[i]);
+  }
+  const totalPrice = cartDataArray.map((el) => el.price * el.quantity);
+  var finalprice = 0;
+  for (let i = 0; i < totalPrice.length; i++) {
+    finalprice += totalPrice[i];
+  }
   return (
     <div className="Cart">
       <div className="hidden md:block">
@@ -10,8 +23,15 @@ const Cart = () => {
       </div>
       <div className="content">
         <div className="hidden md:block">
-          <div className="left">
-            <div className="item">
+          {cartDataArray?.map((el) => (
+            <div className="left">
+              <div className="item">
+                <span className="image">
+                  <img src={el.image} alt={el.name} />
+                </span>
+                <span className="title">{el.name}</span>
+              </div>
+              {/* <div className="item">
               <span className="image"></span>
               <span className="title">Title</span>
             </div>
@@ -22,17 +42,14 @@ const Cart = () => {
             <div className="item">
               <span className="image"></span>
               <span className="title">Title</span>
+            </div> */}
             </div>
-            <div className="item">
-              <span className="image"></span>
-              <span className="title">Title</span>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="right">
           <div className="title">Checkout</div>
-          <div className="amount">Total : 40$</div>
+          <div className="amount">Total : {finalprice}$</div>
           <div className="inputs">
             <div className="input">
               <label>Pay via stripe</label>

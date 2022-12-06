@@ -120,6 +120,7 @@ function Expand() {
             name={displayData?.user?.fullName}
             details={"About of the website"}
             price={displayData?.price}
+            id={displayData?._id}
           />
         </Grid>
         <Grid item xs={12} md={8}>

@@ -41,9 +41,9 @@ function Expand() {
 
   useEffect(() => {
     const auth = cookies.get("auth-token");
-    // if(!auth){
-    //     navigate('/sign-in');
-    // }
+    if (!auth) {
+      navigate("/sign-in");
+    }
     axios
       .post(
         "/api/user/get-user-by-token",
@@ -108,7 +108,12 @@ function Expand() {
     <div className={styles.mainDiv}>
       <Grid className={styles.gridContainer} container spacing={2}>
         <Grid item xs={12} md={12}>
-          <Typography variant="h6" fontWeight="bold">
+          <Typography
+            sx={{ cursor: "pointer" }}
+            onClick={() => navigate("/")}
+            variant="h6"
+            fontWeight="bold"
+          >
             <span>
               <ArrowBackIcon />
             </span>

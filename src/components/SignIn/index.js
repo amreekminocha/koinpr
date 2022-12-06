@@ -6,6 +6,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import "./SignIn.scss";
 import { Usekey } from "../../common/keyboardInteraction/KeyboardPress";
+import CustomizedSnackbars from "../../common/snackbar/SnackBar";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -44,6 +45,21 @@ const SignIn = () => {
     return formIsValid;
   };
 
+  //for snackbar
+  const [open, setOpen] = React.useState(false);
+
+  //  const handleClick = () => {
+  //    setOpen(true);
+  //  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (!validateInput()) {
@@ -60,6 +76,7 @@ const SignIn = () => {
         if (res?.data?.success) {
           cookies.set("auth-token", res?.data?.user?.token, { path: "/" });
           navigate("/");
+          setOpen(true);
         } else {
           console.log("error", res);
         }
@@ -108,6 +125,13 @@ const SignIn = () => {
       <div className="allRight">
         All rights reserved by Koinpr Marketing Private Limited
       </div>
+      {open ? (
+        <CustomizedSnackbars
+          open={open}
+          handleClose={handleClose}
+          msg={"You are loggedin successfully!"}
+        />
+      ) : null}
     </div>
   );
 };

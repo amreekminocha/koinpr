@@ -1,10 +1,59 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import { Usekey } from "../../common/keyboardInteraction/KeyboardPress";
 import "./AddListing.scss";
-import AddlistingMobile from "./AddlistingMobile";
+
+import Cookies from "universal-cookie";
+import CustomizedDialogs from "../../common/alertDialogue/AlertDialogForApiResponse";
+
+import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
 
 const AddListing = () => {
+  const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiDialogContent-root": {
+      padding: theme.spacing(2),
+    },
+    "& .MuiDialogActions-root": {
+      padding: theme.spacing(1),
+    },
+  }));
+
+  const cookies = new Cookies();
+  const [userId, setUserId] = useState();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = cookies.get("auth-token");
+    console.log(auth);
+    if (!auth) {
+      navigate("/sign-in");
+    }
+    axios
+      .post(
+        "/api/user/get-user-by-token",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + auth,
+          },
+        }
+      )
+      .then((res) => {
+        if (!res.data.success) {
+          navigate("/sign-in");
+        }
+        setUserId(res.data.user._id);
+      })
+      .catch((err) => {
+        console.log(err, "err");
+        navigate("/sign-in");
+      });
+  }, [userId]);
+
   const init = {
     email: "",
     userType: "",
@@ -30,7 +79,7 @@ const AddListing = () => {
     const { name, value } = e.target;
     setAddListingInput({ ...addListingInput, [name]: value });
   };
-
+  const [showDialog, setShowDialog] = useState(false);
   const handleSubmit = () => {
     const {
       email,
@@ -50,34 +99,61 @@ const AddListing = () => {
       indexedArticle,
       websiteLink,
     } = addListingInput;
+    const token = cookies.get("auth-token");
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     axios
-      .post("api/listing/add", {
-        email,
-        userType,
-        price,
-        websiteLanguage,
-        linkedin,
-        googleNews,
-        socialShare,
-        facebook,
-        twitter,
-        offerTitle,
-        listingCategory,
-        logo,
-        noFollowLinkAllowed,
-        doFollowLinkAllowed,
-        indexedArticle,
-        websiteLink,
-      })
+      .post(
+        "api/listing/add",
+        {
+          email,
+          userType,
+          price,
+          websiteLanguage,
+          linkedin,
+          googleNews,
+          socialShare,
+          facebook,
+          twitter,
+          offerTitle,
+          listingCategory,
+          logo,
+          noFollowLinkAllowed,
+          doFollowLinkAllowed,
+          indexedArticle,
+          websiteLink,
+          userId: userId,
+        },
+        config
+      )
       .then((res) => {
         if (res?.data?.success) {
           navigate("/");
-        } else {
+        }
+        console.log(res);
+        if (!res?.data.success) {
+          <CustomizedDialogs
+            open={showDialog}
+            setShowDialog={setShowDialog}
+            err={res?.data?.message}
+          />;
           console.log("error", res);
+          alert("res?.data?.message");
+          setShowDialog(true);
         }
       })
       .catch((err) => {
-        console.log("err", err);
+        if (!err?.response?.data?.success) setShowDialog(true);
+        <CustomizedDialogs
+          showDialog={true}
+          setShowDialog={setShowDialog}
+          err={err?.response?.data?.message}
+        />;
+        alert(err?.response?.data?.message);
+        // console.log("err", err);
+        // console.log("err", err?.response?.data?.message);
       });
   };
 
@@ -95,6 +171,13 @@ const AddListing = () => {
               name="websiteLink"
               type="text"
               placeholder="Your Website Link"
+              className="input"
+            />
+            <input
+              onChange={handleChange}
+              name="email"
+              type="text"
+              placeholder="Email"
               className="input"
             />
             <input
@@ -194,6 +277,9 @@ const AddListing = () => {
             Submit Listing
           </button>
         </div>
+        {/* {showDialog ? (
+          <CustomizedDialogs open={true} err={"res?.data?.message"} />
+        ) : null} */}
       </div>
     </>
   );

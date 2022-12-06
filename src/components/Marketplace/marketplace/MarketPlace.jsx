@@ -1,57 +1,48 @@
 import {
   Box,
   FormControl,
-  FormControlLabel,
   Grid,
   IconButton,
   InputAdornment,
   InputLabel,
   MenuItem,
   OutlinedInput,
-  Radio,
-  RadioGroup,
+
   Select,
-  TextField,
-  Typography,
+
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import MarketPlaceCard from "./MarketPlaceCard";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import MarketPlaceCards from "./MarketPlaceCards";
-import styles from "./marketplaceMobile.module.css";
 import axios from "../../../axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
-import { connect, useDispatch } from "react-redux";
-import { showIndividualMarketplaceData } from "../../../redux/actions";
-import Expanded from "../../Expanded";
-import { AlertDialog } from "../../../common/alertDialogue/AlertDialog";
+import { useDispatch } from "react-redux";
+
+import { Usekey } from "../../../common/keyboardInteraction/KeyboardPress";
+import CachedIcon from '@mui/icons-material/Cached';
 function MarketPlace() {
   const dispatch = useDispatch();
 
   const init = {
-    category: "",
-    publisher: "",
+    listingCategory: "pressRelease",
+    offerTitle: "",
   };
   // const [category, setCategory] = React.useState('press');
   const [input, setInput] = useState(init);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
 
-    setInput({ ...input, [name]: value });
-  };
-  console.log(input);
 
   const cookies = new Cookies();
   const navigate = useNavigate();
 
   const [marketList, setMarketList] = useState([]);
-  const [searchVal, setSearchVal] = useState("");
+
   const [userId, setUserId] = useState();
-  const [showData, setShowData] = useState(false);
-  const [showDetailData, setShowDetailData] = useState({});
+
+
+
 
   useEffect(() => {
     const auth = cookies.get("auth-token");
@@ -81,21 +72,63 @@ function MarketPlace() {
       });
   }, [userId]);
 
+  const getData = () => {
+    axios
+      .get(`/api/listing/get-all?userId=${userId}`)
+      .then((res) => {
+        if (res.data.success) {
+          setMarketList(res.data.data);
+        }
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err, "err");
+      });
+  }
+
   useEffect(() => {
     if (userId) {
-      axios
-        .get(`/api/listing/get-all?userId=${userId}`)
-        .then((res) => {
-          if (res.data.success) {
-            setMarketList(res.data.data);
-          }
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err, "err");
-        });
+      getData()
     }
   }, [userId]);
+
+
+
+  //function to handle search
+  const handleSearchKeys = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "offerTitle") {
+      setInput({ offerTitle: value, listingCategory: "" });
+
+
+    } else if (name === "listingCategory") {
+      setInput({ listingCategory: value, offerTitle: "" });
+
+    }
+    axios
+      .get(`/api/listing/get-all?${name}=${value}&userId=${userId}`)
+      .then((res) => {
+        if (res.data.success) {
+          setMarketList(res.data.data);
+        }
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err, "err");
+      });
+  };
+
+
+
+
+  const handleReset = () => {
+    getData()
+    setInput(init)
+  }
+  //keyboard interaction
+  // Usekey("Enter", handleSearchKeys);
+  // Usekey("NumpadEnter", handleSearchKeys);
 
   return (
     <>
@@ -112,7 +145,7 @@ function MarketPlace() {
                     marginBottom: "16px",
                   }}
                 >
-                  Search publishers
+                  Search offerTitle
                 </p>
                 <FormControl variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
@@ -121,17 +154,20 @@ function MarketPlace() {
 
                   <OutlinedInput
                     size="small"
-                    sx={{ padding: "3px" }}
                     fullWidth
+                    sx={{ p: "10px" }}
                     id="outlined-basic"
-                    name="publisher"
-                    value={input.publisher}
-                    onChange={handleChange}
+                    name="offerTitle"
+                    value={input.offerTitle}
+                    onChange={handleSearchKeys}
                     label="Enter publisher name"
                     variant="outlined"
                     endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton edge="end">
+
+                      <InputAdornment
+
+                        position="end">
+                        <IconButton onClick={handleSearchKeys} edge="end">
                           <SavedSearchIcon />
                         </IconButton>
                       </InputAdornment>
@@ -154,60 +190,29 @@ function MarketPlace() {
                 >
                   Choose Category
                 </p>
-                <div className={styles.inputs}>
-                  <div
-                    // onClick={() => setType('ADVERTISER')}
-                    className={styles.input}
-                  >
-                    <label htmlFor="adv">Press Release</label>
-                    <input
-                      type="radio"
-                      name="account"
-                      className="round"
-                      id="adv"
-                      //  checked={type === 'ADVERTISER'}
-                    />
-                  </div>
-                  <div
-                    // onClick={() => setType('PUBLISHER')}
-                    className={styles.input}
-                  >
-                    <label htmlFor="pub">Sponsored Articles</label>
-                    <input
-                      type="radio"
-                      name="account"
-                      className="round"
-                      id="pub"
-                      // checked={type === 'PUBLISHER'}
-                    />
-                  </div>
-                  <div
-                    // onClick={() => setType('PUBLISHER')}
-                    className={styles.input}
-                  >
-                    <label htmlFor="pub">Button Ads</label>
-                    <input
-                      type="radio"
-                      name="account"
-                      className="round"
-                      id="pub"
-                      // checked={type === 'PUBLISHER'}
-                    />
-                  </div>
-                  <div
-                    // onClick={() => setType('PUBLISHER')}
-                    className={styles.input}
-                  >
-                    <label htmlFor="pub">Banner Ads</label>
-                    <input
-                      type="radio"
-                      name="account"
-                      className="round"
-                      id="pub"
-                      // checked={type === 'PUBLISHER'}
-                    />
-                  </div>
-                </div>
+
+                <Box sx={{ minWidth: 220 }}
+
+                >
+                  <FormControl sx={{ width: "270px" }} size="small" >
+                    <InputLabel id="demo-simple-select-label">Listing Category</InputLabel>
+                    <Select
+                      sx={{ padding: "10px" }}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={input.listingCategory}
+                      name="listingCategory"
+                      label="Listing Category"
+                      onChange={handleSearchKeys}
+                    >
+                      <MenuItem value={"pressRelease"}>Press Release</MenuItem>
+                      <MenuItem value={"sponsoredArticle"}>Sponsored Articles</MenuItem>
+                      <MenuItem value={"buttonAds"}>Button Ads</MenuItem>
+                      <MenuItem value={"bannerads"}>Banner Ads</MenuItem>
+
+                    </Select>
+                  </FormControl>
+                </Box>
               </Grid>
             </Grid>
           </div>
@@ -223,49 +228,14 @@ function MarketPlace() {
                   />
                 </Grid>
               ))}
+              {marketList?.length === 0 ?
+                <div style={{ cursor: "pointer" }} onClick={handleReset}>
+                  <h1>No Data Found</h1>
+                  <CachedIcon />
+                </div>
+                : null
+              }
 
-              {/* <Grid item xs={12} md={4}>
-                     <MarketPlaceCards name={"Name"} details={"View Details"} price={10}/>
-
-                 </Grid>
-                 <Grid item xs={12} md={4}>
-                 <MarketPlaceCards name={"Name"} details={"View Details"} price={10}/>
-
-
-
-                 </Grid>
-                 <Grid item xs={12} md={4}>
-                                                    <MarketPlaceCards name={"Name"} details={"View Details"} price={10}/>
-
-
-                 </Grid>
-                
-                 </Grid>
-                 <Grid sx={{marginTop:"20px"}} container spacing={2}>
-
-                 <Grid item xs={12} md={4}>
-                                                    <MarketPlaceCards name={"Name"} details={"View Details"} price={10}/>
-
-
-                 </Grid>
-                 <Grid item xs={12} md={4}>
-                                                    <MarketPlaceCards name={"Name"} details={"View Details"} price={10}/>
-
-
-                 </Grid>
-                 <Grid item xs={12} md={4}>
-                                                    <MarketPlaceCards name={"Name"} details={"View Details"} price={10}/>
-
-
-                 </Grid>
-                 </Grid>
-                 <Grid sx={{marginTop:"20px"}} container spacing={3}>
-
-                 <Grid item xs={12} md={4}>
-                                                    <MarketPlaceCards name={"Name"} details={"View Details"} price={10}/>
-
-
-                 </Grid> */}
             </Grid>
           </div>
         </div>

@@ -16,25 +16,25 @@ const ProfileAdvertiser = () => {
 
   const [formState, setFormState] = useState({});
 
-  // useEffect(()=>{
-  //     const auth = cookies.get('auth-token');
-  //     // if(!auth){
-  //     //     navigate('/sign-in');
-  //     // }
-  //     axios.post('/api/user/get-user-by-token',{},{
-  //         headers:{
-  //             Authorization: 'Bearer ' + auth
-  //         }
-  //     }).then(res=>{
-  //         if(!res.data.success){
-  //             navigate('/sign-in');
-  //         }
-  //         setUserId(res.data.user._id);
-  //     }).catch(err=>{
-  //         console.log(err,'err');
-  //         navigate('/sign-in');
-  //     })
-  // }, []);
+  useEffect(()=>{
+      const auth = cookies.get('auth-token');
+      if(!auth){
+          navigate('/sign-in');
+      }
+      axios.post('/api/user/get-user-by-token',{},{
+          headers:{
+              Authorization: 'Bearer ' + auth
+          }
+      }).then(res=>{
+          if(!res.data.success){
+              navigate('/sign-in');
+          }
+          setUserId(res.data.user._id);
+      }).catch(err=>{
+          console.log(err,'err');
+          navigate('/sign-in');
+      })
+  }, [userId]);
 
   const companyCheckboxHandler = () => {
     setIsCompany(!isCompany);
@@ -62,19 +62,22 @@ const ProfileAdvertiser = () => {
 
   const step1Handler = () => {
     console.log(formState);
-    // axios.patch('/api/user/update',{},{
-    //     headers:{
-    //         Authorization: 'Bearer ' + auth
-    //     }
-    // }).then(res=>{
-    //     if(!res.data.success){
-    //         navigate('/sign-in');
-    //     }
-    //     setUserId(res.data.user._id);
-    // }).catch(err=>{
-    //     console.log(err,'err');
-    //     navigate('/sign-in');
-    // })
+    const auth = cookies.get('auth-token');
+
+    axios.patch('/api/user/update',{},{
+        headers:{
+            Authorization: 'Bearer ' + auth
+        }
+    }).then(res=>{
+        if(!res.data.success){
+            navigate('/sign-in');
+        }
+        console.log(res.data)
+        setUserId(res.data.user._id);
+    }).catch(err=>{
+        console.log(err,'err');
+        navigate('/sign-in');
+    })
   };
 
   return (

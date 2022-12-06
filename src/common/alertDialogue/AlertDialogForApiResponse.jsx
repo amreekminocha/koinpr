@@ -52,7 +52,7 @@ export default function CustomizedDialogs({ err, setShowDialog, showDialog }) {
   //   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setShowDialog(true);
   };
   const handleClose = () => {
     setShowDialog(false);

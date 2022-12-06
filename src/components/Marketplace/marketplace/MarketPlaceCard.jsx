@@ -39,27 +39,16 @@ export default function MarketPlaceCard() {
         avatar={
           <Avatar sx={{
             
-            // bgcolor: red[500]
             
             }} 
             aria-label="recipe">
             
           </Avatar>
         }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
+      
         title="Name"
-        // subheader="September 14, 2016"
       />
-      {/* <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      /> */}
+    
       <CardContent disableSpacing>
         <Typography variant="body2" color="text.secondary">
           View Details
@@ -67,12 +56,10 @@ export default function MarketPlaceCard() {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          {/* <FavoriteIcon /> */}
+         
           $10
         </IconButton>
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
+      
      
           <AddCircleOutlineIcon />
         

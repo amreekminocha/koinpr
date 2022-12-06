@@ -98,6 +98,7 @@ const AddListing = () => {
       doFollowLinkAllowed,
       indexedArticle,
       websiteLink,
+     
     } = addListingInput;
     const token = cookies.get("auth-token");
 
@@ -124,6 +125,7 @@ const AddListing = () => {
           doFollowLinkAllowed,
           indexedArticle,
           websiteLink,
+          userType,
           userId: userId,
         },
         config
@@ -202,7 +204,9 @@ const AddListing = () => {
               name="logo"
               value="UploadLogo +"
             />
+         
           </div>
+         
           <div className="subHeading">More Details</div>
           <div className="inputs">
             <input
@@ -212,6 +216,7 @@ const AddListing = () => {
               placeholder="Your Website Language"
               className="input"
             />
+          
             <input
               onChange={handleChange}
               type="text"
@@ -272,6 +277,17 @@ const AddListing = () => {
               placeholder="Twitter Link"
               className="input"
             />
+            
+          </div>
+          <div className="inputs">
+          <input
+              onChange={handleChange}
+              name="userType"
+              type="text"
+              placeholder="User Type"
+              className="input"
+            />
+         
           </div>
           <button type="button" onClick={handleSubmit} className="submit">
             Submit Listing

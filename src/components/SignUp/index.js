@@ -6,6 +6,7 @@ import "./SignUp.scss";
 import axios from "../../axios";
 import SignUpMobile from "./signupMobile/SignupMobile";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Usekey } from "../../common/keyboardInteraction/KeyboardPress";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -106,6 +107,9 @@ const SignUp = () => {
       });
   };
 
+  //keyboard
+  Usekey("Enter", submitHandler);
+  Usekey("NumpadEnter", submitHandler);
   return (
     <>
       <div className="hidden md:block lg:block">

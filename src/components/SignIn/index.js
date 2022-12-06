@@ -5,6 +5,7 @@ import axios from "../../axios";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import "./SignIn.scss";
+import { Usekey } from "../../common/keyboardInteraction/KeyboardPress";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -67,6 +68,10 @@ const SignIn = () => {
         console.log("err", err);
       });
   };
+
+  //keyboard interaction
+  Usekey("Enter", submitHandler);
+  Usekey("NumpadEnter", submitHandler);
 
   return (
     <div className="signin">

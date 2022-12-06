@@ -33,7 +33,7 @@ function App() {
           {/* <Route path="/expand" exact element={<MarketPlace />} /> */}
           <Route path="/" exact element={<MarketPlace />} />
           {/* <Route path="/expand" exact element={<Expand />} /> */}
-          {/* <Route path="/expand/:id" exact element={<Expand />} /> */}
+          <Route path="/expand/:id" exact element={<Expand />} />
           <Route path="/sign-in" exact element={<SignIn />} />
           <Route path="/sign-up" exact element={<SignUp />} />
           <Route path="/wallet-publisher" exact element={<WalletPublisher />} />

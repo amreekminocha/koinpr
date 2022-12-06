@@ -21,8 +21,8 @@ import ProfileAdvertiser from "../Profile/ProfileAdvertiser";
 import WithdrawlPublisher from "../withdrawlPublisher/index";
 import Popup from "../../common/Popup/popup/Popup";
 import AddListing from "../AddListing/Index";
-import DesktopLandingPage from "../desktop/LeftCard";
 import Desktop from "../desktop/Desktop";
+// import Cart from "../Cart/cart/Cart";
 
 function App() {
   return (
@@ -30,10 +30,10 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/marketplace" exact element={<MarketPlace />} />
-          <Route path="/" exact element={<Desktop />} />
-          <Route path="/expand" exact element={<Expand />} />
-          <Route path="/expand/:id" exact element={<Expand />} />
+          {/* <Route path="/expand" exact element={<MarketPlace />} /> */}
+          <Route path="/" exact element={<MarketPlace />} />
+          {/* <Route path="/expand" exact element={<Expand />} /> */}
+          {/* <Route path="/expand/:id" exact element={<Expand />} /> */}
           <Route path="/sign-in" exact element={<SignIn />} />
           <Route path="/sign-up" exact element={<SignUp />} />
           <Route path="/wallet-publisher" exact element={<WalletPublisher />} />

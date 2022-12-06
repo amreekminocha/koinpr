@@ -10,6 +10,7 @@ const Expanded = () => {
     const cookies = new Cookies();
     const navigate = useNavigate();
     const [userId, setUserId] = useState();
+    // const { id } = useParams();
 
     const [displayData, setDisplayData] = useState({});
 
@@ -37,7 +38,7 @@ const Expanded = () => {
 
     useEffect(()=>{
         if(userId){
-            axios.get(`/api/listing/get-all?userId=635c60cce1f9a1c40b03bef3&offerTitle=${id}`
+            axios.get(`/api/listing/get-all?userId=${userId}&offerTitle=${id}`
             ).then(res=>{
                 setDisplayData(res.data.data[0]);
                 console.log(res.data.data);

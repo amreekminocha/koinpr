@@ -120,7 +120,7 @@ const Header = () => {
             </span>
           </div>
           <div className="right">
-            <span onClick={() => navigate("/")}>Publishers</span>
+            <span style={{marginTop:"7px"}} onClick={() => navigate("/")}>Publishers</span>
             {/* <span
               className="myAccount"
               onClick={(e) => {

@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControl,
   Grid,
   IconButton,
@@ -15,7 +16,7 @@ import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import MarketPlaceCards from "./MarketPlaceCards";
 import axios from "../../../axios";
 import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { Usekey } from "../../../common/keyboardInteraction/KeyboardPress";
@@ -133,7 +134,7 @@ function MarketPlace() {
                 >
                   Search offerTitle
                 </p>
-                <FormControl variant="outlined">
+                <FormControl sx={{width:"98%"}} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
                     Enter publisher name
                   </InputLabel>
@@ -175,7 +176,7 @@ function MarketPlace() {
                 </p>
 
                 <Box sx={{ minWidth: 220 }}>
-                  <FormControl sx={{ width: "270px" }} size="small">
+                  <FormControl sx={{ width: "98%" }} size="small">
                     <InputLabel id="demo-simple-select-label">
                       Listing Category
                     </InputLabel>
@@ -202,6 +203,15 @@ function MarketPlace() {
           </div>
           <div className="p-3 md:w-8/12 lg:w-8/12 sm:w-full place-content-center md:mx-20 ">
             <Grid container spacing={2}>
+              <Grid sx={{textAlign:"center"}} item xs={12} md={12}>
+                <Link to="/add-listing">
+                
+              <Button  variant="contained">
+ADD
+                </Button>
+                </Link>
+              </Grid>
+             
               {marketList?.map((el) => (
                 <Grid item xs={12} md={4}>
                   <MarketPlaceCards

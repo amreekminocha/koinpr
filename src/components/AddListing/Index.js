@@ -7,12 +7,13 @@ import "./AddListing.scss";
 
 import Cookies from "universal-cookie";
 import CustomizedDialogs from "../../common/alertDialogue/AlertDialogForApiResponse";
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const AddListing = () => {
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -388,13 +389,29 @@ const AddListing = () => {
               </FormControl>
             </Box>
           </div>
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+
+
           <button
             type="button"
             onClick={handleSubmitFunction}
             className="submit"
           >
             Submit Listing
+            <ArrowForwardIcon/>
           </button>
+          <button
+            type="button"
+            onClick={()=>
+        navigate("/")
+            
+            }
+            className="submit"
+          >
+            <ArrowBackIcon/>
+            Cancel
+          </button>
+          </div>
         </div>
         {/* {showDialog ? (
           <CustomizedDialogs open={true} err={"res?.data?.message"} />

@@ -4,54 +4,106 @@ import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import axios from '../../axios';
-
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 const Expanded = () => {
     
-    const cookies = new Cookies();
-    const navigate = useNavigate();
-    const [userId, setUserId] = useState();
-    // const { id } = useParams();
+    // const cookies = new Cookies();
+    // const navigate = useNavigate();
+    // const [userId, setUserId] = useState();
+    // // const { id } = useParams();
+
+    // const [displayData, setDisplayData] = useState({});
+
+    // useEffect(()=>{
+    //     const auth = cookies.get('auth-token');
+    //     // if(!auth){
+    //     //     navigate('/sign-in');
+    //     // }
+    //     axios.post('/api/user/get-user-by-token',{},{
+    //         headers:{
+    //             Authorization: 'Bearer ' + auth
+    //         }
+    //     }).then(res=>{
+    //         if(!res.data.success){
+    //             navigate('/sign-in');
+    //         }
+    //         setUserId(res.data.user._id);
+    //     }).catch(err=>{
+    //         console.log(err,'err');
+    //         navigate('/sign-in');
+    //     })
+    // }, []);
+
+    // const {id} = useParams();
+
+    // useEffect(()=>{
+    //     if(userId){
+    //         axios.get(`/api/listing/get-all?userId=${userId}&offerTitle=${id}`
+    //         ).then(res=>{
+    //             setDisplayData(res.data.data[0]);
+    //             console.log(res.data.data);
+    //         }).catch(err=>{
+    //             console.log(err,'err');
+    //         });
+    //     }
+    // },[userId]);
 
     const [displayData, setDisplayData] = useState({});
 
-    useEffect(()=>{
-        const auth = cookies.get('auth-token');
-        // if(!auth){
-        //     navigate('/sign-in');
-        // }
-        axios.post('/api/user/get-user-by-token',{},{
-            headers:{
-                Authorization: 'Bearer ' + auth
-            }
-        }).then(res=>{
-            if(!res.data.success){
-                navigate('/sign-in');
-            }
-            setUserId(res.data.user._id);
-        }).catch(err=>{
-            console.log(err,'err');
-            navigate('/sign-in');
+    const cookies = new Cookies();
+    const navigate = useNavigate();
+    const [userId, setUserId] = useState();
+  
+    useEffect(() => {
+      const auth = cookies.get("auth-token");
+      if (!auth) {
+        navigate("/sign-in");
+      }
+      axios
+        .post(
+          "/api/user/get-user-by-token",
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + auth,
+            },
+          }
+        )
+        .then((res) => {
+          if (!res.data.success) {
+            navigate("/sign-in");
+          }
+          setUserId(res.data.user._id);
         })
+        .catch((err) => {
+          console.log(err, "err");
+          navigate("/sign-in");
+        });
     }, []);
-
-    const {id} = useParams();
-
-    useEffect(()=>{
-        if(userId){
-            axios.get(`/api/listing/get-all?userId=${userId}&offerTitle=${id}`
-            ).then(res=>{
-                setDisplayData(res.data.data[0]);
-                console.log(res.data.data);
-            }).catch(err=>{
-                console.log(err,'err');
-            });
-        }
-    },[userId]);
+  
+    const { id } = useParams();
+  
+    useEffect(() => {
+      if (userId) {
+        axios
+          .get(`/api/listing/get-all?userId=${userId}&offerTitle=${id}`)
+          .then((res) => {
+            setDisplayData(res.data.data[0]);
+            console.log(res.data.data);
+          })
+          .catch((err) => {
+            console.log(err, "err");
+          });
+      }
+    }, [userId]);
+  
 
     if(displayData){
         return (
             <div className='expanded'>
                 <div className='back'>
+                    <span><ArrowBackIcon/></span>
                     <span onClick={()=>navigate('/')}>Continue Shopping</span>
                 </div>
                 <div className='mainExp'>
@@ -62,8 +114,8 @@ const Expanded = () => {
                         </div>
                         <span className='data'>Todayq News is an online Cryptocurrency News, Analysis & Blockchain platform focused on covering daily happenings in the cryptocurrency and blockchain space. The website is presenting the latest developments from the market, offering a clear view of the performance and dynamics of Blockchain, Bitcoin, Ethereum, and other cryptocurrency projects.</span>
                         <div className='price'>
-                            <span className='amount'>$250</span>
-                            <span className='plus'>+</span>
+                            <span className='amount'>{displayData?.price?`$${displayData?.price}`:"$200"}</span>
+                            <span ><AddCircleOutlineIcon/></span>
                         </div>
                     </div>
                     <div className='right'>
@@ -73,7 +125,7 @@ const Expanded = () => {
                         </div>
                         <div className='row'>
                             <span className='head'>Visitors</span>
-                            <span className='data'>https://news.todayq.com</span>
+                            <span className='data'> {displayData?.visitors}</span>
                         </div>
                         <div className='row'>
                             <span className='head'>Twitter</span>

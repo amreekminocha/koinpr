@@ -7,6 +7,7 @@ import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { addToCart, subtractQuantity } from "../../redux/actions";
+import Stripe from "./stripe";
 const Cart = () => {
   const cartData = useSelector((state) => state?.cart?.products);
   let cartDataArray = [];
@@ -58,6 +59,7 @@ const Cart = () => {
                   >
                     <RemoveCircleOutlineIcon />
                   </div>
+                  {/* <Stripe/> */}
                 </div>
               </div>
             ))}

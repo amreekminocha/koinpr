@@ -132,7 +132,7 @@ function Expand() {
           <div className="md:mx-10">
             <Table className={styles.table}>
               <TableBody>
-                {/* {data.map((row) => ( */}
+             
                 <StyledTableRow key={displayData._id}>
                   <StyledTableCell component="th" scope="row">
                     Website
@@ -221,7 +221,7 @@ function Expand() {
                     {displayData?.folllow}
                   </StyledTableCell>
                 </StyledTableRow>
-                {/* ))} */}
+             
               </TableBody>
             </Table>
           </div>

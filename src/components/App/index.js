@@ -1,6 +1,6 @@
 import Header from "../../common/Header";
 // import AddListing from '../AddListing/Index';
-// import Expanded from '../Expanded';
+import Expanded from '../Expanded';
 // import Marketplace from '../Marketplace';
 // import ProfileAdvertiser from '../Profile/ProfileAdvertiser';
 import SignIn from "../SignIn";
@@ -13,7 +13,7 @@ import Cart from "../Cart";
 import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MarketPlace from "../Marketplace/marketplace/MarketPlace";
-import Expand from "../Expanded/expand/Expand";
+// import Expand from "../Expanded/expand/Expand";
 // import WalletPublisher from "../WalletPublisher/walletPublisher/WalletPublisher";
 // import ProfileAdvertiser from '../Profile/profileAdvertiser/ProfileAdvertiser';
 import ProfileAdvertiser from "../Profile/ProfileAdvertiser";
@@ -36,7 +36,8 @@ function App() {
           {/* <Route path="/expand" exact element={<MarketPlace />} /> */}
           <Route path="/" exact element={<MarketPlace />} />
           {/* <Route path="/expand" exact element={<Expand />} /> */}
-          <Route path="/expand/:id" exact element={<Expand />} />
+          <Route path="/expand/:id" exact element={<Expanded />} />
+          {/* <Route path="/expand/:id" exact element={<Expand />} /> */}
           <Route path="/sign-in" exact element={<SignIn />} />
           <Route path="/sign-up" exact element={<SignUp />} />
           <Route path="/wallet-publisher" exact element={<WalletPublisher />} />

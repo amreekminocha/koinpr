@@ -13,6 +13,7 @@ import Dialog from "@mui/material/Dialog";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const AddListing = () => {
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -204,7 +205,7 @@ const AddListing = () => {
           <div className="inputs">
             <input
               onChange={handleChange}
-              value={addListingInput?.email}
+              value={addListingInput?.websiteLink}
               name="websiteLink"
               type="text"
               placeholder="Your Website Link"
@@ -213,6 +214,7 @@ const AddListing = () => {
             />
             <input
               onChange={handleChange}
+              value={addListingInput?.email}
               name="email"
               type="text"
               placeholder="Email"
@@ -220,21 +222,48 @@ const AddListing = () => {
               // {...register("email")}
             />
             <input
+              value={addListingInput?.price}
               onChange={handleChange}
               type="number"
               placeholder="Price"
               className="input"
+              name="price"
               // {...register("price")}
             />
             {/* <p>{errors.price?.message}</p> */}
           </div>
           <div className="inputs">
+            <Box sx={{ minWidth: 220 }}>
+              <FormControl sx={{ width: "250px" }} size="small">
+                <InputLabel id="demo-simple-select-label">
+                  Listing Category
+                </InputLabel>
+                <Select
+                  // sx={{ padding: "10px" }}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={addListingInput.listingCategory}
+                  name="listingCategory"
+                  label="Listing Category"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={"pressRelease"}>Press Release</MenuItem>
+                  <MenuItem value={"sponsoredArticle"}>
+                    Sponsored Articles
+                  </MenuItem>
+                  <MenuItem value={"buttonAds"}>Button Ads</MenuItem>
+                  <MenuItem value={"bannerads"}>Banner Ads</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
             <input
               onChange={handleChange}
               name="offerTitle"
               type="text"
-              placeholder="Listing Category"
+              placeholder="Title"
               className="input"
+              value={addListingInput?.offerTitle}
+
               // {...register("offerTitle")}
             />
             <input
@@ -249,6 +278,7 @@ const AddListing = () => {
           <div className="subHeading">More Details</div>
           <div className="inputs">
             <input
+              value={addListingInput?.websiteLanguage}
               onChange={handleChange}
               name="websiteLanguage"
               type="text"
@@ -264,6 +294,7 @@ const AddListing = () => {
                 type="checkbox"
                 name="noFollowLinkAllowed"
                 onChange={handleChange}
+                checked={addListingInput?.noFollowLinkAllowed}
               />
             </div>
 
@@ -274,10 +305,7 @@ const AddListing = () => {
                 type="checkbox"
                 name="doFollowLinkAllowed"
                 onChange={handleChange}
-                // defaultChecked={addListingInput?.doFollowLinkAllowed}
-
-                // onChange={handleWithdrawlMethod}
-                // checked={withMethod === "crypto"}
+                checked={addListingInput?.doFollowLinkAllowed}
               />
             </div>
           </div>
@@ -288,6 +316,8 @@ const AddListing = () => {
               name="indexedArticle"
               placeholder="Indexed Article"
               className="input"
+              value={addListingInput?.indexedArticle}
+
               // {...register("indexedArticle")}
             />
             <input
@@ -296,6 +326,8 @@ const AddListing = () => {
               type="text"
               placeholder="LinkedIn Link"
               className="input"
+              value={addListingInput?.linkedin}
+
               // {...register("linkedin")}
             />
             <input
@@ -304,6 +336,7 @@ const AddListing = () => {
               name="googleNews"
               placeholder="Google News Visibilty"
               className="input"
+              value={addListingInput?.googleNews}
               // {...register("googleNews")}
             />
           </div>
@@ -314,6 +347,7 @@ const AddListing = () => {
               name="socialShare"
               placeholder="Social Share"
               className="input"
+              value={addListingInput?.socialShare}
               // {...register("socialShare")}
             />
             <input
@@ -322,6 +356,7 @@ const AddListing = () => {
               name="facebook"
               placeholder="Facebook Link"
               className="input"
+              value={addListingInput?.facebook}
               // {...register("facebook")}
             />
             <input
@@ -330,18 +365,28 @@ const AddListing = () => {
               name="twitter"
               placeholder="Twitter Link"
               className="input"
+              value={addListingInput?.twitter}
               // {...register("twitter")}
             />
           </div>
           <div className="inputs">
-            <input
-              onChange={handleChange}
-              name="userType"
-              type="text"
-              placeholder="User Type"
-              className="input"
-              // {...register("userType")}
-            />
+            <Box sx={{ minWidth: 220 }}>
+              <FormControl sx={{ width: "250px" }} size="small">
+                <InputLabel id="demo-simple-select-label">User Type</InputLabel>
+                <Select
+                  // sx={{ padding: "10px" }}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={addListingInput.userType}
+                  name="userType"
+                  label="User Type"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={"ADVERTISER"}>ADVERTISER</MenuItem>
+                  <MenuItem value={"PUBLISHER"}>PUBLISHER</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
           </div>
           <button
             type="button"

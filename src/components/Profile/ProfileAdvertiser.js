@@ -198,7 +198,7 @@ const ProfileAdvertiser = () => {
                 checked={step === 2}
               ></input>
             </div>
-            {input?.representCompany && (
+            {input?.representCompany && input?.userType==="PUBLISHER"?  (
               <div className="wInput mt20">
                 <label>Withdrawl Options</label>
                 <input
@@ -209,7 +209,7 @@ const ProfileAdvertiser = () => {
                   checked={step === 3}
                 ></input>
               </div>
-            )}
+            ):null}
           </div>
         </div>
         <div className="pRight">

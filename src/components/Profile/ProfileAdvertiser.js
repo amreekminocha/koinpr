@@ -30,12 +30,12 @@ const ProfileAdvertiser = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const [input, setInput] = useState(init);
-  // const [isCompany, setIsCompany] = useState(false);
+
   const [step, setStep] = useState(1);
-  const [withMethod, setWithMethod] = useState("bt");
+
   const [userId, setUserId] = useState();
-  const [formState, setFormState] = useState({});
-  console.log(formState);
+
+  console.log(input);
 
   useEffect(() => {
     const auth = cookies.get("auth-token");
@@ -57,26 +57,14 @@ const ProfileAdvertiser = () => {
           navigate("/sign-in");
         }
         setUserId(res.data.user._id);
-        setFormState(res?.data?.user);
+
+        setInput(res?.data?.user);
       })
       .catch((err) => {
         console.log(err, "err");
         navigate("/sign-in");
       });
   }, [userId]);
-
-  // const companyCheckboxHandler = () => {
-  //   setIsCompany(!isCompany);
-  // };
-
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-  };
-
-  // const handleAccountDetalsCheck = (e) => {
-  //   console.log(e.target.name);
-  //   console.log(e.target.value);
-  // };
 
   const handleAccountDetalsCheck = (e) => {
     // string passed in
@@ -85,47 +73,17 @@ const ProfileAdvertiser = () => {
     // add + to the event to make the value a number
     setStep(+e.currentTarget.value);
   };
-  const handleWithdrawlMethod = (e) => {
-    setWithMethod(e.currentTarget.value);
-  };
-
-  // const step1Handler = () => {
-  //   console.log(formState);
-  //   const auth = cookies.get("auth-token");
-
-  //   axios
-  //     .patch(
-  //       "/api/user/update",
-  //       {},
-  //       {
-  //         headers: {
-  //           Authorization: "Bearer " + auth,
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       if (!res.data.success) {
-  //         navigate("/sign-in");
-  //       }
-  //       console.log(res.data);
-  //       setUserId(res.data.user._id);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err, "err");
-  //       navigate("/sign-in");
-  //     });
-  // };
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
     if (name === "representCompany") {
-      setInput({ ...formState, representCompany: checked });
+      setInput({ ...input, representCompany: checked });
     } else if (name === "cryptoCurrency") {
-      setInput({ ...formState, cryptoCurrency: checked });
+      setInput({ ...input, cryptoCurrency: checked });
     } else if (name === "bankTransfer") {
-      setInput({ ...formState, bankTransfer: checked });
+      setInput({ ...input, bankTransfer: checked });
     } else {
-      setInput({ ...input, name: name, value: value });
+      setInput({ ...input, [name]: value });
     }
   };
   // console.log(input, "input");

@@ -7,9 +7,7 @@ import {
   InputLabel,
   MenuItem,
   OutlinedInput,
-
   Select,
-
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -21,7 +19,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { Usekey } from "../../../common/keyboardInteraction/KeyboardPress";
-import CachedIcon from '@mui/icons-material/Cached';
+import CachedIcon from "@mui/icons-material/Cached";
+import { ProgressWithLabel } from "../../../common/progressWithLabel/ProgressWithLabel";
 function MarketPlace() {
   const dispatch = useDispatch();
 
@@ -32,17 +31,12 @@ function MarketPlace() {
   // const [category, setCategory] = React.useState('press');
   const [input, setInput] = useState(init);
 
-
-
   const cookies = new Cookies();
   const navigate = useNavigate();
 
   const [marketList, setMarketList] = useState([]);
 
   const [userId, setUserId] = useState();
-
-
-
 
   useEffect(() => {
     const auth = cookies.get("auth-token");
@@ -84,15 +78,13 @@ function MarketPlace() {
       .catch((err) => {
         console.log(err, "err");
       });
-  }
+  };
 
   useEffect(() => {
     if (userId) {
-      getData()
+      getData();
     }
   }, [userId]);
-
-
 
   //function to handle search
   const handleSearchKeys = (e) => {
@@ -100,11 +92,8 @@ function MarketPlace() {
 
     if (name === "offerTitle") {
       setInput({ offerTitle: value, listingCategory: "" });
-
-
     } else if (name === "listingCategory") {
       setInput({ listingCategory: value, offerTitle: "" });
-
     }
     axios
       .get(`/api/listing/get-all?${name}=${value}&userId=${userId}`)
@@ -119,13 +108,10 @@ function MarketPlace() {
       });
   };
 
-
-
-
   const handleReset = () => {
-    getData()
-    setInput(init)
-  }
+    getData();
+    setInput(init);
+  };
   //keyboard interaction
   // Usekey("Enter", handleSearchKeys);
   // Usekey("NumpadEnter", handleSearchKeys);
@@ -163,10 +149,7 @@ function MarketPlace() {
                     label="Enter publisher name"
                     variant="outlined"
                     endAdornment={
-
-                      <InputAdornment
-
-                        position="end">
+                      <InputAdornment position="end">
                         <IconButton onClick={handleSearchKeys} edge="end">
                           <SavedSearchIcon />
                         </IconButton>
@@ -191,11 +174,11 @@ function MarketPlace() {
                   Choose Category
                 </p>
 
-                <Box sx={{ minWidth: 220 }}
-
-                >
-                  <FormControl sx={{ width: "270px" }} size="small" >
-                    <InputLabel id="demo-simple-select-label">Listing Category</InputLabel>
+                <Box sx={{ minWidth: 220 }}>
+                  <FormControl sx={{ width: "270px" }} size="small">
+                    <InputLabel id="demo-simple-select-label">
+                      Listing Category
+                    </InputLabel>
                     <Select
                       sx={{ padding: "10px" }}
                       labelId="demo-simple-select-label"
@@ -206,10 +189,11 @@ function MarketPlace() {
                       onChange={handleSearchKeys}
                     >
                       <MenuItem value={"pressRelease"}>Press Release</MenuItem>
-                      <MenuItem value={"sponsoredArticle"}>Sponsored Articles</MenuItem>
+                      <MenuItem value={"sponsoredArticle"}>
+                        Sponsored Articles
+                      </MenuItem>
                       <MenuItem value={"buttonAds"}>Button Ads</MenuItem>
                       <MenuItem value={"bannerads"}>Banner Ads</MenuItem>
-
                     </Select>
                   </FormControl>
                 </Box>
@@ -228,14 +212,18 @@ function MarketPlace() {
                   />
                 </Grid>
               ))}
-              {marketList?.length === 0 ?
-                <div style={{ cursor: "pointer" }} onClick={handleReset}>
+              {marketList?.length === 0 ? (
+                <div
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  onClick={handleReset}
+                >
                   <h1>No Data Found</h1>
+                  <ProgressWithLabel />
                   <CachedIcon />
                 </div>
-                : null
-              }
-
+              ) : null}
             </Grid>
           </div>
         </div>

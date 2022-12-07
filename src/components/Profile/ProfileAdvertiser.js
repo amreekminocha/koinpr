@@ -6,39 +6,68 @@ import "./Profile.scss";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const ProfileAdvertiser = () => {
+  const init = {
+    address: "",
+    // bankTransfer: "",
+    companyId: "",
+    companyName: "",
+    email: "",
+    firstName: "",
+    country: "",
+    countryOfResidency: "",
+    cryptoCurrency: false,
+
+    emailVerified: false,
+    fullName: "",
+    lastName: "",
+    representCompany: false,
+    tokenType: "",
+    userType: "",
+    walletAddress: "",
+    bankTransfer: true,
+  };
+
   const cookies = new Cookies();
   const navigate = useNavigate();
-
-  const [isCompany, setIsCompany] = useState(false);
+  const [input, setInput] = useState(init);
+  // const [isCompany, setIsCompany] = useState(false);
   const [step, setStep] = useState(1);
   const [withMethod, setWithMethod] = useState("bt");
   const [userId, setUserId] = useState();
-
   const [formState, setFormState] = useState({});
+  console.log(formState);
 
-  useEffect(()=>{
-      const auth = cookies.get('auth-token');
-      if(!auth){
-          navigate('/sign-in');
-      }
-      axios.post('/api/user/get-user-by-token',{},{
-          headers:{
-              Authorization: 'Bearer ' + auth
-          }
-      }).then(res=>{
-          if(!res.data.success){
-              navigate('/sign-in');
-          }
-          setUserId(res.data.user._id);
-      }).catch(err=>{
-          console.log(err,'err');
-          navigate('/sign-in');
+  useEffect(() => {
+    const auth = cookies.get("auth-token");
+    if (!auth) {
+      navigate("/sign-in");
+    }
+    axios
+      .post(
+        "/api/user/get-user-by-token",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + auth,
+          },
+        }
+      )
+      .then((res) => {
+        if (!res.data.success) {
+          navigate("/sign-in");
+        }
+        setUserId(res.data.user._id);
+        setFormState(res?.data?.user);
       })
+      .catch((err) => {
+        console.log(err, "err");
+        navigate("/sign-in");
+      });
   }, [userId]);
 
-  const companyCheckboxHandler = () => {
-    setIsCompany(!isCompany);
-  };
+  // const companyCheckboxHandler = () => {
+  //   setIsCompany(!isCompany);
+  // };
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -60,26 +89,125 @@ const ProfileAdvertiser = () => {
     setWithMethod(e.currentTarget.value);
   };
 
-  const step1Handler = () => {
-    console.log(formState);
-    const auth = cookies.get('auth-token');
+  // const step1Handler = () => {
+  //   console.log(formState);
+  //   const auth = cookies.get("auth-token");
 
-    axios.patch('/api/user/update',{},{
-        headers:{
-            Authorization: 'Bearer ' + auth
-        }
-    }).then(res=>{
-        if(!res.data.success){
-            navigate('/sign-in');
-        }
-        console.log(res.data)
-        setUserId(res.data.user._id);
-    }).catch(err=>{
-        console.log(err,'err');
-        navigate('/sign-in');
-    })
+  //   axios
+  //     .patch(
+  //       "/api/user/update",
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer " + auth,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       if (!res.data.success) {
+  //         navigate("/sign-in");
+  //       }
+  //       console.log(res.data);
+  //       setUserId(res.data.user._id);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "err");
+  //       navigate("/sign-in");
+  //     });
+  // };
+
+  const handleChange = (e) => {
+    const { name, value, checked } = e.target;
+    if (name === "representCompany") {
+      setInput({ ...formState, representCompany: checked });
+    } else if (name === "cryptoCurrency") {
+      setInput({ ...formState, cryptoCurrency: checked });
+    } else if (name === "bankTransfer") {
+      setInput({ ...formState, bankTransfer: checked });
+    } else {
+      setInput({ ...input, name: name, value: value });
+    }
   };
+  // console.log(input, "input");
 
+  const handleSubmit = () => {
+    const {
+      address,
+      bankTransger,
+      companyId,
+      companyName,
+      email,
+      firstName,
+      country,
+      countryOfResidency,
+      cryptoCurrency,
+      emailVerified,
+      fullName,
+      lastName,
+      representCompany,
+      tokenType,
+      userType,
+      walletAddress,
+      bankTransfer,
+    } = input;
+    const token = cookies.get("auth-token");
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    axios
+      .patch(
+        `api/user/update/${userId}`,
+        {
+          address,
+          bankTransger,
+          companyId,
+          companyName,
+          email,
+          firstName,
+          country,
+          countryOfResidency,
+          cryptoCurrency,
+          emailVerified,
+          fullName,
+          lastName,
+          representCompany,
+          tokenType,
+          userType,
+          walletAddress,
+          bankTransfer,
+        },
+        config
+      )
+      .then((res) => {
+        if (res?.data?.success) {
+          navigate("/");
+          alert("Record Updated successfully");
+        }
+        console.log(res);
+        if (!res?.data.success) {
+          <CustomizedDialogs
+            open={showDialog}
+            setShowDialog={setShowDialog}
+            err={res?.data?.message}
+          />;
+          console.log("error", res);
+          alert("res?.data?.message");
+          setShowDialog(true);
+        }
+      })
+      .catch((err) => {
+        if (!err?.response?.data?.success) setShowDialog(true);
+        <CustomizedDialogs
+          showDialog={true}
+          setShowDialog={setShowDialog}
+          err={err?.response?.data?.message}
+        />;
+        alert(err?.response?.data?.message);
+        // console.log("err", err);
+        // console.log("err", err?.response?.data?.message);
+      });
+  };
   return (
     <>
       <div className="Profile">
@@ -109,7 +237,7 @@ const ProfileAdvertiser = () => {
                 checked={step === 2}
               ></input>
             </div>
-            {isCompany && (
+            {input?.representCompany && (
               <div className="wInput mt20">
                 <label>Withdrawl Options</label>
                 <input
@@ -138,40 +266,50 @@ const ProfileAdvertiser = () => {
                     id="represent"
                     type="checkbox"
                     name="representCompany"
-                    checked={isCompany}
-                    onChange={companyCheckboxHandler}
+                    checked={input?.representCompany}
+                    value={input?.representCompany}
+                    // onChange={companyCheckboxHandler}
+                    onChange={handleChange}
                   ></input>
                 </div>
               </div>
               <p className="cStatus mt40">Enter your details</p>
-              {isCompany ? (
+              {input?.representCompany ? (
                 <div className="inputs df mt25">
                   <input
-                    onChange={changeHandler}
+                    // onChange={changeHandler}
+                    onChange={handleChange}
                     className="wInput"
                     placeholder="Company Name"
                     name="companyName"
+                    value={input?.companyName}
                   />
                   <input
-                    onChange={changeHandler}
+                    // onChange={changeHandler}
+                    onChange={handleChange}
                     className="wInput"
                     placeholder="Company Identification No."
                     name="companyId"
+                    value={input?.companyId}
                   />
                 </div>
               ) : (
                 <div className="inputs df mt25">
                   <input
-                    onChange={changeHandler}
+                    // onChange={changeHandler}
+                    onChange={handleChange}
                     className="wInput"
                     placeholder="First Name"
                     name="firstName"
+                    value={input?.firstName}
                   />
                   <input
-                    onChange={changeHandler}
+                    // onChange={changeHandler}
+                    onChange={handleChange}
                     className="wInput"
                     placeholder="Last Name"
                     name="lastName"
+                    value={input?.lastName}
                   />
                 </div>
               )}
@@ -179,20 +317,24 @@ const ProfileAdvertiser = () => {
                 <input
                   className="wInput"
                   placeholder="Country"
-                  onChange={changeHandler}
+                  // onChange={changeHandler}
+                  onChange={handleChange}
                   name="country"
+                  value={input?.country}
                 />
                 <input
                   className="wInput"
                   placeholder="Address"
-                  onChange={changeHandler}
+                  // onChange={changeHandler}
+                  onChange={handleChange}
                   name="walletAddress"
+                  value={input?.walletAddress}
                 />
               </div>
               <button
                 type="button"
                 className="pButton mt40"
-                onClick={step1Handler}
+                onClick={handleSubmit}
               >
                 Proceed
                 <ArrowForwardIcon />
@@ -249,73 +391,99 @@ const ProfileAdvertiser = () => {
                   <label>Bank Transfer/SWIFT</label>
                   <input
                     value="bt"
-                    type="radio"
-                    name="withmet"
-                    onChange={handleWithdrawlMethod}
-                    checked={withMethod === "bt"}
+                    type="checkbox"
+                    name="bankTransfer"
+                    // onChange={handleWithdrawlMethod}
+                    onChange={handleChange}
+                    // checked={withMethod === "bt"}
+                    checked={input?.bankTransfer}
                   ></input>
                 </div>
                 <div className="wInput mt20">
                   <label>Cryptocurrency</label>
                   <input
-                    value="crypto"
-                    type="radio"
-                    name="withmet"
-                    onChange={handleWithdrawlMethod}
-                    checked={withMethod === "crypto"}
+                    value={input?.cryptoCurrency}
+                    type="checkbox"
+                    name="cryptoCurrency"
+                    // onChange={handleWithdrawlMethod}
+                    onChange={handleChange}
+                    // checked={withMethod === "crypto"}
+                    checked={input?.cryptoCurrency}
                   ></input>
                 </div>
               </div>
               <p className="cStatus mt40">
-                {withMethod === "bt"
+                {input?.bankTransfer
                   ? "Enter your bank details"
                   : "Enter Your Wallet Details"}
               </p>
-              {withMethod === "bt" ? (
+              {input?.bankTransfer ? (
                 <>
                   <div className="inputs df mt25">
                     <input
                       type="text"
                       placeholder="Beneficiary Name"
                       className="wInput"
-                    ></input>
+                      name="fullName"
+                      value={input?.fullName}
+                      onChange={handleChange}
+                    />
                     <input
                       type="text"
                       placeholder="IBAN/Account No."
                       className="wInput"
-                    ></input>
+                      name="accountNo" //variable is not coming from backend
+                      onChange={handleChange}
+                      value={input?.accountNo}
+                    />
                   </div>
                   <div className="inputs df mt25">
                     <input
                       type="text"
+                      onChange={handleChange}
+                      value={input?.swiftCode}
                       placeholder="SWIFT Code"
                       className="wInput"
-                    ></input>
+                      name="swiftCode" //variable is not coming from backend
+                    />
                     <input
                       type="text"
                       placeholder="Bank Name"
                       className="wInput"
-                    ></input>
+                      name="bankName" //variable is not coming from backend
+                      onChange={handleChange}
+                      value={input?.bankName}
+                    />
                   </div>
                 </>
-              ) : withMethod === "crypto" ? (
+              ) : input?.cryptoCurrency ? (
                 <>
                   <div className="inputs df mt25">
                     <input
                       type="text"
                       placeholder="Token Type: USDT (TRC20)"
                       className="wInput"
-                    ></input>
+                      name="tokenType"
+                      value={input?.tokenType}
+                      onChange={handleChange}
+                    />
                     <input
                       type="text"
                       placeholder="Wallet Address"
                       className="wInput"
-                    ></input>
+                      name="walletAddress"
+                      value={input?.walletAddress}
+                      onChange={handleChange}
+                    />
                   </div>
                 </>
               ) : null}
 
-              <button type="button" className="pButton mt40">
+              <button
+                onClick={handleSubmit}
+                type="button"
+                className="pButton mt40"
+              >
                 Proceed
                 <ArrowForwardIcon />
               </button>

@@ -23,6 +23,7 @@ import Popup from "../../common/Popup/popup/Popup";
 import AddListing from "../AddListing/Index";
 import Desktop from "../desktop/Desktop";
 import { AlertDialog } from "../../common/alertDialogue/AlertDialog";
+import Navbar from "../../common/Header/Navbar";
 // import Cart from "../Cart/cart/Cart";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
+        {/* <Navbar /> */}
         <Routes>
           {/* <Route path="/expand" exact element={<MarketPlace />} /> */}
           <Route path="/" exact element={<MarketPlace />} />

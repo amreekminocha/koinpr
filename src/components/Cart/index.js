@@ -6,12 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { addToCart } from "../../redux/actions";
+import { addToCart, subtractQuantity } from "../../redux/actions";
 const Cart = () => {
   const cartData = useSelector((state) => state?.cart?.products);
   let cartDataArray = [];
   for (let i in cartData) {
-    console.log(cartData[i], "iiiii");
     cartDataArray.push(cartData[i]);
   }
   const totalPrice = cartDataArray.map((el) => el.price * el.quantity);
@@ -32,6 +31,9 @@ const Cart = () => {
     };
     dispatch(addToCart(payload));
   };
+  const handleRemoveFromCart = (id) => {
+    dispatch(subtractQuantity({ id: id, quantity: 1 }));
+  };
   return (
     <div className="Cart">
       <div className="hidden md:block">
@@ -50,7 +52,10 @@ const Cart = () => {
                   <div onClick={() => handleAddToCart(el)} className="title">
                     <AddCircleOutlineIcon />
                   </div>
-                  <div className="title">
+                  <div
+                    onClick={() => handleRemoveFromCart(el?._id)}
+                    className="title"
+                  >
                     <RemoveCircleOutlineIcon />
                   </div>
                 </div>

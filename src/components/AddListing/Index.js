@@ -10,7 +10,9 @@ import CustomizedDialogs from "../../common/alertDialogue/AlertDialogForApiRespo
 
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 const AddListing = () => {
   const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialogContent-root": {
@@ -76,11 +78,28 @@ const AddListing = () => {
   const [addListingInput, setAddListingInput] = useState(init);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setAddListingInput({ ...addListingInput, [name]: value });
+    const { name, value, checked } = e.target;
+    if (name === "noFollowLinkAllowed") {
+      setAddListingInput({
+        ...addListingInput,
+        noFollowLinkAllowed: checked,
+      });
+    }
+    if (name === "doFollowLinkAllowed") {
+      setAddListingInput({
+        ...addListingInput,
+        doFollowLinkAllowed: checked,
+      });
+    } else {
+      setAddListingInput({ ...addListingInput, [name]: value });
+    }
+    // setAddListingInput({ ...addListingInput, [name]: value, [checked]: value });
+    console.log(e.target.checked);
+    console.log(e.target.name);
   };
+  console.log(addListingInput, "addListingInput");
   const [showDialog, setShowDialog] = useState(false);
-  const handleSubmit = () => {
+  const handleSubmitFunction = () => {
     const {
       email,
       userType,
@@ -98,7 +117,6 @@ const AddListing = () => {
       doFollowLinkAllowed,
       indexedArticle,
       websiteLink,
-     
     } = addListingInput;
     const token = cookies.get("auth-token");
 
@@ -160,20 +178,38 @@ const AddListing = () => {
   };
 
   //keyboard interaction
-  Usekey("Enter", handleSubmit);
-  Usekey("NumpadEnter", handleSubmit);
+  Usekey("Enter", handleSubmitFunction);
+  Usekey("NumpadEnter", handleSubmitFunction);
+  // const { register, handleSubmit } = useForm();
+
+  // const schema = yup
+  //   .object({
+  //     price: yup.number().positive().integer().required(),
+  //   })
+  //   .required();
+
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm({
+  //   resolver: yupResolver(schema),
+  // });
   return (
     <>
+      {/* <form onSubmit={handleSubmit(handleSubmitFunction)}> */}
       <div className="AddListing">
         <div className="content">
           <div className="mainHeading">Add Your Listing</div>
           <div className="inputs">
             <input
               onChange={handleChange}
+              value={addListingInput?.email}
               name="websiteLink"
               type="text"
               placeholder="Your Website Link"
               className="input"
+              // {...register("websiteLink")}
             />
             <input
               onChange={handleChange}
@@ -181,13 +217,16 @@ const AddListing = () => {
               type="text"
               placeholder="Email"
               className="input"
+              // {...register("email")}
             />
             <input
               onChange={handleChange}
-              type="text"
-              placeholder="Offer Title"
+              type="number"
+              placeholder="Price"
               className="input"
+              // {...register("price")}
             />
+            {/* <p>{errors.price?.message}</p> */}
           </div>
           <div className="inputs">
             <input
@@ -196,6 +235,7 @@ const AddListing = () => {
               type="text"
               placeholder="Listing Category"
               className="input"
+              // {...register("offerTitle")}
             />
             <input
               onChange={handleChange}
@@ -204,9 +244,8 @@ const AddListing = () => {
               name="logo"
               value="UploadLogo +"
             />
-         
           </div>
-         
+
           <div className="subHeading">More Details</div>
           <div className="inputs">
             <input
@@ -215,22 +254,32 @@ const AddListing = () => {
               type="text"
               placeholder="Your Website Language"
               className="input"
+              // {...register("websiteLanguage")}
             />
-          
-            <input
-              onChange={handleChange}
-              type="text"
-              name="noFollowLinkAllowed"
-              placeholder="No-Follow Links Allowed"
-              className="input"
-            />
-            <input
-              onChange={handleChange}
-              type="text"
-              name="doFollowLinkAllowed"
-              placeholder="Do-Follow Links Allowed"
-              className="input"
-            />
+
+            <div className="wInput mt20">
+              <label>No-Follow Links Allowed</label>
+              <input
+                value={addListingInput?.noFollowLinkAllowed}
+                type="checkbox"
+                name="noFollowLinkAllowed"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="wInput mt20">
+              <label>Do-Follow Links Allowed</label>
+              <input
+                value={addListingInput?.doFollowLinkAllowed}
+                type="checkbox"
+                name="doFollowLinkAllowed"
+                onChange={handleChange}
+                // defaultChecked={addListingInput?.doFollowLinkAllowed}
+
+                // onChange={handleWithdrawlMethod}
+                // checked={withMethod === "crypto"}
+              />
+            </div>
           </div>
           <div className="inputs">
             <input
@@ -239,6 +288,7 @@ const AddListing = () => {
               name="indexedArticle"
               placeholder="Indexed Article"
               className="input"
+              // {...register("indexedArticle")}
             />
             <input
               onChange={handleChange}
@@ -246,6 +296,7 @@ const AddListing = () => {
               type="text"
               placeholder="LinkedIn Link"
               className="input"
+              // {...register("linkedin")}
             />
             <input
               onChange={handleChange}
@@ -253,6 +304,7 @@ const AddListing = () => {
               name="googleNews"
               placeholder="Google News Visibilty"
               className="input"
+              // {...register("googleNews")}
             />
           </div>
           <div className="inputs">
@@ -262,6 +314,7 @@ const AddListing = () => {
               name="socialShare"
               placeholder="Social Share"
               className="input"
+              // {...register("socialShare")}
             />
             <input
               onChange={handleChange}
@@ -269,6 +322,7 @@ const AddListing = () => {
               name="facebook"
               placeholder="Facebook Link"
               className="input"
+              // {...register("facebook")}
             />
             <input
               onChange={handleChange}
@@ -276,20 +330,24 @@ const AddListing = () => {
               name="twitter"
               placeholder="Twitter Link"
               className="input"
+              // {...register("twitter")}
             />
-            
           </div>
           <div className="inputs">
-          <input
+            <input
               onChange={handleChange}
               name="userType"
               type="text"
               placeholder="User Type"
               className="input"
+              // {...register("userType")}
             />
-         
           </div>
-          <button type="button" onClick={handleSubmit} className="submit">
+          <button
+            type="button"
+            onClick={handleSubmitFunction}
+            className="submit"
+          >
             Submit Listing
           </button>
         </div>
@@ -297,6 +355,7 @@ const AddListing = () => {
           <CustomizedDialogs open={true} err={"res?.data?.message"} />
         ) : null} */}
       </div>
+      {/* </form> */}
     </>
   );
 };

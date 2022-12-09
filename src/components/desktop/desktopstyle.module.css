@@ -54,4 +54,41 @@
 
 
     }
+        .leftPaper {
+    
+            /* width: 50% !important;
+            margin-left: 5em !important; */
+            border:"1px solid red"
+        }
+    
+        .handPickedTypo {
+    
+    
+            /* width: 340px !important; */
+            margin-top: 28px !important;
+            font-size: 19px !important;
+            font-weight: 700 !important;
+            margin-bottom: 17px !important;
+            margin-left: 38px !important;
+    
+    
+        }
+    
+        .divider {
+    
+    
+            margin-top: 15px !important;
+            margin-bottom: 13.99px !important;
+    
+    
+        }
+    
+        .typo {
+    
+    
+            font-size: 15px !important;
+            font-weight: 500 !important;
+    
+    
+        }
 }

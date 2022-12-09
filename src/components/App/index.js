@@ -27,6 +27,7 @@ import Navbar from "../../common/Header/Navbar";
 import SettingsComponent from "../rss/settings/Settings";
 import NewsOpen from "../rss/newsOpen/NewsOpen";
 import Update from "../rss/updateHardware/Update";
+import Home from "../rss/home/Home";
 // import Cart from "../Cart/cart/Cart";
 
 function App() {
@@ -36,7 +37,9 @@ function App() {
         <Header />
         {/* <SettingsComponent /> */}
         {/* <NewsOpen /> */}
-        <Update />
+        {/* <Update /> */}
+        <Home />
+        {/* <Desktop /> */}
         {/* <Routes>
     
           <Route path="/" exact element={<MarketPlace />} />

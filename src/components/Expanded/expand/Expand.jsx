@@ -132,96 +132,193 @@ function Expand() {
           <div className="md:mx-10">
             <Table className={styles.table}>
               <TableBody>
-             
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Website
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.websiteLink}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Visitors
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.visitors}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Twitter
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.twitter}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Facebook
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.facebook}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Linkedin
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.linkedin}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Do-Follow Links
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.doFollowLinkAllowed ? "True" : "False"}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     No-Follow Links
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.noFollowLinkAllowed ? "True" : "False"}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Google News
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.googleNews}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Indexed Article
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.indexedArticle}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     Indexed Social Share
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.socialShare}
-                  </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow key={displayData._id}>
-                  <StyledTableCell component="th" scope="row">
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ border: "1px solid black", fontWeight: "bold" }}
+                >
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    component="th"
+                    scope="row"
+                  >
                     SNo-Follow Links
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
+                  </TableCell>
+                  <TableCell
+                    sx={{ border: "1px solid black", fontWeight: "bold" }}
+                    align="right"
+                  >
                     {displayData?.folllow}
-                  </StyledTableCell>
-                </StyledTableRow>
-             
+                  </TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </div>

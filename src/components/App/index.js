@@ -42,12 +42,11 @@ function App() {
         {/* <Update /> */}
         {/* <Home /> */}
         {/* <CategoryExtended /> */}
-        <HomeExtended />
+        {/* <HomeExtended /> */}
         {/* <Desktop /> */}
-        {/* <Routes>
-    
+        <Routes>
           <Route path="/" exact element={<MarketPlace />} />
-       
+
           <Route path="/expand/:id" exact element={<Expand />} />
           <Route path="/sign-in" exact element={<SignIn />} />
           <Route path="/sign-up" exact element={<SignUp />} />
@@ -79,8 +78,7 @@ function App() {
             }
           />
           <Route path="/cart" exact element={<Cart />} />
-       
-        </Routes> */}
+        </Routes>
       </BrowserRouter>
     </div>
   );

@@ -29,6 +29,7 @@ import NewsOpen from "../rss/newsOpen/NewsOpen";
 import Update from "../rss/updateHardware/Update";
 import Home from "../rss/home/Home";
 import CategoryExtended from "../rss/categoryExtended/CategoryExtended";
+import HomeExtended from "../rss/homeExtanded/Homeextanded";
 // import Cart from "../Cart/cart/Cart";
 
 function App() {
@@ -40,7 +41,8 @@ function App() {
         {/* <NewsOpen /> */}
         {/* <Update /> */}
         {/* <Home /> */}
-        <CategoryExtended />
+        {/* <CategoryExtended /> */}
+        <HomeExtended />
         {/* <Desktop /> */}
         {/* <Routes>
     

@@ -144,24 +144,27 @@ const ProfileAdvertiser = () => {
         }
         console.log(res);
         if (!res?.data.success) {
-          <CustomizedDialogs
-            open={showDialog}
-            setShowDialog={setShowDialog}
-            err={res?.data?.message}
-          />;
+          // <CustomizedDialogs
+          //   open={showDialog}
+          //   setShowDialog={setShowDialog}
+          //   err={res?.data?.message}
+          // />;
           console.log("error", res);
           alert("res?.data?.message");
-          setShowDialog(true);
+          // setShowDialog(true);
         }
       })
       .catch((err) => {
-        if (!err?.response?.data?.success) setShowDialog(true);
-        <CustomizedDialogs
-          showDialog={true}
-          setShowDialog={setShowDialog}
-          err={err?.response?.data?.message}
-        />;
+        if (!err?.response?.data?.success) 
+        {
+        // setShowDialog(true);
+        // <CustomizedDialogs
+        //   showDialog={true}
+        //   setShowDialog={setShowDialog}
+        //   err={err?.response?.data?.message}
+        // />;
         alert(err?.response?.data?.message);
+        }
         // console.log("err", err);
         // console.log("err", err?.response?.data?.message);
       });
@@ -195,7 +198,7 @@ const ProfileAdvertiser = () => {
                 checked={step === 2}
               ></input>
             </div>
-            {input?.representCompany && (
+            {input?.representCompany && input?.userType==="PUBLISHER"?  (
               <div className="wInput mt20">
                 <label>Withdrawl Options</label>
                 <input
@@ -206,7 +209,7 @@ const ProfileAdvertiser = () => {
                   checked={step === 3}
                 ></input>
               </div>
-            )}
+            ):null}
           </div>
         </div>
         <div className="pRight">

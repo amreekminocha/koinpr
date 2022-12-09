@@ -7,6 +7,7 @@ import './Marketplace.scss'
 import Card from '../Card';
 import axios from '../../axios';
 import Actions from '../../actions/cartActions';
+import { Button } from '@mui/material';
 
 
 const Marketplace = (addToCart) => {
@@ -102,6 +103,11 @@ const Marketplace = (addToCart) => {
                     </div>
                 </div> */}
                 <div className='mpRight'>
+                    <div style={{border:"1px solid red !important"}}>
+                        <Button variant='contained'>
+Add
+                        </Button>
+                    </div>
                 {marketList.map(item=>(
                     <Card name={item.offerTitle} price='500' id={item._id} />
                 ))}

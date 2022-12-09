@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormControl,
   Grid,
   IconButton,
@@ -7,7 +8,9 @@ import {
   InputLabel,
   MenuItem,
   OutlinedInput,
+  Pagination,
   Select,
+  TablePagination,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -15,7 +18,7 @@ import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import MarketPlaceCards from "./MarketPlaceCards";
 import axios from "../../../axios";
 import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { Usekey } from "../../../common/keyboardInteraction/KeyboardPress";
@@ -116,6 +119,21 @@ function MarketPlace() {
   // Usekey("Enter", handleSearchKeys);
   // Usekey("NumpadEnter", handleSearchKeys);
 
+
+//pagination
+const [page, setPage] = React.useState(0);
+const [rowsPerPage, setRowsPerPage] = React.useState(9);
+
+const handleChangePage = (event, newPage) => {
+  setPage(newPage);
+};
+
+const handleChangeRowsPerPage = (event) => {
+  setRowsPerPage(+event.target.value);
+  setPage(0);
+};
+
+
   return (
     <>
       <div className="w-full p-4 mx-auto mt-20 bg-white rounded-xl shadow-md overflow-hidden ">
@@ -133,7 +151,7 @@ function MarketPlace() {
                 >
                   Search offerTitle
                 </p>
-                <FormControl variant="outlined">
+                <FormControl sx={{width:"98%"}} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
                     Enter publisher name
                   </InputLabel>
@@ -175,7 +193,7 @@ function MarketPlace() {
                 </p>
 
                 <Box sx={{ minWidth: 220 }}>
-                  <FormControl sx={{ width: "270px" }} size="small">
+                  <FormControl sx={{ width: "98%" }} size="small">
                     <InputLabel id="demo-simple-select-label">
                       Listing Category
                     </InputLabel>
@@ -202,7 +220,16 @@ function MarketPlace() {
           </div>
           <div className="p-3 md:w-8/12 lg:w-8/12 sm:w-full place-content-center md:mx-20 ">
             <Grid container spacing={2}>
-              {marketList?.map((el) => (
+              {/* <Grid sx={{textAlign:"center"}} item xs={12} md={12}>
+                <Link to="/add-listing">
+                
+              <Button  variant="contained">
+ADD
+                </Button>
+                </Link>
+              </Grid> */}
+             
+              {marketList?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((el) => (
                 <Grid item xs={12} md={4}>
                   <MarketPlaceCards
                     data={el}
@@ -224,6 +251,19 @@ function MarketPlace() {
                   <CachedIcon />
                 </div>
               ) : null}
+
+              <Grid item xs ={12} md={12}>
+              <TablePagination
+                      rowsPerPageOptions={[9, 18, 27,36]}
+              
+  component="div"
+  count={marketList?.length}
+  page={page}
+  onPageChange={handleChangePage}
+  rowsPerPage={rowsPerPage}
+  onRowsPerPageChange={handleChangeRowsPerPage}
+/>
+                </Grid>
             </Grid>
           </div>
         </div>

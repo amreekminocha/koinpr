@@ -120,7 +120,7 @@ const Header = () => {
             </span>
           </div>
           <div className="right">
-            <span onClick={() => navigate("/")}>Publishers</span>
+            <span style={{marginTop:"7px"}} onClick={() => navigate("/")}>Publishers</span>
             {/* <span
               className="myAccount"
               onClick={(e) => {
@@ -167,8 +167,8 @@ const Header = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">My Profile</Typography>
+                <MenuItem  onClick={handleCloseUserMenu}>
+                  <Typography onClick={() => navigate("/profile")} textAlign="center">My Profile</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Order History</Typography>

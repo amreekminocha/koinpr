@@ -1,0 +1,6 @@
+.centerDiv {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border:"1px solid red"
+}

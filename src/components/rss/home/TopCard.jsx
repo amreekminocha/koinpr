@@ -31,6 +31,7 @@ export default function TopCard() {
           margin: "auto",
           fontSize: "16px",
           fontWeight: 700,
+          marginBottom: "30px",
         }}
       >
         Hands Picked | 1:00 PM - 3:00 PM

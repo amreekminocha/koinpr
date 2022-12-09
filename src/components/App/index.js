@@ -25,6 +25,7 @@ import Desktop from "../desktop/Desktop";
 import { AlertDialog } from "../../common/alertDialogue/AlertDialog";
 import Navbar from "../../common/Header/Navbar";
 import SettingsComponent from "../rss/settings/Settings";
+import NewsOpen from "../rss/newsOpen/NewsOpen";
 // import Cart from "../Cart/cart/Cart";
 
 function App() {
@@ -32,7 +33,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-        <SettingsComponent />
+        {/* <SettingsComponent /> */}
+        <NewsOpen />
         {/* <Routes>
     
           <Route path="/" exact element={<MarketPlace />} />

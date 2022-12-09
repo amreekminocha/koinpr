@@ -114,7 +114,7 @@ export default function SettingsComponent() {
             marginBottom: "18px",
           }}
         >
-          <div style={{ fontSize: "14px", fontWeight: 600 }}>
+          <div style={{ fontSize: "13px", fontWeight: 600 }}>
             Crypto Signals From Crypto Analyst
           </div>
           <ArrowForwardIcon />

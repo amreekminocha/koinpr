@@ -24,6 +24,7 @@ import AddListing from "../AddListing/Index";
 import Desktop from "../desktop/Desktop";
 import { AlertDialog } from "../../common/alertDialogue/AlertDialog";
 import Navbar from "../../common/Header/Navbar";
+import SettingsComponent from "../rss/settings/Settings";
 // import Cart from "../Cart/cart/Cart";
 
 function App() {
@@ -31,11 +32,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-        {/* <Navbar /> */}
-        <Routes>
-          {/* <Route path="/expand" exact element={<MarketPlace />} /> */}
+        <SettingsComponent />
+        {/* <Routes>
+    
           <Route path="/" exact element={<MarketPlace />} />
-          {/* <Route path="/expand" exact element={<Expand />} /> */}
+       
           <Route path="/expand/:id" exact element={<Expand />} />
           <Route path="/sign-in" exact element={<SignIn />} />
           <Route path="/sign-up" exact element={<SignUp />} />
@@ -67,16 +68,8 @@ function App() {
             }
           />
           <Route path="/cart" exact element={<Cart />} />
-          {/* <Route path='/profile' exact element={<ProfileAdvertiser />}/> */}
-          {/* <Route path='/marketplace' exact element={<ProfileAdvertiser />}/> */}
-          {/* <Expanded/> */}
-          {/* <WalletPublisher /> */}
-          {/* <WalletAdvertiser /> */}
-          {/* <ProfileAdvertiser /> */}
-          {/* <AddListing /> */}
-          {/* <CommonPopup title='Reset Your Password' input1='Registered Email' input2="Confirm It" buttonText='Submit' /> */}
-          {/* <Cart /> */}
-        </Routes>
+       
+        </Routes> */}
       </BrowserRouter>
     </div>
   );

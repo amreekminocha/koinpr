@@ -28,6 +28,7 @@ import SettingsComponent from "../rss/settings/Settings";
 import NewsOpen from "../rss/newsOpen/NewsOpen";
 import Update from "../rss/updateHardware/Update";
 import Home from "../rss/home/Home";
+import CategoryExtended from "../rss/categoryExtended/CategoryExtended";
 // import Cart from "../Cart/cart/Cart";
 
 function App() {
@@ -38,7 +39,8 @@ function App() {
         {/* <SettingsComponent /> */}
         {/* <NewsOpen /> */}
         {/* <Update /> */}
-        <Home />
+        {/* <Home /> */}
+        <CategoryExtended />
         {/* <Desktop /> */}
         {/* <Routes>
     

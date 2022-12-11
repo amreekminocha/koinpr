@@ -1,6 +1,8 @@
+import { Button } from "@mui/material"
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
-import axios from "axios"
+// import axios from "axios"
 import React, { useState } from 'react'
+import axios from "../../../axios"
 import "./paymentFormstyle.css"
 
 const CARD_OPTIONS = {
@@ -40,7 +42,7 @@ export default function PaymentForm() {
     if(!error) {
         try {
             const {id} = paymentMethod
-            const response = await axios.post("http://localhost:3000/cart", {
+            const response = await  axios.post("api/stripe/create-checkout-session", {
                 amount: 1000,
                 id
             })
@@ -67,11 +69,16 @@ export default function PaymentForm() {
                     <CardElement options={CARD_OPTIONS}/>
                 </div>
             </fieldset>
-            <button>Pay</button>
+            <Button
+            type="submit"
+            // onClick={()=>handleCheckout()}
+            variant="contained"
+            >Pay</Button>
         </form>
         :
        <div>
-           <h2>You just bought a sweet spatula congrats this is the best decision of you're life</h2>
+           <h2>Conguratulation your order is placed</h2>
+           <h2>you will receive order details soon !!!!</h2>
        </div> 
         }
             

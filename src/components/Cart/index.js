@@ -8,7 +8,9 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { addToCart, subtractQuantity } from "../../redux/actions";
 import Stripe from "./stripe";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
+  const navigate=useNavigate()
   const cartData = useSelector((state) => state?.cart?.products);
   let cartDataArray = [];
   for (let i in cartData) {
@@ -100,7 +102,7 @@ const Cart = () => {
                 ></input>
               </div>
             </div>
-            <button type="button" className="placeOrd">
+            <button onClick={()=>navigate("/checkout")} type="button" className="placeOrd">
               Place Order
             </button>
           </div>

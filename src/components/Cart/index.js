@@ -7,9 +7,17 @@ import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { addToCart, subtractQuantity } from "../../redux/actions";
-import Stripe from "./stripe";
+// import Stripe from "./stripe";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const Cart = () => {
+
+  const [paymentMethod, setPaymentMethod] = useState("stripe")
+
+  const handleChange = e => {
+    setPaymentMethod(e.target.value)
+  }
+
   const navigate = useNavigate();
   const cartData = useSelector((state) => state?.cart?.products);
   console.log(cartData, "cartData");
@@ -41,6 +49,25 @@ const Cart = () => {
     console.log(item);
     dispatch(subtractQuantity({ id: item?.id, quantity: 1 }));
   };
+
+  const handleCheckoutStripe = () => {
+    axios
+      .post(`http://localhost:5000/api/stripe/create-checkout-session`, {
+        cartItems:cartDataArray,
+        userId: 123,
+      })
+      .then((response) => {
+        console.log(response,"res")
+        if (response.data.url) {
+          window.location.href = response.data.url;
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
+
+  const handleCheckoutCoingate=()=>{
+    alert("we are working on coingate payment method,Please choose stripe for now")
+  }
   return (
     <div className="Cart">
       <div className="hidden md:block">
@@ -79,9 +106,13 @@ const Cart = () => {
                 <label>Pay via stripe</label>
                 <input
                   type="radio"
-                  name="payment"
+                  value="stripe"
+                  name="paymentMethod"
                   className="ip"
                   placeholder=""
+                  onChange={handleChange}
+                  checked={paymentMethod === "stripe"}
+
                 ></input>
               </div>
               <div className="input">
@@ -100,14 +131,19 @@ const Cart = () => {
                 </span>
                 <input
                   type="radio"
-                  name="payment"
+                  name="paymentMethod"
                   className="ip"
+                  value="coingate"
                   placeholder=""
+                  onChange={handleChange}
+                  checked={paymentMethod === "coingate"}
+
                 ></input>
               </div>
             </div>
             <button
-              onClick={() => navigate("/checkout")}
+              // onClick={() => navigate("/checkout")}
+              onClick={paymentMethod==="stripe"?handleCheckoutStripe:handleCheckoutCoingate}
               type="button"
               className="placeOrd"
             >

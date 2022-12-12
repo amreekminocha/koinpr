@@ -21,6 +21,7 @@ export const removeFromCart = (payload) => {
   };
 };
 export const subtractQuantity = (payload) => {
+  console.log(payload);
   return {
     type: actionType.SUB_QUANTITY,
     payload,

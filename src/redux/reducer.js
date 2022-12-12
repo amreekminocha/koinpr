@@ -92,16 +92,42 @@ export const CartReducers = (state = initialState, action) => {
         ),
       };
     case actionType.SUB_QUANTITY:
+      // return {
+      //   ...state,
+      //   products: state.products.map((product) =>
+      //     product.id === payload?.id
+      //       ? {
+      //           ...product,
+      //           quantity: product.quantity !== 0 ? product.quantity - 1 : 0,
+      //         }
+      //       : product
+      //   ),
+      // };
+
+      console.log(state.products[payload.id]);
+      const productsId = state.products[payload.id]
+        ? {
+            ...state.products,
+            [payload.id]: {
+              ...state.products[payload.id],
+              quantity:
+                state.products[payload.id].quantity !== 0
+                  ? state.products[payload.id].quantity - payload.quantity
+                  : (state.products[payload.id].quantity = 0),
+            },
+          }
+        : {
+            ...state.products,
+            [payload.id]: payload,
+          };
+
       return {
         ...state,
-        products: state.products.map((product) =>
-          product.id === action.id
-            ? {
-                ...product,
-                quantity: product.quantity !== 1 ? product.quantity - 1 : 1,
-              }
-            : product
-        ),
+        products: productsId,
+        total:
+          state.total !== 0
+            ? state.total - payload.quantity
+            : (state.total = 0),
       };
     case actionType.EMPTY_CART:
       return {

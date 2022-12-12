@@ -10,9 +10,12 @@ import { addToCart, subtractQuantity } from "../../redux/actions";
 import Stripe from "./stripe";
 import { useNavigate } from "react-router-dom";
 const Cart = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const cartData = useSelector((state) => state?.cart?.products);
+  console.log(cartData, "cartData");
   let cartDataArray = [];
+  console.log(cartDataArray, "cartDataArray");
+
   for (let i in cartData) {
     cartDataArray.push(cartData[i]);
   }
@@ -34,8 +37,9 @@ const Cart = () => {
     };
     dispatch(addToCart(payload));
   };
-  const handleRemoveFromCart = (id) => {
-    dispatch(subtractQuantity({ id: id, quantity: 1 }));
+  const handleRemoveFromCart = (item) => {
+    console.log(item);
+    dispatch(subtractQuantity({ id: item?.id, quantity: 1 }));
   };
   return (
     <div className="Cart">
@@ -46,7 +50,7 @@ const Cart = () => {
         <div className="content">
           <div className="hidden md:block">
             {cartDataArray?.map((el) => (
-              <div className="left">
+              <div key={el?.id} className="left">
                 <div className="item">
                   <span className="image">
                     <img src={el.image} alt={el.name} />
@@ -56,7 +60,7 @@ const Cart = () => {
                     <AddCircleOutlineIcon />
                   </div>
                   <div
-                    onClick={() => handleRemoveFromCart(el?._id)}
+                    onClick={() => handleRemoveFromCart(el)}
                     className="title"
                   >
                     <RemoveCircleOutlineIcon />
@@ -102,7 +106,11 @@ const Cart = () => {
                 ></input>
               </div>
             </div>
-            <button onClick={()=>navigate("/checkout")} type="button" className="placeOrd">
+            <button
+              onClick={() => navigate("/checkout")}
+              type="button"
+              className="placeOrd"
+            >
               Place Order
             </button>
           </div>

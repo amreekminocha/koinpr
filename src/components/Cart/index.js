@@ -7,12 +7,15 @@ import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { addToCart, subtractQuantity } from "../../redux/actions";
+import CancelIcon from '@mui/icons-material/Cancel';
+
 // import Stripe from "./stripe";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Cart = () => {
 
   const [paymentMethod, setPaymentMethod] = useState("stripe")
+  const [showAddIcon,setShowAddIcon]=useState(true)
 
   const handleChange = e => {
     setPaymentMethod(e.target.value)
@@ -44,10 +47,12 @@ const Cart = () => {
       quantity: 1,
     };
     dispatch(addToCart(payload));
+    setShowAddIcon(false)
   };
   const handleRemoveFromCart = (item) => {
     console.log(item);
     dispatch(subtractQuantity({ id: item?.id, quantity: 1 }));
+    setShowAddIcon(true)
   };
 
   const handleCheckoutStripe = () => {
@@ -83,15 +88,10 @@ const Cart = () => {
                     <img src={el.image} alt={el.name} />
                   </span>
                   <span className="title">{el.name}</span>
-                  <div onClick={() => handleAddToCart(el)} className="title">
-                    <AddCircleOutlineIcon />
-                  </div>
-                  <div
-                    onClick={() => handleRemoveFromCart(el)}
-                    className="title"
-                  >
-                    <RemoveCircleOutlineIcon />
-                  </div>
+                  {/* <div onClick={showAddIcon?() => handleAddToCart(el):() => handleRemoveFromCart(el)} className="title">
+                    {showAddIcon?<AddCircleOutlineIcon />:<CancelIcon/>}
+                  </div> */}
+               
                   {/* <Stripe/> */}
                 </div>
               </div>

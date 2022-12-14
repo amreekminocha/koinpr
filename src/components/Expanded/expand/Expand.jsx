@@ -15,6 +15,7 @@ import styles from "./expand.module.css";
 import Cookies from "universal-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "../../../axios";
+import { useDispatch } from "react-redux";
 
 // const data = [
 //   { name: "Website", link: "https://www.google.com" },
@@ -104,6 +105,8 @@ function Expand() {
       border: 0,
     },
   }));
+
+
   return (
     <div className={styles.mainDiv}>
       <Grid className={styles.gridContainer} container spacing={2}>
@@ -122,6 +125,7 @@ function Expand() {
         </Grid>
         <Grid className={styles.expandCardGrid} item xs={12} md={4}>
           <ExpandCard
+          data={displayData?.user}
             name={displayData?.user?.fullName}
             details={"About of the website"}
             price={displayData?.price}

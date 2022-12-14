@@ -18,22 +18,35 @@ import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import MarketPlaceCards from "./MarketPlaceCards";
 import axios from "../../../axios";
 import Cookies from "universal-cookie";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { Usekey } from "../../../common/keyboardInteraction/KeyboardPress";
 import CachedIcon from "@mui/icons-material/Cached";
 import { ProgressWithLabel } from "../../../common/progressWithLabel/ProgressWithLabel";
-function MarketPlace() {
-  const dispatch = useDispatch();
+import { StringParam, useQueryParam } from "use-query-params";
+function MarketPlace(props) {
 
+  //for getting current location from the react-router
+  const location =useLocation();
+
+
+ //
+ const params=new  URLSearchParams(location.search);
+ const param1=params.get("param1")
+ const param2=params.get("param2")
+console.log(param1)
+console.log(params,"param")
   const init = {
     listingCategory: "pressRelease",
     offerTitle: "",
   };
   // const [category, setCategory] = React.useState('press');
   const [input, setInput] = useState(init);
-
+  // const [categoryParam, setCategoryParam] = useQueryParam(
+  //   'filterByCategory',
+  //   StringParam
+  // )
   const cookies = new Cookies();
   const navigate = useNavigate();
 
@@ -41,6 +54,15 @@ function MarketPlace() {
 
   const [userId, setUserId] = useState();
 
+const filteredData=marketList.filter(item=>{
+  return(
+    item.offerTitle===param1 && item.listingCategory==param2
+  )
+})
+
+useEffect(()=>{
+  setMarketList(filteredData)
+},[param1,param2])
   useEffect(() => {
     const auth = cookies.get("auth-token");
     console.log(auth);
@@ -95,6 +117,7 @@ function MarketPlace() {
 
     if (name === "offerTitle") {
       setInput({ offerTitle: value, listingCategory: "" });
+      // setCategoryParam(e.target.value)
     } else if (name === "listingCategory") {
       setInput({ listingCategory: value, offerTitle: "" });
     }
@@ -132,6 +155,8 @@ const handleChangeRowsPerPage = (event) => {
   setRowsPerPage(+event.target.value);
   setPage(0);
 };
+
+
 
 
   return (

@@ -28,7 +28,8 @@ import StripeContainer from "../Cart/stripe/StripeContainer";
 import OrderSuccess from "../Cart/orderSuccess/OrderSuccess";
 // import Cart from "../Cart/cart/Cart";
 
-function App() {
+function App(props) {
+  console.log(props,"pppp")
   return (
     <div className="App">
       <BrowserRouter>

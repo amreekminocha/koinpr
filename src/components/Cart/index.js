@@ -9,6 +9,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { addToCart, subtractQuantity } from "../../redux/actions";
 import Stripe from "./stripe";
 import { useNavigate } from "react-router-dom";
+import getStripe from "./stripe/getStripe";
 const Cart = () => {
   const navigate = useNavigate();
   const cartData = useSelector((state) => state?.cart?.products);
@@ -41,6 +42,24 @@ const Cart = () => {
     console.log(item);
     dispatch(subtractQuantity({ id: item?.id, quantity: 1 }));
   };
+
+  async function handleSubmit() {
+    const stripe = await getStripe();
+    const { error } = await stripe.redirectToCheckout({
+      lineItems: [
+        {
+          price: "10",
+          quantity: 1,
+        },
+      ],
+      mode: "subscription",
+      successUrl: `http://localhost:3000/success`,
+      cancelUrl: `http://localhost:3000/cancel`,
+      customerEmail: "customer@email.com",
+    });
+    console.warn(error.message);
+  }
+
   return (
     <div className="Cart">
       <div className="hidden md:block">
@@ -107,7 +126,8 @@ const Cart = () => {
               </div>
             </div>
             <button
-              onClick={() => navigate("/checkout")}
+              // onClick={() => navigate("/checkout")}
+              onClick={handleSubmit}
               type="button"
               className="placeOrd"
             >

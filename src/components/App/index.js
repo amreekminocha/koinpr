@@ -26,14 +26,16 @@ import { AlertDialog } from "../../common/alertDialogue/AlertDialog";
 import Navbar from "../../common/Header/Navbar";
 import StripeContainer from "../Cart/stripe/StripeContainer";
 import OrderSuccess from "../Cart/orderSuccess/OrderSuccess";
+
 // import Cart from "../Cart/cart/Cart";
 
 function App(props) {
-  console.log(props,"pppp")
+  console.log(props, "pppp");
   return (
     <div className="App">
       <BrowserRouter>
         <Header />
+
         {/* <Navbar /> */}
         <Routes>
           {/* <Route path="/expand" exact element={<MarketPlace />} /> */}

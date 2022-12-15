@@ -24,19 +24,27 @@ import { useDispatch } from "react-redux";
 import { Usekey } from "../../../common/keyboardInteraction/KeyboardPress";
 import CachedIcon from "@mui/icons-material/Cached";
 import { ProgressWithLabel } from "../../../common/progressWithLabel/ProgressWithLabel";
+
 import { StringParam, useQueryParam } from "use-query-params";
+import { UserAuthentication } from "../../../common/userAuthentication/UserAuthentication";
+
+function useQuery() {
+  const { search } = useLocation();
+  console.log(search, "search");
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
 function MarketPlace(props) {
+  let query = useQuery();
 
   //for getting current location from the react-router
-  const location =useLocation();
-
-
- //
- const params=new  URLSearchParams(location.search);
- const param1=params.get("param1")
- const param2=params.get("param2")
-console.log(param1)
-console.log(params,"param")
+  const location = useLocation();
+  console.log(location.search);
+  //
+  const params = new URLSearchParams(location.search);
+  const param1 = params.get("param1");
+  const param2 = params.get("param2");
+  console.log(param1);
+  console.log(params, "param");
   const init = {
     listingCategory: "pressRelease",
     offerTitle: "",
@@ -54,15 +62,14 @@ console.log(params,"param")
 
   const [userId, setUserId] = useState();
 
-const filteredData=marketList.filter(item=>{
-  return(
-    item.offerTitle===param1 && item.listingCategory==param2
-  )
-})
+  // const filteredData = marketList.filter((item) => {
+  //   return item.offerTitle === param1 && item.listingCategory == param2;
+  // });
 
-useEffect(()=>{
-  setMarketList(filteredData)
-},[param1,param2])
+  // console.log(query.get("name"), "jhdskjcn");
+  // useEffect(() => {
+  //   setMarketList(filteredData);
+  // }, [param1, param2]);
   useEffect(() => {
     const auth = cookies.get("auth-token");
     console.log(auth);
@@ -89,6 +96,7 @@ useEffect(()=>{
         console.log(err, "err");
         navigate("/sign-in");
       });
+    // UserAuthentication();
   }, [userId]);
 
   const getData = () => {
@@ -134,6 +142,42 @@ useEffect(()=>{
       });
   };
 
+  useEffect(() => {
+    const listingCategory = query.get("listingCategory");
+    const offerTitle = query.get("offerTitle");
+    if (
+      listingCategory === "pressRelease" ||
+      listingCategory === "sponsoredArticle" ||
+      listingCategory === "buttonAds" ||
+      listingCategory === "bannerAds"
+    ) {
+      axios
+        .get(
+          `/api/listing/get-all?listingCategory=${listingCategory}&userId=${userId}`
+        )
+        .then((res) => {
+          if (res.data.success) {
+            setMarketList(res.data.data);
+          }
+          console.log(res.data, "jhdsjdh");
+        })
+        .catch((err) => {
+          console.log(err, "err");
+        });
+    } else {
+      axios
+        .get(`/api/listing/get-all?offerTitle=${offerTitle}&userId=${userId}`)
+        .then((res) => {
+          if (res.data.success) {
+            setMarketList(res.data.data);
+          }
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err, "err");
+        });
+    }
+  }, [param1]);
   const handleReset = () => {
     getData();
     setInput(init);
@@ -142,22 +186,18 @@ useEffect(()=>{
   // Usekey("Enter", handleSearchKeys);
   // Usekey("NumpadEnter", handleSearchKeys);
 
+  //pagination
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(9);
 
-//pagination
-const [page, setPage] = React.useState(0);
-const [rowsPerPage, setRowsPerPage] = React.useState(9);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-const handleChangePage = (event, newPage) => {
-  setPage(newPage);
-};
-
-const handleChangeRowsPerPage = (event) => {
-  setRowsPerPage(+event.target.value);
-  setPage(0);
-};
-
-
-
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   return (
     <>
@@ -176,7 +216,7 @@ const handleChangeRowsPerPage = (event) => {
                 >
                   Search offerTitle
                 </p>
-                <FormControl sx={{width:"98%"}} variant="outlined">
+                <FormControl sx={{ width: "98%" }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
                     Enter publisher name
                   </InputLabel>
@@ -231,9 +271,15 @@ const handleChangeRowsPerPage = (event) => {
                       label="Listing Category"
                       onChange={handleSearchKeys}
                     >
-                      <MenuItem value={"pressRelease"}>Press Release</MenuItem>
+                      <MenuItem value={"pressRelease"}>
+                        <Link to="/?listingCategory=pressRelease">
+                          Press Release
+                        </Link>
+                      </MenuItem>
                       <MenuItem value={"sponsoredArticle"}>
-                        Sponsored Articles
+                        <Link to="/?listingCategory=sponsoredArticle">
+                          Sponsored Articles
+                        </Link>
                       </MenuItem>
                       <MenuItem value={"buttonAds"}>Button Ads</MenuItem>
                       <MenuItem value={"bannerads"}>Banner Ads</MenuItem>
@@ -253,17 +299,19 @@ ADD
                 </Button>
                 </Link>
               </Grid> */}
-             
-              {marketList?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)?.map((el) => (
-                <Grid item xs={12} md={4}>
-                  <MarketPlaceCards
-                    data={el}
-                    name={el?.user?.fullName}
-                    details={"View Details"}
-                    price={el?.price}
-                  />
-                </Grid>
-              ))}
+
+              {marketList
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.map((el) => (
+                  <Grid item xs={12} md={4}>
+                    <MarketPlaceCards
+                      data={el}
+                      name={el?.user?.fullName}
+                      details={"View Details"}
+                      price={el?.price}
+                    />
+                  </Grid>
+                ))}
               {marketList?.length === 0 ? (
                 <div
                   style={{
@@ -276,19 +324,19 @@ ADD
                   <CachedIcon />
                 </div>
               ) : null}
-
-              <Grid item xs ={12} md={12}>
-              <TablePagination
-                      rowsPerPageOptions={[9, 18, 27,36]}
-              
-  component="div"
-  count={marketList?.length}
-  page={page}
-  onPageChange={handleChangePage}
-  rowsPerPage={rowsPerPage}
-  onRowsPerPageChange={handleChangeRowsPerPage}
-/>
+              {marketList.length > 9 ? (
+                <Grid item xs={12} md={12}>
+                  <TablePagination
+                    rowsPerPageOptions={[9, 18, 27, 36]}
+                    component="div"
+                    count={marketList?.length}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
                 </Grid>
+              ) : null}
             </Grid>
           </div>
         </div>

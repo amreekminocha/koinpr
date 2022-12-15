@@ -7,10 +7,19 @@ import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { addToCart, subtractQuantity } from "../../redux/actions";
-import Stripe from "./stripe";
+import CancelIcon from "@mui/icons-material/Cancel";
+
+// import Stripe from "./stripe";
 import { useNavigate } from "react-router-dom";
-import getStripe from "./stripe/getStripe";
+import axios from "axios";
 const Cart = () => {
+  const [paymentMethod, setPaymentMethod] = useState("stripe");
+  const [showAddIcon, setShowAddIcon] = useState(true);
+
+  const handleChange = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+
   const navigate = useNavigate();
   const cartData = useSelector((state) => state?.cart?.products);
   console.log(cartData, "cartData");
@@ -37,29 +46,34 @@ const Cart = () => {
       quantity: 1,
     };
     dispatch(addToCart(payload));
+    setShowAddIcon(false);
   };
   const handleRemoveFromCart = (item) => {
     console.log(item);
     dispatch(subtractQuantity({ id: item?.id, quantity: 1 }));
+    setShowAddIcon(true);
   };
 
-  async function handleSubmit() {
-    const stripe = await getStripe();
-    const { error } = await stripe.redirectToCheckout({
-      lineItems: [
-        {
-          price: "10",
-          quantity: 1,
-        },
-      ],
-      mode: "subscription",
-      successUrl: `http://localhost:3000/success`,
-      cancelUrl: `http://localhost:3000/cancel`,
-      customerEmail: "customer@email.com",
-    });
-    console.warn(error.message);
-  }
+  const handleCheckoutStripe = () => {
+    axios
+      .post(`http://localhost:5000/api/stripe/create-checkout-session`, {
+        cartItems: cartDataArray,
+        userId: 123,
+      })
+      .then((response) => {
+        console.log(response, "res");
+        if (response.data.url) {
+          window.location.href = response.data.url;
+        }
+      })
+      .catch((err) => console.log(err.message));
+  };
 
+  const handleCheckoutCoingate = () => {
+    alert(
+      "we are working on coingate payment method,Please choose stripe for now"
+    );
+  };
   return (
     <div className="Cart">
       <div className="hidden md:block">
@@ -75,15 +89,10 @@ const Cart = () => {
                     <img src={el.image} alt={el.name} />
                   </span>
                   <span className="title">{el.name}</span>
-                  <div onClick={() => handleAddToCart(el)} className="title">
-                    <AddCircleOutlineIcon />
-                  </div>
-                  <div
-                    onClick={() => handleRemoveFromCart(el)}
-                    className="title"
-                  >
-                    <RemoveCircleOutlineIcon />
-                  </div>
+                  {/* <div onClick={showAddIcon?() => handleAddToCart(el):() => handleRemoveFromCart(el)} className="title">
+                    {showAddIcon?<AddCircleOutlineIcon />:<CancelIcon/>}
+                  </div> */}
+
                   {/* <Stripe/> */}
                 </div>
               </div>
@@ -98,9 +107,12 @@ const Cart = () => {
                 <label>Pay via stripe</label>
                 <input
                   type="radio"
-                  name="payment"
+                  value="stripe"
+                  name="paymentMethod"
                   className="ip"
                   placeholder=""
+                  onChange={handleChange}
+                  checked={paymentMethod === "stripe"}
                 ></input>
               </div>
               <div className="input">
@@ -119,15 +131,22 @@ const Cart = () => {
                 </span>
                 <input
                   type="radio"
-                  name="payment"
+                  name="paymentMethod"
                   className="ip"
+                  value="coingate"
                   placeholder=""
+                  onChange={handleChange}
+                  checked={paymentMethod === "coingate"}
                 ></input>
               </div>
             </div>
             <button
               // onClick={() => navigate("/checkout")}
-              onClick={handleSubmit}
+              onClick={
+                paymentMethod === "stripe"
+                  ? handleCheckoutStripe
+                  : handleCheckoutCoingate
+              }
               type="button"
               className="placeOrd"
             >

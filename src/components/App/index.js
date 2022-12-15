@@ -25,9 +25,11 @@ import Desktop from "../desktop/Desktop";
 import { AlertDialog } from "../../common/alertDialogue/AlertDialog";
 import Navbar from "../../common/Header/Navbar";
 import StripeContainer from "../Cart/stripe/StripeContainer";
+import OrderSuccess from "../Cart/orderSuccess/OrderSuccess";
 // import Cart from "../Cart/cart/Cart";
 
-function App() {
+function App(props) {
+  console.log(props,"pppp")
   return (
     <div className="App">
       <BrowserRouter>
@@ -42,6 +44,7 @@ function App() {
           {/* <Route path="/expand/:id" exact element={<Expand />} /> */}
           <Route path="/sign-in" exact element={<SignIn />} />
           <Route path="/sign-up" exact element={<SignUp />} />
+          <Route path="/checkout-success" exact element={<OrderSuccess />} />
           <Route path="/wallet-publisher" exact element={<WalletPublisher />} />
           <Route
             path="/withdrawl-publisher"

@@ -6,6 +6,9 @@ import { useParams } from 'react-router-dom';
 import axios from '../../axios';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useDispatch } from 'react-redux';
+import { addToCart, subtractQuantity } from '../../redux/actions';
+import CancelIcon from '@mui/icons-material/Cancel';
 const Expanded = () => {
     
     // const cookies = new Cookies();
@@ -54,7 +57,8 @@ const Expanded = () => {
     const cookies = new Cookies();
     const navigate = useNavigate();
     const [userId, setUserId] = useState();
-  
+    const [showAddIcon,setShowAddIcon]=useState(true)
+
     useEffect(() => {
       const auth = cookies.get("auth-token");
       if (!auth) {
@@ -98,7 +102,20 @@ const Expanded = () => {
       }
     }, [userId]);
   
+    const dispatch = useDispatch();
+    const handleAddToCart = () => {
+      const {_id,details,image,price}=displayData
+      const payload = { _id, name:displayData?.user?.fullName, image, price, quantity: 1 };
+      dispatch(addToCart(payload));
+      setShowAddIcon(false)
+    };
 
+    const handleRemoveFromCart = () => {
+      const {name,_id,details,image,price}=displayData
+      
+      dispatch(subtractQuantity({ _id, quantity: 1 }));
+      setShowAddIcon(true)
+    };
     if(displayData){
         return (
             <div className='expanded'>
@@ -115,7 +132,7 @@ const Expanded = () => {
                         <span className='data'>Todayq News is an online Cryptocurrency News, Analysis & Blockchain platform focused on covering daily happenings in the cryptocurrency and blockchain space. The website is presenting the latest developments from the market, offering a clear view of the performance and dynamics of Blockchain, Bitcoin, Ethereum, and other cryptocurrency projects.</span>
                         <div className='price'>
                             <span className='amount'>{displayData?.price?`$${displayData?.price}`:"$200"}</span>
-                            <span ><AddCircleOutlineIcon/></span>
+                            <span onClick={showAddIcon?handleAddToCart:handleRemoveFromCart}>{showAddIcon?<AddCircleOutlineIcon/>:<CancelIcon/>}</span>
                         </div>
                     </div>
                     <div className='right'>

@@ -1,11 +1,14 @@
 import { Avatar, Paper } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../../redux/actions";
+import { addToCart, subtractQuantity } from "../../../redux/actions";
+import CancelIcon from '@mui/icons-material/Cancel';
 
 function MarketPlaceCards({ name, details, image, price = 10, data }) {
+  const [showAddIcon,setShowAddIcon]=useState(true)
+
   //function to show details
   const navigate = useNavigate();
   const handleShowDetails = (data) => {
@@ -19,6 +22,14 @@ function MarketPlaceCards({ name, details, image, price = 10, data }) {
   const handleAddToCart = () => {
     const payload = { id: data?._id, name, details, image, price, quantity: 1 };
     dispatch(addToCart(payload));
+    setShowAddIcon(false)
+  };
+
+  const handleRemoveFromCart = () => {
+    
+    
+    dispatch(subtractQuantity({ id: data?._id, quantity: 1 }));
+    setShowAddIcon(true)
   };
   return (
     <>
@@ -65,8 +76,8 @@ function MarketPlaceCards({ name, details, image, price = 10, data }) {
           }}
         >
           <p>${price}</p>
-          <span onClick={handleAddToCart}>
-            <AddCircleOutlineIcon />
+          <span onClick={showAddIcon?handleAddToCart:handleRemoveFromCart}>
+            {showAddIcon?<AddCircleOutlineIcon />:<CancelIcon/>}
           </span>
         </div>
       </Paper>

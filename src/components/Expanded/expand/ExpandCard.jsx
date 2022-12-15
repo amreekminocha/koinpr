@@ -7,6 +7,7 @@ import { addToCart } from "../../../redux/actions";
 function ExpandCard({ id, name, details, image, price = 10 }) {
   const dispatch = useDispatch();
   const handleAddToCart = () => {
+    alert("clicked")
     const payload = { id, name, details, image, price, quantity: 1 };
     dispatch(addToCart(payload));
   };

@@ -7,19 +7,18 @@ import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { addToCart, subtractQuantity } from "../../redux/actions";
-import CancelIcon from '@mui/icons-material/Cancel';
+import CancelIcon from "@mui/icons-material/Cancel";
 
 // import Stripe from "./stripe";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Cart = () => {
+  const [paymentMethod, setPaymentMethod] = useState("stripe");
+  const [showAddIcon, setShowAddIcon] = useState(true);
 
-  const [paymentMethod, setPaymentMethod] = useState("stripe")
-  const [showAddIcon,setShowAddIcon]=useState(true)
-
-  const handleChange = e => {
-    setPaymentMethod(e.target.value)
-  }
+  const handleChange = (e) => {
+    setPaymentMethod(e.target.value);
+  };
 
   const navigate = useNavigate();
   const cartData = useSelector((state) => state?.cart?.products);
@@ -47,22 +46,22 @@ const Cart = () => {
       quantity: 1,
     };
     dispatch(addToCart(payload));
-    setShowAddIcon(false)
+    setShowAddIcon(false);
   };
   const handleRemoveFromCart = (item) => {
     console.log(item);
     dispatch(subtractQuantity({ id: item?.id, quantity: 1 }));
-    setShowAddIcon(true)
+    setShowAddIcon(true);
   };
 
   const handleCheckoutStripe = () => {
     axios
       .post(`http://localhost:5000/api/stripe/create-checkout-session`, {
-        cartItems:cartDataArray,
+        cartItems: cartDataArray,
         userId: 123,
       })
       .then((response) => {
-        console.log(response,"res")
+        console.log(response, "res");
         if (response.data.url) {
           window.location.href = response.data.url;
         }
@@ -70,9 +69,11 @@ const Cart = () => {
       .catch((err) => console.log(err.message));
   };
 
-  const handleCheckoutCoingate=()=>{
-    alert("we are working on coingate payment method,Please choose stripe for now")
-  }
+  const handleCheckoutCoingate = () => {
+    alert(
+      "we are working on coingate payment method,Please choose stripe for now"
+    );
+  };
   return (
     <div className="Cart">
       <div className="hidden md:block">
@@ -91,7 +92,7 @@ const Cart = () => {
                   {/* <div onClick={showAddIcon?() => handleAddToCart(el):() => handleRemoveFromCart(el)} className="title">
                     {showAddIcon?<AddCircleOutlineIcon />:<CancelIcon/>}
                   </div> */}
-               
+
                   {/* <Stripe/> */}
                 </div>
               </div>
@@ -112,7 +113,6 @@ const Cart = () => {
                   placeholder=""
                   onChange={handleChange}
                   checked={paymentMethod === "stripe"}
-
                 ></input>
               </div>
               <div className="input">
@@ -137,13 +137,16 @@ const Cart = () => {
                   placeholder=""
                   onChange={handleChange}
                   checked={paymentMethod === "coingate"}
-
                 ></input>
               </div>
             </div>
             <button
               // onClick={() => navigate("/checkout")}
-              onClick={paymentMethod==="stripe"?handleCheckoutStripe:handleCheckoutCoingate}
+              onClick={
+                paymentMethod === "stripe"
+                  ? handleCheckoutStripe
+                  : handleCheckoutCoingate
+              }
               type="button"
               className="placeOrd"
             >

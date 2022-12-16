@@ -1,27 +1,8 @@
 import { actionType } from "./type";
 
 const initialState = {
-  // products: [
-  //   {
-  //     id: 1,
-  //     name: "demo",
-  //     image: "",
-  //     price: 200,
-  //     quantity: 0,
-  //     selected: false,
-  //   },
-
-  // ],
-
-  products: {
-    // 1: {
-    //   name: "demo",
-    //   image: "",
-    //   price: 200,
-    //   quantity: 0,
-    //   selected: false,
-    // },
-  },
+  products: {},
+  authenticatedUserDetails: {},
   total: 0,
 };
 export const CartReducers = (state = initialState, action) => {
@@ -137,6 +118,11 @@ export const CartReducers = (state = initialState, action) => {
             ? { ...product, selected: false, quantity: 1 }
             : product
         ),
+      };
+    case actionType.AUTHENTICATED_USER_DETAILS:
+      return {
+        ...state,
+        authenticatedUserDetails: payload,
       };
     default:
       return state;

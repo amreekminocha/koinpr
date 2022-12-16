@@ -38,3 +38,9 @@ export const emptyCart = () => {
     type: actionType.EMPTY_CART,
   };
 };
+export const authenticatedUserDetails = (payload) => {
+  return {
+    type: actionType.AUTHENTICATED_USER_DETAILS,
+    payload,
+  };
+};

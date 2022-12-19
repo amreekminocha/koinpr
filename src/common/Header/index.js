@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import {
   Avatar,
   Box,
+  Divider,
   Menu,
   MenuItem,
   Tooltip,
@@ -28,7 +29,7 @@ import {
 } from "@mui/material";
 import { AlertDialog } from "../alertDialogue/AlertDialog";
 // import Cookies from "universal-cookie";
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -136,6 +137,7 @@ console.log(userData,"userData")
 
   };
   const handleUserTypeOrderHistory=(userType)=>{
+    console.log(userType,"userType")
     setAnchorElUser(null);
 if(userType==="PUBLISHER"){
   navigate("/wallet-publisher")
@@ -151,8 +153,14 @@ if(userType==="PUBLISHER"){
   };
 
   const handleSignout = (event) => {
-    setOpen(true);
+    // setOpen(true);
   };
+  const handleTelegram=()=>{
+    setAnchorElUser(null);
+    setOpen(true);
+
+
+  }
   return (
     <>
       <div className="hidden md:block lg:block">
@@ -217,7 +225,7 @@ if(userType==="PUBLISHER"){
                 <MenuItem onClick={()=>handleUserTypeOrderHistory(userData?.userType)}>
                   <Typography textAlign="center">{userData?.userType==="ADVERTISER"?"Order History":"Wallet History"}</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem onClick={handleTelegram}>
                   <Typography textAlign="center">Telegram</Typography>
                 </MenuItem>
                 <MenuItem onClick={signOutHandler}>
@@ -234,7 +242,7 @@ if(userType==="PUBLISHER"){
           </div>
         </div>
       </div>
-      <div>
+      <div >
         {/* <Button variant="outlined" onClick={handleClickOpen}>
           Slide in alert dialog
         </Button> */}
@@ -243,13 +251,13 @@ if(userType==="PUBLISHER"){
           TransitionComponent={Transition}
           keepMounted
           onClose={handleClose}
+          sx={{backgroundImage:"#F9F9F9 !important"}}
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle variant="h4">{"Attention Please !!"}</DialogTitle>
-          <div style={{ textAlign: "center" }}>
+          {/* <div style={{ textAlign: "center" }}>
             <ReportProblemIcon sx={{ fontSize: "50px" }} />
-          </div>
-          <DialogContent>
+          </div> */}
+          {/* <DialogContent>
             <DialogContentText variant="h5" id="alert-dialog-slide-description">
               Dou you want to logout?
             </DialogContentText>
@@ -261,7 +269,27 @@ if(userType==="PUBLISHER"){
             <Button variant="contained" onClick={handleClose}>
               Agree
             </Button>
-          </DialogActions>
+          </DialogActions> */}
+          <DialogContent>
+ <div className='popup'>
+
+
+        <div className='content'>
+            <DialogTitle className='title'>Add Your Telegram</DialogTitle>
+            <div className='input'>
+                <input className='ip' type='text' placeholder={"Your telegram @username"} />
+                {/* { props.input2 && <input className='ip ip1' type='text' placeholder={props.input2} />} */}
+            </div>
+            <button  type='submit' className='submit'>Submit <ArrowForwardIcon/></button>
+
+            <div style={{width:"272px",margin:"auto"}}>
+            This will help your account manager to commute with you faster.  
+            </div>
+            {/* <div className='bottom'>Facing issues? <a href='/'>Contact support</a> </div> */}
+        </div>
+          <Divider variant="middle" sx={{border:"3px solid black",background:"black"}}/>
+    </div>
+          </DialogContent>
         </Dialog>
       </div>
       <div className="md:hidden lg:hidden sm:block">

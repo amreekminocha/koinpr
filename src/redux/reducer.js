@@ -1,7 +1,7 @@
 import { actionType } from "./type";
 
 const initialState = {
-  products: {},
+  products: [],
   authenticatedUserDetails: {},
   total: 0,
 };
@@ -10,6 +10,7 @@ export const CartReducers = (state = initialState, action) => {
 
   switch (type) {
     case actionType.ADD_TO_CART:
+      console.log(payload,"payload")
       // return {
       //  ...state,
       //   products: {
@@ -18,25 +19,31 @@ export const CartReducers = (state = initialState, action) => {
       //      ...state.products[payload.id],
       //       quantity: state.products[payload.id].quantity + 1,
       //     },
-      console.log(state.products[payload.id]);
-      const products = state.products[payload.id]
-        ? {
-            ...state.products,
-            [payload.id]: {
-              ...state.products[payload.id],
-              quantity: state.products[payload.id].quantity + payload.quantity,
-            },
-          }
-        : {
-            ...state.products,
-            [payload.id]: payload,
-          };
+      // console.log(state.products[payload.id]);
+      // const products = state.products[payload.id]
+      //   ? {
+      //       ...state.products,
+      //       [payload.id]: {
+      //         ...state.products[payload.id],
+      //         quantity: state.products[payload.id].quantity + payload.quantity,
+      //       },
+      //     }
+      //   : {
+      //       ...state.products,
+      //       [payload.id]: payload,
+      //     };
 
-      return {
+      // return {
+      //   ...state,
+      //   products: products,
+      //   total: state.total + payload.quantity,
+      // };
+
+      return{
         ...state,
-        products: products,
-        total: state.total + payload.quantity,
-      };
+        products:[...state.products,payload],
+        total:state.total+1
+      }
 
     // total: state?.products?.total + payload?.quantity,
 
@@ -85,31 +92,42 @@ export const CartReducers = (state = initialState, action) => {
       //   ),
       // };
 
-      console.log(state.products[payload.id]);
-      const productsId = state.products[payload.id]
-        ? {
-            ...state.products,
-            [payload.id]: {
-              ...state.products[payload.id],
-              quantity:
-                state.products[payload.id].quantity !== 0
-                  ? state.products[payload.id].quantity - payload.quantity
-                  : (state.products[payload.id].quantity = 0),
-            },
-          }
-        : {
-            ...state.products,
-            [payload.id]: payload,
-          };
+      // console.log(state.products[payload.id]);
+      // const productsId = state.products[payload.id]
+      //   ? {
+      //       ...state.products,
+      //       [payload.id]: {
+      //         ...state.products[payload.id],
+      //         quantity:
+      //           state.products[payload.id].quantity !== 0
+      //             ? state.products[payload.id].quantity - payload.quantity
+      //             : (state.products[payload.id].quantity = 0),
+      //       },
+      //     }
+      //   : {
+      //       ...state.products,
+      //       [payload.id]: payload,
+      //     };
 
-      return {
-        ...state,
-        products: productsId,
-        total:
-          state.total !== 0
-            ? state.total - payload.quantity
-            : (state.total = 0),
-      };
+      // return {
+      //   ...state,
+      //   products: productsId,
+      //   total:
+      //     state.total !== 0
+      //       ? state.total - payload.quantity
+      //       : (state.total = 0),
+      // };
+
+
+      // let quantity_ = state.products[action.payload].quantity;
+      return{
+          ...state,
+          total:state.total - 1,
+          products:state.products.filter(item=>{
+              return item.id!=payload.id
+          })
+         
+      }
     case actionType.EMPTY_CART:
       return {
         ...state,

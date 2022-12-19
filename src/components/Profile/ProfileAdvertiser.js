@@ -60,6 +60,7 @@ const ProfileAdvertiser = () => {
         setUserId(res.data.user._id);
 
         setInput(res?.data?.user);
+        setUserData(res?.data?.user)
       })
       .catch((err) => {
         console.log(err, "err");
@@ -247,6 +248,7 @@ const ProfileAdvertiser = () => {
                     placeholder="Company Name"
                     name="companyName"
                     value={input?.companyName}
+                    disabled={userData?.companyName}
                   />
                   <input
                     // onChange={changeHandler}
@@ -255,6 +257,7 @@ const ProfileAdvertiser = () => {
                     placeholder="Company Identification No."
                     name="companyId"
                     value={input?.companyId}
+                    disabled={userData?.companyId}
                   />
                 </div>
               ) : (
@@ -266,6 +269,7 @@ const ProfileAdvertiser = () => {
                     placeholder="First Name"
                     name="firstName"
                     value={input?.firstName}
+                    disabled={userData?.firstName}
                   />
                   <input
                     // onChange={changeHandler}
@@ -273,7 +277,7 @@ const ProfileAdvertiser = () => {
                     className="wInput"
                     placeholder="Last Name"
                     name="lastName"
-                    value={input?.lastName}
+                    value={userData?.lastName}
                   />
                 </div>
               )}
@@ -285,6 +289,7 @@ const ProfileAdvertiser = () => {
                   onChange={handleChange}
                   name="country"
                   value={input?.country}
+                  disabled={userData?.country}
                 />
                 <input
                   className="wInput"
@@ -293,6 +298,7 @@ const ProfileAdvertiser = () => {
                   onChange={handleChange}
                   name="walletAddress"
                   value={input?.walletAddress}
+                  disabled={userData?.walletAddress}
                 />
               </div>
               <button
@@ -390,6 +396,7 @@ const ProfileAdvertiser = () => {
                       className="wInput"
                       name="fullName"
                       value={input?.fullName}
+                      disabled={userData?.fullName}
                       onChange={handleChange}
                     />
                     <input
@@ -399,6 +406,7 @@ const ProfileAdvertiser = () => {
                       name="accountNo" //variable is not coming from backend
                       onChange={handleChange}
                       value={input?.accountNo}
+                      disabled={userData?.accountNo}
                     />
                   </div>
                   <div className="inputs df mt25">
@@ -406,6 +414,7 @@ const ProfileAdvertiser = () => {
                       type="text"
                       onChange={handleChange}
                       value={input?.swiftCode}
+                      disabled={userData?.swiftCode}
                       placeholder="SWIFT Code"
                       className="wInput"
                       name="swiftCode" //variable is not coming from backend
@@ -417,6 +426,7 @@ const ProfileAdvertiser = () => {
                       name="bankName" //variable is not coming from backend
                       onChange={handleChange}
                       value={input?.bankName}
+                      disabled={userData?.bankName}
                     />
                   </div>
                 </>
@@ -429,6 +439,7 @@ const ProfileAdvertiser = () => {
                       className="wInput"
                       name="tokenType"
                       value={input?.tokenType}
+                      disabled={userData?.tokenType}
                       onChange={handleChange}
                     />
                     <input
@@ -437,6 +448,7 @@ const ProfileAdvertiser = () => {
                       className="wInput"
                       name="walletAddress"
                       value={input?.walletAddress}
+                      disabled={userData?.walletAddress}
                       onChange={handleChange}
                     />
                   </div>

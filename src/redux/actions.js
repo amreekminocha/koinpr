@@ -44,3 +44,4 @@ export const authenticatedUserDetails = (payload) => {
     payload,
   };
 };
+

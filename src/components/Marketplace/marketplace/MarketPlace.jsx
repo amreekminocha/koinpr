@@ -12,6 +12,7 @@ import {
   Select,
   TablePagination,
 } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect } from "react";
 import { useState } from "react";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
@@ -202,7 +203,7 @@ function MarketPlace(props) {
 
   return (
     <>
-      <div className="w-full p-4 mx-auto mt-20 bg-white rounded-xl shadow-md overflow-hidden ">
+      <div className="w-full p-4 mx-auto mt-20 bg-white rounded-xl  overflow-hidden ">
         <div className="md:flex lg:flex xs:flex w-full">
           <div className="p-5 md:w-3/12 lg:w-3/12 sm:w-full bg-[#F8F8F8]">
             <Grid container spacing={2}>
@@ -233,9 +234,9 @@ function MarketPlace(props) {
                     label="Enter publisher name"
                     variant="outlined"
                     endAdornment={
-                      <InputAdornment position="end">
+                      <InputAdornment position="start">
                         <IconButton onClick={handleSearchKeys} edge="end">
-                          <SavedSearchIcon />
+                          <SearchIcon />
                         </IconButton>
                       </InputAdornment>
                     }

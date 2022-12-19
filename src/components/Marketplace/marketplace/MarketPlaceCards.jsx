@@ -39,6 +39,7 @@ function MarketPlaceCards({ name, details, image, price = 10, data }) {
           height: "167px",
           background: "#F8F8F8",
           padding: "1em",
+          marginBottom:"30px"
         }}
       >
         <span onClick={() => handleShowDetails(data)}>

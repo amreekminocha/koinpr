@@ -88,6 +88,8 @@ const Cart = () => {
     dispatch(subtractQuantity({ id: item?.id, quantity: 1 }));
     setShowAddIcon(true);
     setShowProduct(false)
+    const filteredData=cartDataArray.map(el=>el?.id!=item?.id)
+    cartDataArray.push(filteredData)
   };
 
   const handleCheckoutStripe = () => {

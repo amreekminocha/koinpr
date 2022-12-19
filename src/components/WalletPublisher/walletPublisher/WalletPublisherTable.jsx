@@ -39,28 +39,28 @@ const rows = [
 
 export default function WalletPublisherTable() {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer >
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="center">Date</StyledTableCell>
-            <StyledTableCell align="center">ID</StyledTableCell>
-            <StyledTableCell align="center">Description</StyledTableCell>
-            <StyledTableCell align="center">Amount</StyledTableCell>
+            <TableCell sx={{border:"1px solid black"}} align="center">Date</TableCell>
+            <TableCell sx={{border:"1px solid black"}} align="center">ID</TableCell>
+            <TableCell sx={{border:"1px solid black"}} align="center">Description</TableCell>
+            <TableCell sx={{border:"1px solid black"}} align="center">Amount</TableCell>
 
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-       <StyledTableRow key={row.i}>
-       <StyledTableCell align="center">
+       <TableRow key={row.i}>
+       <TableCell sx={{border:"1px solid black"}} align="center">
          {row.date}
-       </StyledTableCell>
-       <StyledTableCell align="center">{row.id}</StyledTableCell>
-       <StyledTableCell align="center">{row.desc}</StyledTableCell>
-       <StyledTableCell align="center">{row.amount}</StyledTableCell>
+       </TableCell>
+       <TableCell sx={{border:"1px solid black"}} align="center">{row.id}</TableCell>
+       <TableCell sx={{border:"1px solid black"}}align="center">{row.desc}</TableCell>
+       <TableCell sx={{border:"1px solid black"}}align="center">{row.amount}</TableCell>
        
-     </StyledTableRow>
+     </TableRow>
           ))}
         </TableBody>
       </Table>

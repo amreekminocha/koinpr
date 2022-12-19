@@ -4,6 +4,7 @@ const initialState = {
   products: [],
   authenticatedUserDetails: {},
   total: 0,
+  orderDetailsData:[]
 };
 export const CartReducers = (state = initialState, action) => {
   const { type, payload } = action;
@@ -141,6 +142,12 @@ export const CartReducers = (state = initialState, action) => {
       return {
         ...state,
         authenticatedUserDetails: payload,
+      };
+    case actionType.ORDER_DETAILS:
+      console.log(payload,"order")
+      return {
+        ...state,
+        orderDetailsData: [...state.orderDetailsData,payload],
       };
     default:
       return state;

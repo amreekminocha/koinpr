@@ -26,6 +26,7 @@ import { AlertDialog } from "../../common/alertDialogue/AlertDialog";
 import Navbar from "../../common/Header/Navbar";
 import StripeContainer from "../Cart/stripe/StripeContainer";
 import OrderSuccess from "../Cart/orderSuccess/OrderSuccess";
+import OrderDetails from "../Cart/orderSuccess/OrderSuccess";
 
 // import Cart from "../Cart/cart/Cart";
 
@@ -76,6 +77,7 @@ function App(props) {
             }
           />
           <Route path="/cart" exact element={<Cart />} />
+          <Route path="/order-details" exact element={<OrderDetails />} />
           {/* <Route path='/profile' exact element={<ProfileAdvertiser />}/> */}
           {/* <Route path='/marketplace' exact element={<ProfileAdvertiser />}/> */}
           {/* <Expanded/> */}

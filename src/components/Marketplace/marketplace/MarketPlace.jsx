@@ -315,16 +315,16 @@ ADD
                   </Grid>
                 ))}
               {marketList?.length === 0 ? (
-                <div
-                  style={{
-                    cursor: "pointer",
-                  }}
-                  onClick={handleReset}
-                >
+                // <div
+                //   style={{
+                //     cursor: "pointer",
+                //   }}
+                //   onClick={handleReset}
+                // >
                   <h1>No Data Found</h1>
-                  <ProgressWithLabel />
-                  <CachedIcon />
-                </div>
+                //   <ProgressWithLabel />
+                //   <CachedIcon />
+                // </div>
               ) : null}
               {marketList.length > 9 ? (
                 <Grid item xs={12} md={12}>

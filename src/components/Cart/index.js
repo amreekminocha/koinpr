@@ -2,11 +2,12 @@ import React from "react";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 import "./Cart.scss";
 import coingate from "../assets/coinsgate.png";
+import stripe from "../assets/stripe.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import { addToCart, subtractQuantity } from "../../redux/actions";
+import { addToCart, orderDetails, subtractQuantity } from "../../redux/actions";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 // import Stripe from "./stripe";
@@ -93,6 +94,7 @@ const Cart = () => {
   };
 
   const handleCheckoutStripe = () => {
+
     axios
       .post(`http://localhost:5000/api/stripe/create-checkout-session`, {
         cartItems: cartDataArray,
@@ -105,6 +107,8 @@ const Cart = () => {
         }
       })
       .catch((err) => console.log(err.message));
+
+
   };
 
   const handleCheckoutCoingate = () => {
@@ -144,7 +148,12 @@ const Cart = () => {
             <div className="amount">Total : {finalprice}$</div>
             <div className="inputs">
               <div className="input">
-                <label>Pay via stripe</label>
+                <label>Pay via stripe
+                </label>
+
+                <span>
+                  <img src={stripe} alt="stripe" />
+                </span>
                 <input
                   type="radio"
                   value="stripe"

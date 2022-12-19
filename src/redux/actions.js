@@ -44,4 +44,10 @@ export const authenticatedUserDetails = (payload) => {
     payload,
   };
 };
+export const orderDetails = (payload) => {
+  return {
+    type: actionType.ORDER_DETAILS,
+    payload,
+  };
+};
 

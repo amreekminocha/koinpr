@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
+import Cookies from "universal-cookie";
+import { authenticatedUserDetails } from "../../redux/actions";
 
 function UserAuthentication() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //   const [userId, setUserId] = useState(null);
   //   useEffect(() => {
-  const auth = cookies.get("auth-token");
+  const auth = Cookies.get("auth-token");
 
   if (!auth) {
     navigate("/sign-in");

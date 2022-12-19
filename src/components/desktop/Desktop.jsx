@@ -12,18 +12,48 @@ import image7 from "../assets/Right7.png";
 // import image8 from "../assets/Right8.png";
 import { Box } from "@mui/system";
 import styles from "./desktopstyle.module.css";
+import { useEffect } from "react";
+import axios from "../../axios";
+import { useState } from "react";
 function Desktop() {
   const [tabValue, setValue] = React.useState(0);
-
+const [feedData,setFeedData]=useState([])
+const [handPickedData,setHandpickedData]=useState([])
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+
+  useEffect(()=>{
+axios.get("/api/getFeed").then((res)=>{
+  console.log(res)
+  if(res?.status===200){
+    setFeedData(res.data)
+  }
+})
+  },[])
+  useEffect(()=>{
+axios.get("/api/getFeed").then((res)=>{
+  console.log(res)
+  if(res?.status===200){
+    setFeedData(res.data)
+  }
+})
+  },[])
+  useEffect(()=>{
+axios.get("/api/handpicked").then((res)=>{
+  console.log(res)
+  if(res?.status===200){
+    setHandpickedData(res.data?.handpickedData)
+  }
+})
+  },[])
   return (
     <div className={styles.mainDiv}>
-      <DesktopLeftPaper />
+      <DesktopLeftPaper data={handPickedData} />
       <Paper className={styles.leftPaper}>
         <Typography className={styles.handPickedTypo}>
-          Hands Picked | 1:00 PM - 3:00 PM
+          Hands Picked | {handPickedData[0].date}
         </Typography>
         <Divider />
         <Grid container>

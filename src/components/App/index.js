@@ -37,7 +37,7 @@ function App(props) {
         <Header />
 
         {/* <Navbar /> */}
-        <Desktop/>
+        {/* <Desktop/> */}
         <Routes>
           {/* <Route path="/expand" exact element={<MarketPlace />} /> */}
           <Route path="/" exact element={<MarketPlace />} />

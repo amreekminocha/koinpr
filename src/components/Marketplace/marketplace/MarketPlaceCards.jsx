@@ -33,8 +33,8 @@ function MarketPlaceCards({ name, details, image, price = 10, data }) {
   };
   return (
     <>
-      <Paper
-        sx={{
+      <div
+        style={{
           width: "282px",
           height: "167px",
           background: "#F8F8F8",
@@ -80,7 +80,7 @@ function MarketPlaceCards({ name, details, image, price = 10, data }) {
             {showAddIcon?<AddCircleOutlineIcon />:<CancelIcon/>}
           </span>
         </div>
-      </Paper>
+      </div>
     </>
   );
 }

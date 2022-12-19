@@ -8,7 +8,7 @@ import image from "../assets/handsPicked.png";
 import styles from "./desktopstyle.module.css";
 import { Divider, Paper } from "@mui/material";
 
-export default function DesktopLeftPaper() {
+export default function DesktopLeftPaper({data}) {
   const [expanded, setExpanded] = React.useState(false);
 
   return (
@@ -21,15 +21,14 @@ export default function DesktopLeftPaper() {
           fontWeight: 700,
         }}
       >
-        Hands Picked | 1:00 PM - 3:00 PM
+        Hands Picked | {data[0].date}
         <Divider />
         <div style={{ marginTop: "35px" }}>
           <img src={image} />
         </div>
       </Typography>
       <Typography sx={{ fontSize: "15px", fontWeight: 600, marginTop: "27px" }}>
-        Whales buy $1.03 billion worth of ETH despite technical indicators
-        suggesting a bearish trend
+        {data[0]?.desc}
         <Divider />
       </Typography>
       <Typography

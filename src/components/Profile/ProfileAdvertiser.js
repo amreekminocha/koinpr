@@ -34,6 +34,7 @@ const ProfileAdvertiser = () => {
   const [step, setStep] = useState(1);
 
   const [userId, setUserId] = useState();
+  const [userData,setUserData]=useState()
 
   console.log(input);
 
@@ -183,7 +184,9 @@ const ProfileAdvertiser = () => {
               <input
                 value="1"
                 type="radio"
-                name="a"
+                name="account"
+                // className="round"
+
                 onChange={handleAccountDetalsCheck}
                 checked={step === 1}
               ></input>
@@ -193,7 +196,7 @@ const ProfileAdvertiser = () => {
               <input
                 value="2"
                 type="radio"
-                name="a"
+                name="account"
                 onChange={handleAccountDetalsCheck}
                 checked={step === 2}
               ></input>
@@ -204,7 +207,7 @@ const ProfileAdvertiser = () => {
                 <input
                   type="radio"
                   onChange={handleAccountDetalsCheck}
-                  name="a"
+                  name="account"
                   value="3"
                   checked={step === 3}
                 ></input>

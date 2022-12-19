@@ -27,6 +27,8 @@ import {
   Typography,
 } from "@mui/material";
 import { AlertDialog } from "../alertDialogue/AlertDialog";
+// import Cookies from "universal-cookie";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -38,6 +40,41 @@ const Header = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [open, setOpen] = React.useState(false);
+
+
+  const [userData, setUserData] = useState();
+  const [userId, setUserId] = useState();
+console.log(userData,"userData")
+
+  useEffect(() => {
+    const auth = cookies.get("auth-token");
+    console.log(auth);
+    if (!auth) {
+      navigate("/sign-in");
+    }
+    axios
+      .post(
+        "/api/user/get-user-by-token",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + auth,
+          },
+        }
+      )
+      .then((res) => {
+        if (!res.data.success) {
+          navigate("/sign-in");
+        }
+        setUserId(res.data.user._id);
+        setUserData(res?.data?.user)
+      })
+      .catch((err) => {
+        console.log(err, "err");
+        navigate("/sign-in");
+      });
+    // UserAuthentication();
+  }, [userId]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -94,9 +131,16 @@ const Header = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (userType) => {
     setAnchorElUser(null);
+
   };
+  const handleUserTypeOrderHistory=(userType)=>{
+    setAnchorElUser(null);
+if(userType==="PUBLISHER"){
+  navigate("/wallet-publisher")
+}
+  }
 
   const signOutHandler = () => {
     cookies.remove("auth-token");
@@ -170,8 +214,8 @@ const Header = () => {
                 <MenuItem  onClick={handleCloseUserMenu}>
                   <Typography onClick={() => navigate("/profile")} textAlign="center">My Profile</Typography>
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Order History</Typography>
+                <MenuItem onClick={()=>handleUserTypeOrderHistory(userData?.userType)}>
+                  <Typography textAlign="center">{userData?.userType==="ADVERTISER"?"Order History":"Wallet History"}</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Telegram</Typography>

@@ -6,7 +6,18 @@
     input[name="account"] {
         accent-color: black;
     }
-
+    input[name="representCompany"] {
+        accent-color: black;
+    }
+    .round {
+        width: 1.3em;
+        height: 1.3em;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+    .round :focus{
+        color: red;
+    }
     p{
         padding: 0;
         margin: 0;
@@ -67,6 +78,7 @@
             .chHeight{
                 height: 13px;
             }
+            
         }
     }
     .pLeft{

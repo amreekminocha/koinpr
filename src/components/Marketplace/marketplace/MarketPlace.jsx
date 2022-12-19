@@ -164,19 +164,20 @@ function MarketPlace(props) {
         .catch((err) => {
           console.log(err, "err");
         });
-    } else {
-      axios
-        .get(`/api/listing/get-all?offerTitle=${offerTitle}&userId=${userId}`)
-        .then((res) => {
-          if (res.data.success) {
-            setMarketList(res.data.data);
-          }
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err, "err");
-        });
-    }
+    } 
+    // else {
+    //   axios
+    //     .get(`/api/listing/get-all?offerTitle=${offerTitle}&userId=${userId}`)
+    //     .then((res) => {
+    //       if (res.data.success) {
+    //         setMarketList(res.data.data);
+    //       }
+    //       console.log(res.data);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err, "err");
+    //     });
+    // }
   }, [param1]);
   const handleReset = () => {
     getData();

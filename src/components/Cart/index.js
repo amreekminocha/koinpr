@@ -15,6 +15,41 @@ import axios from "axios";
 const Cart = () => {
   const [paymentMethod, setPaymentMethod] = useState("stripe");
   const [showAddIcon, setShowAddIcon] = useState(true);
+  const [showProduct, setShowProduct] = useState(true);
+  // const [userData, setUserData] = useState();
+  // const [userId, setUserId] = useState();
+
+
+  // useEffect(() => {
+  //   const auth = cookies.get("auth-token");
+  //   console.log(auth);
+  //   if (!auth) {
+  //     navigate("/sign-in");
+  //   }
+  //   axios
+  //     .post(
+  //       "/api/user/get-user-by-token",
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer " + auth,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       if (!res.data.success) {
+  //         navigate("/sign-in");
+  //       }
+  //       setUserId(res.data.user._id);
+  //       setUserData(res?.data?.user)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "err");
+  //       navigate("/sign-in");
+  //     });
+  //   // UserAuthentication();
+  // }, [userId]);
+
 
   const handleChange = (e) => {
     setPaymentMethod(e.target.value);
@@ -52,6 +87,7 @@ const Cart = () => {
     console.log(item);
     dispatch(subtractQuantity({ id: item?.id, quantity: 1 }));
     setShowAddIcon(true);
+    setShowProduct(false)
   };
 
   const handleCheckoutStripe = () => {
@@ -84,14 +120,16 @@ const Cart = () => {
           <div className="hidden md:block">
             {cartDataArray?.map((el) => (
               <div key={el?.id} className="left">
+                
                 <div className="item">
                   <span className="image">
                     <img src={el.image} alt={el.name} />
                   </span>
                   <span className="title">{el.name}</span>
-                  {/* <div onClick={showAddIcon?() => handleAddToCart(el):() => handleRemoveFromCart(el)} className="title">
-                    {showAddIcon?<AddCircleOutlineIcon />:<CancelIcon/>}
-                  </div> */}
+                  <span className="title">${el.price}</span>
+                  <div onClick={() => handleRemoveFromCart(el)} className="title">
+                    {<CancelIcon/>}
+                  </div>
 
                   {/* <Stripe/> */}
                 </div>

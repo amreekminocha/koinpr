@@ -9,7 +9,7 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
+import styles from "./marketplaceCard.module.css"
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 const ExpandMore = styled((props) => {
@@ -31,7 +31,7 @@ export default function MarketPlaceCard() {
   };
 
   return (
-    <Card sx={{ width:"282px",height:"167px",background:"#F8F8F8" }}>
+    <Card className={styles.mainContainer}>
       <CardHeader
         avatar={
           <Avatar sx={{

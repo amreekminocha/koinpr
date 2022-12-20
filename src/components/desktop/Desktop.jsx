@@ -50,10 +50,15 @@ axios.get("/api/handpicked").then((res)=>{
   },[])
   return (
     <div className={styles.mainDiv}>
-      <DesktopLeftPaper data={handPickedData} />
+      <DesktopLeftPaper 
+      
+      
+      // data={handPickedData}
+      
+      />
       <Paper className={styles.leftPaper}>
         <Typography className={styles.handPickedTypo}>
-          Hands Picked | {handPickedData[0].date}
+          {/* Hands Picked | {handPickedData[0].date} */}
         </Typography>
         <Divider />
         <Grid container>

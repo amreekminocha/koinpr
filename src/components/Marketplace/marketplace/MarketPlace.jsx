@@ -47,7 +47,7 @@ function MarketPlace(props) {
   console.log(param1);
   console.log(params, "param");
   const init = {
-    listingCategory: "pressRelease",
+    listingCategory: "",
     offerTitle: "",
   };
   // const [category, setCategory] = React.useState('press');

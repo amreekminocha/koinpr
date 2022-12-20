@@ -1,5 +1,11 @@
 .signin{
-    padding: 105px 540px;
+    // padding: 105px 540px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    // height: calc(100vh - 120px);
+    height: 85vh;
 
     input:focus {
         outline: 1px solid black;
@@ -20,6 +26,8 @@
         flex-direction: column;
         border-bottom: 7px solid black;
         border-radius: 3px;
+        margin-top: 105px;
+        justify-content: space-between;
 
         .error{
             color: red;
@@ -78,14 +86,15 @@
         }
 
         .forgot{
-            margin-top: 111px;
+            // margin-top: 111px;
+            margin-bottom: 27px;
             text-decoration: none;
             color: black;
             font-size: 14px;
         }
     }
         .allRight {
-            margin-top: 172px;
+            // margin-top: 172px;
             font-size: 15px;
         }
 }

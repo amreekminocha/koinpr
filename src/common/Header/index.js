@@ -172,7 +172,7 @@ if(userType==="PUBLISHER"){
             </span>
           </div>
           <div className="right">
-            <span style={{marginTop:"7px"}} onClick={() => navigate("/")}>Publishers</span>
+            <span onClick={() => navigate("/")}>Publishers</span>
             {/* <span
               className="myAccount"
               onClick={(e) => {

@@ -29,29 +29,24 @@ import { ProgressWithLabel } from "../../../common/progressWithLabel/ProgressWit
 import { StringParam, useQueryParam } from "use-query-params";
 import { UserAuthentication } from "../../../common/userAuthentication/UserAuthentication";
 
-function useQuery() {
-  const { search } = useLocation();
-  console.log(search, "search");
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-}
+
 function MarketPlace(props) {
-  let query = useQuery();
+  const query = '';
+
+  const [listingFilter, setListingFilter] = useState();
+  const [offerFilter, setOfferFilter] = useState();
 
   //for getting current location from the react-router
-  const location = useLocation();
-  console.log(location.search);
+  // const location = useLocation();
+  // console.log(location.search);
   //
-  const params = new URLSearchParams(location.search);
-  const param1 = params.get("param1");
-  const param2 = params.get("param2");
-  console.log(param1);
-  console.log(params, "param");
-  const init = {
-    listingCategory: "",
-    offerTitle: "",
-  };
+  // const params = new URLSearchParams(location.search);
+  // const param1 = params.get("param1");
+  // const param2 = params.get("param2");
+  // console.log(param1);
+  // console.log(params, "param");  
   // const [category, setCategory] = React.useState('press');
-  const [input, setInput] = useState(init);
+  // const [input, setInput] = useState(init);
   // const [categoryParam, setCategoryParam] = useQueryParam(
   //   'filterByCategory',
   //   StringParam
@@ -62,7 +57,7 @@ function MarketPlace(props) {
   const [marketList, setMarketList] = useState([]);
 
   const [userId, setUserId] = useState();
-
+console.log(marketList,"marketList")
   // const filteredData = marketList.filter((item) => {
   //   return item.offerTitle === param1 && item.listingCategory == param2;
   // });
@@ -71,9 +66,31 @@ function MarketPlace(props) {
   // useEffect(() => {
   //   setMarketList(filteredData);
   // }, [param1, param2]);
+
+  const getData = (lc, oc) => {
+    let searchQuery = `userId=${userId}`;
+    if(lc){
+      searchQuery += `&listingCategory=${lc}`;
+    }
+    if(offerFilter){
+      searchQuery += `&offerTitle=${oc}`;
+    }
+    axios
+      .get(`/api/listing/get-all?${searchQuery}`)
+      .then((res) => {
+        if (res.data.success) {
+          setMarketList(res.data.data);
+        }
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err, "err");
+      });
+  };
+
   useEffect(() => {
     const auth = cookies.get("auth-token");
-    console.log(auth);
+    // console.log(auth);
     if (!auth) {
       navigate("/sign-in");
     }
@@ -98,91 +115,101 @@ function MarketPlace(props) {
         navigate("/sign-in");
       });
     // UserAuthentication();
-  }, [userId]);
+  }, [window.location.search,userId]);
 
-  const getData = () => {
-    axios
-      .get(`/api/listing/get-all?userId=${userId}`)
-      .then((res) => {
-        if (res.data.success) {
-          setMarketList(res.data.data);
-        }
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err, "err");
-      });
-  };
+  useEffect(()=>{
+    if(!userId){
+      return;
+    };
 
-  useEffect(() => {
-    if (userId) {
-      getData();
+    const { search } = window.location;
+    let params = new URLSearchParams(search);
+
+    let lc = params.get('listingCategory');
+    let ot = params.get('offerTitle');
+
+    if(lc){
+      setListingFilter(lc);
     }
-  }, [userId]);
+    if(ot){
+      setOfferFilter(ot);
+    };
+
+    getData(lc, ot);
+    
+  }, [window.location.search, userId]);
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     getData();
+  //   }
+  // }, [userId]);
 
   //function to handle search
   const handleSearchKeys = (e) => {
     const { name, value } = e.target;
 
-    if (name === "offerTitle") {
-      setInput({ offerTitle: value, listingCategory: "" });
-      // setCategoryParam(e.target.value)
-    } else if (name === "listingCategory") {
-      setInput({ listingCategory: value, offerTitle: "" });
-    }
-    axios
-      .get(`/api/listing/get-all?${name}=${value}&userId=${userId}`)
-      .then((res) => {
-        if (res.data.success) {
-          setMarketList(res.data.data);
-        }
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err, "err");
-      });
+    // if (name === "offerTitle") {
+    //   setInput({ offerTitle: value, listingCategory: "" });
+    //   // setCategoryParam(e.target.value)
+    // } else if (name === "listingCategory") {
+    //   setInput({ listingCategory: value, offerTitle: "" });
+    // }
+    window.location.search = `listingCategory=${value}`;
+    // axios
+    //   .get(`/api/listing/get-all?${name}=${value}&userId=${userId}`)
+    //   .then((res) => {
+    //     if (res.data.success) {
+    //       setMarketList(res.data.data);
+    //     }
+    //     console.log(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err, "err");
+    //   });
   };
 
-  useEffect(() => {
-    const listingCategory = query.get("listingCategory");
-    const offerTitle = query.get("offerTitle");
-    if (
-      listingCategory === "pressRelease" ||
-      listingCategory === "sponsoredArticle" ||
-      listingCategory === "buttonAds" ||
-      listingCategory === "bannerAds"
-    ) {
-      axios
-        .get(
-          `/api/listing/get-all?listingCategory=${listingCategory}&userId=${userId}`
-        )
-        .then((res) => {
-          if (res.data.success) {
-            setMarketList(res.data.data);
-          }
-          console.log(res.data, "jhdsjdh");
-        })
-        .catch((err) => {
-          console.log(err, "err");
-        });
-    } 
-    // else {
-    //   axios
-    //     .get(`/api/listing/get-all?offerTitle=${offerTitle}&userId=${userId}`)
-    //     .then((res) => {
-    //       if (res.data.success) {
-    //         setMarketList(res.data.data);
-    //       }
-    //       console.log(res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err, "err");
-    //     });
-    // }
-  }, [param1]);
+  // useEffect(() => {
+  //   const listingCategory = query.get("listingCategory");
+  //   const offerTitle = query.get("offerTitle");
+  //   if (
+  //     listingCategory === "pressRelease" ||
+  //     listingCategory === "sponsoredArticle" ||
+  //     listingCategory === "buttonAds" ||
+  //     listingCategory === "bannerAds"
+  //   ) {
+  //     axios
+  //       .get(
+  //         `/api/listing/get-all?listingCategory=${listingCategory}&userId=${userId}`
+  //       )
+  //       .then((res) => {
+  //         if (res.data.success) {
+  //           setMarketList(res.data.data);
+  //         }
+  //         console.log(res.data, "jhdsjdh");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err, "err");
+  //       });
+  //   } 
+  //   // else {
+  //   //   axios
+  //   //     .get(`/api/listing/get-all?offerTitle=${offerTitle}&userId=${userId}`)
+  //   //     .then((res) => {
+  //   //       if (res.data.success) {
+  //   //         setMarketList(res.data.data);
+  //   //       }
+  //   //       console.log(res.data);
+  //   //     })
+  //   //     .catch((err) => {
+  //   //       console.log(err, "err");
+  //   //     });
+  //   // }
+  // }, []);
+  
   const handleReset = () => {
     getData();
-    setInput(init);
+    // setInput(init);
   };
   //keyboard interaction
   // Usekey("Enter", handleSearchKeys);
@@ -229,7 +256,7 @@ function MarketPlace(props) {
                     sx={{ p: "10px" }}
                     id="outlined-basic"
                     name="offerTitle"
-                    value={input.offerTitle}
+                    value={offerFilter}
                     onChange={handleSearchKeys}
                     label="Enter publisher name"
                     variant="outlined"
@@ -259,7 +286,7 @@ function MarketPlace(props) {
                   Choose Category
                 </p>
 
-                <Box sx={{ minWidth: 220 }}>
+                {/* <Box sx={{ minWidth: 220 }}>
                   <FormControl sx={{ width: "98%" }} size="small">
                     <InputLabel id="demo-simple-select-label">
                       Listing Category
@@ -268,26 +295,47 @@ function MarketPlace(props) {
                       sx={{ padding: "10px" }}
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={input.listingCategory}
+                      value={listingFilter}
                       name="listingCategory"
                       label="Listing Category"
                       onChange={handleSearchKeys}
                     >
-                      <MenuItem value={"pressRelease"}>
-                        <Link to="/?listingCategory=pressRelease">
-                          Press Release
-                        </Link>
-                      </MenuItem>
-                      <MenuItem value={"sponsoredArticle"}>
-                        <Link to="/?listingCategory=sponsoredArticle">
-                          Sponsored Articles
-                        </Link>
-                      </MenuItem>
+                      <MenuItem value={"pressRelease"}>Press Release</MenuItem>
+                      <MenuItem value={"sponsoredArticle"}>Sponsored Articles</MenuItem>
                       <MenuItem value={"buttonAds"}>Button Ads</MenuItem>
-                      <MenuItem value={"bannerads"}>Banner Ads</MenuItem>
+                      <MenuItem value={"bannerAds"}>Banner Ads</MenuItem>
                     </Select>
                   </FormControl>
-                </Box>
+                </Box> */}
+                 <div className='marketplace'>
+            <div className='panels'>
+                <div className='mpLeft'>
+                  <div className='publishers'>
+                        <span>Choose Category</span>
+                        <div className='option'>
+                            <label htmlFor='pressRelease'>Press Release</label>
+                            <input type='radio' name='category' id='pressRelease' value='pressRelease' />
+                        </div>
+                        <div className='option'>
+                            <label htmlFor='sponsoredArticles'>Sponsored Articles</label>
+                            <input type='radio' name='category' id='sponsoredArticles' value='sponsoredArticles' />
+                        </div>
+                        <div className='option'>
+                            <label htmlFor='button'>Button Ads</label>
+                            <input type='radio' name='category' id='button' value='buttonAds' />
+                        </div>
+                        <div className='option'>
+                            <label htmlFor='banner'>Banner Ads</label>
+                            <input type='radio' name='category' id='banner' value='bannerAds' />
+                        </div>
+                        {/* <div className='option'>
+                            {/* <label htmlFor='bannerAds'>Banner Ads</label> */}
+                            {/* <input type='radio' name='category' id='bannerAds' value='bannerAds' /> */}
+                        {/* </div> */}
+                    </div>
+                    </div>
+                    </div>
+                    </div>
               </Grid>
             </Grid>
           </div>

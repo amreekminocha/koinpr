@@ -65,7 +65,7 @@ const AddListing = () => {
     websiteLink: "",
     offerTitle: "",
     listingCategory: "",
-    logo: "",
+   
     websiteLanguage: "",
     noFollowLinkAllowed: true,
     doFollowLinkAllowed: true,
@@ -78,7 +78,8 @@ const AddListing = () => {
   };
 
   const [addListingInput, setAddListingInput] = useState(init);
-
+const [image,setImage]=useState('')
+console.log(image)
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
     if (name === "noFollowLinkAllowed") {
@@ -101,6 +102,7 @@ const AddListing = () => {
   };
   console.log(addListingInput, "addListingInput");
   const [showDialog, setShowDialog] = useState(false);
+
   const handleSubmitFunction = () => {
     const {
       email,
@@ -114,12 +116,34 @@ const AddListing = () => {
       twitter,
       offerTitle,
       listingCategory,
-      logo,
+      
       noFollowLinkAllowed,
       doFollowLinkAllowed,
       indexedArticle,
       websiteLink,
+
     } = addListingInput;
+
+
+    const formData = new FormData()
+
+    formData.append('image', image)
+    formData.append('websiteLink', websiteLink)
+    formData.append('indexedArticle', indexedArticle)
+    formData.append('doFollowLinkAllowed', doFollowLinkAllowed)
+    formData.append('noFollowLinkAllowed', noFollowLinkAllowed)
+    formData.append('listingCategory', listingCategory)
+    formData.append('offerTitle', offerTitle)
+    formData.append('twitter', twitter)
+    formData.append('facebook', facebook)
+    formData.append('socialShare', socialShare)
+    formData.append('googleNews', googleNews)
+    formData.append('linkedin', linkedin)
+    formData.append('websiteLanguage', websiteLanguage)
+    formData.append('price', price)
+    formData.append('userType', userType)
+    formData.append('email', email)
+    
     const token = cookies.get("auth-token");
 
     const config = {
@@ -127,26 +151,27 @@ const AddListing = () => {
     };
     axios
       .post(
-        "api/listing/add",
+        "api/listing/add",formData,
         {
-          email,
-          userType,
-          price,
-          websiteLanguage,
-          linkedin,
-          googleNews,
-          socialShare,
-          facebook,
-          twitter,
-          offerTitle,
-          listingCategory,
-          logo,
-          noFollowLinkAllowed,
-          doFollowLinkAllowed,
-          indexedArticle,
-          websiteLink,
-          userType,
-          userId: userId,
+          // email,
+          // userType,
+          // price,
+          // websiteLanguage,
+          // linkedin,
+          // googleNews,
+          // socialShare,
+          // facebook,
+          // twitter,
+          // offerTitle,
+          // listingCategory,
+          // image:image,
+          // noFollowLinkAllowed,
+          // doFollowLinkAllowed,
+          // indexedArticle,
+          // websiteLink,
+          // userType,
+          // userId: userId,
+          // image:image
         },
         config
       )
@@ -388,6 +413,15 @@ const AddListing = () => {
                 </Select>
               </FormControl>
             </Box>
+            <input
+              onChange={(e)=>setImage(e.target.files[0])}
+              type="file"
+              name="image"
+              
+              className="input"
+              
+              // {...register("twitter")}
+            />
           </div>
           <div style={{display:"flex",justifyContent:"space-between"}}>
 

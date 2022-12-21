@@ -21,14 +21,15 @@ export default function DesktopLeftPaper({data}) {
           fontWeight: 700,
         }}
       >
-        Hands Picked | {data[0].date}
+        Hands Picked |
+         {/* {data[0].date} */}
         <Divider />
         <div style={{ marginTop: "35px" }}>
           <img src={image} />
         </div>
       </Typography>
       <Typography sx={{ fontSize: "15px", fontWeight: 600, marginTop: "27px" }}>
-        {data[0]?.desc}
+        {/* {data[0]?.desc} */}
         <Divider />
       </Typography>
       <Typography

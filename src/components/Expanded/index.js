@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import './Expanded.scss';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,8 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useDispatch } from 'react-redux';
 import { addToCart, subtractQuantity } from '../../redux/actions';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useRef } from 'react';
+import { useEffectOnceWhen } from '../../common/useEffectOnceWhen.js/useEffectOncewhen';
 const Expanded = () => {
     
     // const cookies = new Cookies();
@@ -59,32 +61,67 @@ const Expanded = () => {
     const [userId, setUserId] = useState();
     const [showAddIcon,setShowAddIcon]=useState(true)
 
-    useEffect(() => {
+    
+
+
+    // function useEffectOnce(effect) {
+    //   const effectFn = useRef(effect)
+    //   const destroyFn = useRef()
+    //   const effectCalled = useRef(false)
+    //   const rendered = useRef(false)
+    //   const [, refresh] = useState(0)
+    
+    //   if (effectCalled.current) {
+    //     rendered.current = true
+    //   }
+    
+    //   useEffect(() => {
+    //     if (!effectCalled.current) {
+    //       destroyFn.current = effectFn.current()
+    //       effectCalled.current = true
+    //     }
+    
+    //     refresh(1)
+    
+    //     return () => {
+    //       if (rendered.current === false) return
+    //       if (destroyFn.current) destroyFn.current()
+    //     }
+    //   }, [])
+    // }
+
+
+    useEffectOnceWhen(() => {
+   
       const auth = cookies.get("auth-token");
       if (!auth) {
         navigate("/sign-in");
       }
-      axios
-        .post(
-          "/api/user/get-user-by-token",
-          {},
-          {
-            headers: {
-              Authorization: "Bearer " + auth,
-            },
-          }
-        )
-        .then((res) => {
-          if (!res.data.success) {
+    
+
+        axios
+          .post(
+            "/api/user/get-user-by-token",
+            {},
+            {
+              headers: {
+                Authorization: "Bearer " + auth,
+              },
+            }
+          )
+          .then((res) => {
+            if (!res.data.success) {
+              navigate("/sign-in");
+            }
+            setUserId(res.data.user._id);
+            console.log("first")
+          })
+          .catch((err) => {
+            console.log(err, "err");
             navigate("/sign-in");
-          }
-          setUserId(res.data.user._id);
-        })
-        .catch((err) => {
-          console.log(err, "err");
-          navigate("/sign-in");
-        });
-    }, []);
+          });
+    
+    },[]);
   
     const { id } = useParams();
   
@@ -185,4 +222,4 @@ const Expanded = () => {
     return (<h2>No Data Found</h2>)
 }
 
-export default Expanded;
+export default memo(Expanded);

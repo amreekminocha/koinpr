@@ -53,7 +53,7 @@ axios.get("/api/handpicked").then((res)=>{
       <DesktopLeftPaper 
       
       
-      // data={handPickedData}
+      data={handPickedData}
       
       />
       <Paper className={styles.leftPaper}>

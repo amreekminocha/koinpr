@@ -25,6 +25,10 @@ const ProfileAdvertiser = () => {
     userType: "",
     walletAddress: "",
     bankTransfer: true,
+    accountNo:null,
+    swiftCode:null,
+    bankName:"",
+
   };
 
   const cookies = new Cookies();
@@ -78,6 +82,7 @@ const ProfileAdvertiser = () => {
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
+    console.log(name,value,"checked")
     if (name === "representCompany") {
       setInput({ ...input, representCompany: checked });
     } else if (name === "cryptoCurrency") {
@@ -109,6 +114,9 @@ const ProfileAdvertiser = () => {
       userType,
       walletAddress,
       bankTransfer,
+      bankName,
+      swiftCode,
+      accountNo
     } = input;
     const token = cookies.get("auth-token");
 
@@ -136,6 +144,9 @@ const ProfileAdvertiser = () => {
           userType,
           walletAddress,
           bankTransfer,
+          accountNo,
+          swiftCode,
+          bankName
         },
         config
       )

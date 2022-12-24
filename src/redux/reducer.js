@@ -3,6 +3,7 @@ import { actionType } from "./type";
 const initialState = {
   products: [],
   authenticatedUserDetails: {},
+  token:{},
   total: 0,
   orderDetailsData:[]
 };
@@ -144,10 +145,16 @@ export const CartReducers = (state = initialState, action) => {
         authenticatedUserDetails: payload,
       };
     case actionType.ORDER_DETAILS:
-      console.log(payload,"order")
+      
       return {
         ...state,
         orderDetailsData: [...state.orderDetailsData,payload],
+      };
+    case actionType.SET_TOKEN_TO_REDUX:
+     
+      return {
+        ...state,
+        token: payload.token
       };
     default:
       return state;

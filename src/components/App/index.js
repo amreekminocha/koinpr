@@ -27,6 +27,7 @@ import Navbar from "../../common/Header/Navbar";
 import StripeContainer from "../Cart/stripe/StripeContainer";
 import OrderSuccess from "../Cart/orderSuccess/OrderSuccess";
 import OrderDetails from "../Cart/orderSuccess/OrderSuccess";
+import { UserAuthentication } from "../../common/userAuthentication/UserAuthentication";
 
 // import Cart from "../Cart/cart/Cart";
 
@@ -38,14 +39,11 @@ function App(props) {
         <Header />
 
         {/* <Navbar /> */}
-        {/* <Desktop/> */}
+        <Desktop/>
         <Routes>
-          {/* <Route path="/expand" exact element={<MarketPlace />} /> */}
           <Route path="/" exact element={<MarketPlace />} />
-          {/* <Route path="/expand" exact element={<Expand />} /> */}
           <Route path="/expand/:id" exact element={<Expanded />} />
           <Route path="/checkout" exact element={<StripeContainer />} />
-          {/* <Route path="/expand/:id" exact element={<Expand />} /> */}
           <Route path="/sign-in" exact element={<SignIn />} />
           <Route path="/sign-up" exact element={<SignUp />} />
           <Route path="/checkout-success" exact element={<OrderSuccess />} />
@@ -63,7 +61,7 @@ function App(props) {
           <Route path="/profile" exact element={<ProfileAdvertiser />} />
           <Route path="/add-listing" exact element={<AddListing />} />
           <Route
-            path="/popup"
+            path="/forget-password"
             exact
             element={
               <Popup

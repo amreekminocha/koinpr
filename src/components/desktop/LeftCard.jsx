@@ -22,14 +22,14 @@ export default function DesktopLeftPaper({data}) {
         }}
       >
         Hands Picked |
-         {/* {data[0].date} */}
+         {data[4]?.date}
         <Divider />
         <div style={{ marginTop: "35px" }}>
-          <img src={image} />
+          <img src={`http://localhost:5000/${data[4]?.image}`} />
         </div>
       </Typography>
       <Typography sx={{ fontSize: "15px", fontWeight: 600, marginTop: "27px" }}>
-        {/* {data[0]?.desc} */}
+        {data[4]?.desc1}
         <Divider />
       </Typography>
       <Typography
@@ -39,23 +39,22 @@ export default function DesktopLeftPaper({data}) {
           marginTop: "13.99px",
         }}
       >
-        German financial regulator: Current Crypto sector does not pose threat
-        to the financial stability
+       {data[4]?.desc2}
       </Typography>
       <Divider className={styles.divider} />
       <Typography className={styles.typo}>
-        German financial regulator: Current Crypto sector does not pose threat
-        to the financial stability
+      {data[4]?.desc3}
+
       </Typography>
       <Divider className={styles.divider} />
       <Typography className={styles.typo}>
-        German financial regulator: Current Crypto sector does not pose threat
-        to the financial stability
+      {data[4]?.desc4}
+
       </Typography>
       <Divider className={styles.divider} />
       <Typography className={styles.typo}>
-        German financial regulator: Current Crypto sector does not pose threat
-        to the financial stability
+      {data[4]?.desc5}
+
       </Typography>
     </Paper>
   );

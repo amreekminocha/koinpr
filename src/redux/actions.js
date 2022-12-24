@@ -1,3 +1,4 @@
+import { marketPlaceApi } from "../common/api/marketPlaceApi";
 import { actionType } from "./type";
 
 export const showIndividualMarketplaceData = (payload) => {
@@ -44,10 +45,76 @@ export const authenticatedUserDetails = (payload) => {
     payload,
   };
 };
+export const SetTokenToRedux = (payload) => {
+  return {
+    type: actionType.SET_TOKEN_TO_REDUX,
+    payload,
+  };
+};
 export const orderDetails = (payload) => {
   return {
     type: actionType.ORDER_DETAILS,
     payload,
   };
 };
+
+
+const getUserByTokenRequest = () => {
+  return {
+    type: actionType.GET_USER_BY_TOKEN_REQUEST,
+  };
+};
+
+const getUserByTokenSuccess = (data) => {
+  return {
+    type: actionType.GET_USER_BY_TOKEN_SUCCESS,
+    payload: data,
+  };
+};
+
+const getUserByTokenFailure = (error) => {
+  return {
+    type: actionType.GET_USER_BY_TOKEN_FAILURE,
+    payload: error,
+    meta: {
+      type: "error",
+      msg: "Failed to get USER BY TOKEN",
+    },
+  };
+};
+
+export const getUserByJwtToken =
+  () =>
+  async (dispatch) => {
+    dispatch(getUserByTokenRequest());
+
+   
+
+    try {
+      let res = await marketPlaceApi.getUserByTokenInMarketPlace();
+console.log(res,"response")
+      let updatedData = await res.data.CannedList?.map((data) => {
+        return {
+          ...data,
+          id: data.code,
+        };
+      });
+      
+
+      if (res.data.success) {
+        dispatch(
+          getUserByTokenSuccess({
+            data: updatedData,
+           
+          })
+        );
+      } else {
+        dispatch(getUserByTokenFailure("data not found"));
+      }
+    } catch (error) {
+      dispatch(
+        getUserByTokenFailure("No Actual Data Found")
+      );
+    }
+  };
 

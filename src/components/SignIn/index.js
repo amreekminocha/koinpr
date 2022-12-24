@@ -3,11 +3,15 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "../../axios";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import GoogleLogin from "react-google-login";
 
 import "./SignIn.scss";
 import { Usekey } from "../../common/keyboardInteraction/KeyboardPress";
 import CustomizedSnackbars from "../../common/snackbar/SnackBar";
-
+import { useDispatch } from "react-redux";
+import { SetTokenToRedux } from "../../redux/actions";
+import { useEffect } from "react";
+import { gapi } from "gapi-script";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +20,7 @@ const SignIn = () => {
 
   const cookies = new Cookies();
   const navigate = useNavigate();
-
+const dispatch=useDispatch();
   const validateInput = () => {
     let error = {};
     let formIsValid = true;
@@ -75,6 +79,11 @@ const SignIn = () => {
       .then((res) => {
         if (res?.data?.success) {
           cookies.set("auth-token", res?.data?.user?.token, { path: "/" });
+          const payload={
+            token:res?.data?.user?.token
+          }
+        dispatch(SetTokenToRedux(payload))
+
           navigate("/");
           setOpen(true);
         } else {
@@ -85,6 +94,40 @@ const SignIn = () => {
         console.log("err", err);
       });
   };
+
+  const clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
+
+
+useEffect(()=>{
+function start(){
+  gapi.client.init({
+    clientId:clientId,
+    scope:""
+  })
+};
+gapi.load("client:auth2",start)
+})
+
+const handleLogin = async googleData => {
+  
+  const res = await axios.post("/api/google/auth",{
+      token: googleData.tokenId
+
+  }).then((res)=>console.log(res,"response"))
+  //  fetch("/api/v1/auth/google", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //     token: googleData.tokenId
+  //   }),
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   }
+  // })
+  const data = await res.json()
+  console.log(data,"data")
+  navigate("/")
+  // store returned user in a context?
+}
 
   //keyboard interaction
   Usekey("Enter", submitHandler);
@@ -118,7 +161,14 @@ const SignIn = () => {
             <ArrowForwardIcon />
           </button>
         </form>
-        <a href="/" className="forgot">
+        <GoogleLogin
+    clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
+    buttonText="Sign in with Google"
+    onSuccess={handleLogin}
+    onFailure={handleLogin}
+    cookiePolicy={'single_host_origin'}
+/>
+        <a href="/forget-password" className="forgot">
           Forgot password?
         </a>
       </div>

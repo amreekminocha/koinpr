@@ -29,7 +29,9 @@ import { ProgressWithLabel } from "../../../common/progressWithLabel/ProgressWit
 import { StringParam, useQueryParam } from "use-query-params";
 import { UserAuthentication } from "../../../common/userAuthentication/UserAuthentication";
 
-
+import "../Marketplace.scss"
+import { useEffectOnceWhen } from "../../../common/useEffectOnceWhen.js/useEffectOncewhen";
+import { getUserByJwtToken } from "../../../redux/actions";
 function MarketPlace(props) {
   const query = '';
 
@@ -88,38 +90,73 @@ console.log(marketList,"marketList")
       });
   };
 
-  useEffect(() => {
-    const auth = cookies.get("auth-token");
-    // console.log(auth);
-    if (!auth) {
-      navigate("/sign-in");
-    }
-    axios
-      .post(
-        "/api/user/get-user-by-token",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + auth,
-          },
-        }
-      )
-      .then((res) => {
-        if (!res.data.success) {
-          navigate("/sign-in");
-        }
-        setUserId(res.data.user._id);
-      })
-      .catch((err) => {
-        console.log(err, "err");
-        navigate("/sign-in");
-      });
-    // UserAuthentication();
-  }, [window.location.search,userId]);
+  // useEffect(() => {
+  //   const auth = cookies.get("auth-token");
+  //   // console.log(auth);
+  //   if (!auth) {
+  //     navigate("/sign-in");
+  //   }
+  //   axios
+  //     .post(
+  //       "/api/user/get-user-by-token",
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer " + auth,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       if (!res.data.success) {
+  //         navigate("/sign-in");
+  //       }
+  //       setUserId(res.data.user._id);
+  //       console.log(" marketplace")
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "err");
+  //       navigate("/sign-in");
+  //     });
+  //   // UserAuthentication();
+  // }, [window.location.search,userId]);
 
+  useEffectOnceWhen(()=>{
+    const auth = cookies.get("auth-token");
+      console.log(auth);
+      if (!auth) {
+        navigate("/sign-in");
+      }
+      axios
+        .post(
+          "/api/user/get-user-by-token",
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + auth,
+            },
+          }
+        )
+        .then((res) => {
+          if (!res.data.success) {
+            navigate("/sign-in");
+          }
+          setUserId(res.data.user._id);
+          console.log(" marketplace")
+        })
+        .catch((err) => {
+          console.log(err, "err");
+          navigate("/sign-in");
+        });
+    // getUserByJwtToken()
+  },[])
+useEffect(()=>{
+  getUserByJwtToken()
+
+},[])
   useEffect(()=>{
     if(!userId){
       return;
+
     };
 
     const { search } = window.location;
@@ -155,7 +192,7 @@ console.log(marketList,"marketList")
     // } else if (name === "listingCategory") {
     //   setInput({ listingCategory: value, offerTitle: "" });
     // }
-    window.location.search = `listingCategory=${value}`;
+    window.location.search = `listingCategory=${e.target.value}`;
     // axios
     //   .get(`/api/listing/get-all?${name}=${value}&userId=${userId}`)
     //   .then((res) => {
@@ -311,22 +348,36 @@ console.log(marketList,"marketList")
             <div className='panels'>
                 <div className='mpLeft'>
                   <div className='publishers'>
-                        <span>Choose Category</span>
+                        {/* <span>Choose Category</span> */}
                         <div className='option'>
                             <label htmlFor='pressRelease'>Press Release</label>
-                            <input type='radio' name='category' id='pressRelease' value='pressRelease' />
+                            <input type='radio' name='category' id='pressRelease' value='pressRelease' 
+                checked={listingFilter === "pressRelease"}
+                      onChange={handleSearchKeys}
+                            
+                            />
                         </div>
                         <div className='option'>
                             <label htmlFor='sponsoredArticles'>Sponsored Articles</label>
-                            <input type='radio' name='category' id='sponsoredArticles' value='sponsoredArticles' />
+                            <input type='radio' name='category' id='sponsoredArticle' 
+                checked={listingFilter === "sponsoredArticle"}
+                      onChange={handleSearchKeys}
+                            
+                            value='sponsoredArticle' />
                         </div>
                         <div className='option'>
                             <label htmlFor='button'>Button Ads</label>
-                            <input type='radio' name='category' id='button' value='buttonAds' />
+                            <input type='radio'
+                                            checked={listingFilter === "buttonAds"}
+                                            onChange={handleSearchKeys}
+                            name='category' id='button' value='buttonAds' />
                         </div>
                         <div className='option'>
                             <label htmlFor='banner'>Banner Ads</label>
-                            <input type='radio' name='category' id='banner' value='bannerAds' />
+                            <input type='radio' name='category'
+                                            checked={listingFilter === "bannerAds"}
+                                            onChange={handleSearchKeys}
+                            id='banner' value='bannerAds' />
                         </div>
                         {/* <div className='option'>
                             {/* <label htmlFor='bannerAds'>Banner Ads</label> */}

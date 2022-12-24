@@ -7,7 +7,11 @@ import axios from "../../axios";
 import SignUpMobile from "./signupMobile/SignupMobile";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Usekey } from "../../common/keyboardInteraction/KeyboardPress";
-
+import { useDispatch } from "react-redux";
+import { SetTokenToRedux } from "../../redux/actions";
+import GoogleLogin from "react-google-login";
+import { gapi } from "gapi-script";
+import { useEffect } from "react";
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -17,7 +21,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
   const [errors, setErrors] = useState({});
-
+const dispatch=useDispatch()
   const cookies = new Cookies();
 
   const validateInput = () => {
@@ -100,13 +104,53 @@ const SignUp = () => {
         cookies.set("auth-token", res?.data?.dataToSave?.jwtToken, {
           path: "/",
         });
+        dispatch(SetTokenToRedux({token:res?.data?.dataToSave?.jwtToken}))
         navigate("/");
       })
       .catch((err) => {
         console.log("err", err);
       });
   };
+  // const googleAuth = () => {
+	// 	window.open(
+	// 		`http://localhost:8080/auth/google/callback`,
+	// 		"_self"
+	// 	);
+	// };
 
+
+  // Handling the response from Google
+      
+const handleLogin = async googleData => {
+  alert("clicked")
+  const res = await axios.post("/api/google/auth",{
+      token: googleData.tokenId
+
+  }).then((res)=>console.log(res,"response"))
+  //  fetch("/api/v1/auth/google", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //     token: googleData.tokenId
+  //   }),
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   }
+  // })
+  const data = await res.json()
+  console.log(data,"data")
+  navigate("/sign-in")
+  // store returned user in a context?
+}
+const clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
+useEffect(()=>{
+function start(){
+  gapi.client.init({
+    clientId:clientId,
+    scope:""
+  })
+};
+gapi.load("client:auth2",start)
+})
   //keyboard
   Usekey("Enter", submitHandler);
   Usekey("NumpadEnter", submitHandler);
@@ -213,8 +257,17 @@ const SignUp = () => {
                   Proceed
                   <ArrowForwardIcon fontSize="10px" />
                 </button>
+              
+                
               </div>
             </form>
+            <GoogleLogin
+    clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
+    buttonText="Sign up with Google"
+    onSuccess={handleLogin}
+    onFailure={handleLogin}
+    cookiePolicy={'single_host_origin'}
+/>
           </div>
         </div>
         <div className="allRight">

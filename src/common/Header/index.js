@@ -30,6 +30,7 @@ import {
 import { AlertDialog } from "../alertDialogue/AlertDialog";
 // import Cookies from "universal-cookie";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { memo } from "react";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -47,35 +48,43 @@ const Header = () => {
   const [userId, setUserId] = useState();
 console.log(userData,"userData")
 
-  useEffect(() => {
-    const auth = cookies.get("auth-token");
-    console.log(auth);
-    if (!auth) {
-      navigate("/sign-in");
-    }
-    axios
-      .post(
-        "/api/user/get-user-by-token",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + auth,
-          },
-        }
-      )
-      .then((res) => {
-        if (!res.data.success) {
-          navigate("/sign-in");
-        }
-        setUserId(res.data.user._id);
-        setUserData(res?.data?.user)
-      })
-      .catch((err) => {
-        console.log(err, "err");
-        navigate("/sign-in");
-      });
-    // UserAuthentication();
-  }, [userId]);
+  // useEffect(() => {
+  //   let isCancelled=false;
+  //   const auth = cookies.get("auth-token");
+  //   console.log(auth);
+  //   if (!auth) {
+  //     navigate("/sign-in");
+  //   }
+  //   if(!isCancelled){
+
+  //     axios
+  //       .post(
+  //         "/api/user/get-user-by-token",
+  //         {},
+  //         {
+  //           headers: {
+  //             Authorization: "Bearer " + auth,
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         if (!res.data.success) {
+  //           navigate("/sign-in");
+  //         }
+  //         setUserId(res.data.user._id);
+  //         setUserData(res?.data?.user)
+  //       })
+  //       .catch((err) => {
+  //         console.log(err, "err");
+  //         navigate("/sign-in");
+  //       });
+  //   }
+  //   // UserAuthentication();
+
+  //   return ()=>{
+  //     isCancelled=true
+  //   }
+  // }, [userId]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -299,4 +308,4 @@ if(userType==="PUBLISHER"){
   );
 };
 
-export default Header;
+export default memo(Header);

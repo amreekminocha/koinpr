@@ -34,6 +34,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useNavigate } from 'react-router-dom';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -74,20 +75,19 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function Popup(props) {
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = React.useState(true);
+const navigate=useNavigate()
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    navigate("/sign-in")
   };
 
   return (
     <div >
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open Popup
-      </Button>
+    
       <BootstrapDialog
       fullWidth
         onClose={handleClose}

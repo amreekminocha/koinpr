@@ -206,8 +206,22 @@ const Cart = () => {
             <div className="md:hidden sm:block">
               <h2 className="cart">Cart</h2>
             </div>
+              {cartDataArray?.map((el)=>(
+
             <div className="left">
               <div className="item">
+              <span className="image">
+                    <img src={el.image} alt={el.name} />
+                  </span>
+                  <span className="title">{el.name}</span>
+                  <span className="price">${el.price}</span>
+                  <div onClick={() => handleRemoveFromCart(el)} className="title">
+                    {<CancelIcon/>}
+                  </div>
+              </div>
+              </div>
+              ))}
+              {/* <div className="item">
                 <span className="image"></span>
                 <span className="title">Title</span>
               </div>
@@ -219,11 +233,7 @@ const Cart = () => {
                 <span className="image"></span>
                 <span className="title">Title</span>
               </div>
-              <div className="item">
-                <span className="image"></span>
-                <span className="title">Title</span>
-              </div>
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (

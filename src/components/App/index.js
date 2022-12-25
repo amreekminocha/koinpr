@@ -38,7 +38,13 @@ function App(props) {
       <BrowserRouter>
         <Header />
 
-        {/* <Navbar /> */}
+          {/* <SettingsComponent /> */}
+        {/* <NewsOpen /> */}
+        {/* <Update /> */}
+        {/* <Home /> */}
+        {/* <CategoryExtended /> */}
+        {/* <HomeExtended /> */}
+        {/* <Desktop /> */}
         <Desktop/>
         <Routes>
           <Route path="/" exact element={<MarketPlace />} />

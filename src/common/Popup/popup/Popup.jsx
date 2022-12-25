@@ -35,6 +35,10 @@ import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import Cookies from "universal-cookie";
+import axios from '../../../axios';
+import { useState } from 'react';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -47,6 +51,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 function BootstrapDialogTitle(props) {
   const { children, onClose, ...other } = props;
+
 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
@@ -76,7 +81,9 @@ BootstrapDialogTitle.propTypes = {
 
 export default function Popup(props) {
   const [open, setOpen] = React.useState(true);
+  const [userId,setUserId]=useState()
 const navigate=useNavigate()
+const cookies = new Cookies();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -84,6 +91,37 @@ const navigate=useNavigate()
     setOpen(false);
     navigate("/sign-in")
   };
+
+
+
+  useEffect(()=>{
+    const auth = cookies.get("auth-token");
+    console.log(auth);
+    if (!auth) {
+      navigate("/sign-in");
+    }
+    axios
+      .post(
+        "/api/user/get-user-by-token",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + auth,
+          },
+        }
+      )
+      .then((res) => {
+        if (!res.data.success) {
+          navigate("/sign-in");
+        }
+        setUserId(res.data.user._id);
+        console.log(" marketplace")
+      })
+      .catch((err) => {
+        console.log(err, "err");
+        navigate("/sign-in");
+      });
+  },[])
 
   return (
     <div >

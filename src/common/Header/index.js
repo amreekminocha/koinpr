@@ -98,10 +98,10 @@ console.log(userData,"userData")
 
   useEffect(() => {
     const auth = cookies.get("auth-token");
-    if (!auth) {
-      setIsLoggedIn(false);
-      return;
-    }
+    // if (!auth) {
+    //   setIsLoggedIn(false);
+    //   return;
+    // }
     axios
       .post(
         "/api/user/get-user-by-token",
@@ -150,6 +150,10 @@ console.log(userData,"userData")
     setAnchorElUser(null);
 if(userType==="PUBLISHER"){
   navigate("/wallet-publisher")
+}else if(userType==="ADVERTISER"){
+  //navigate to order history
+  navigate("/wallet-publisher")
+  
 }
   }
 

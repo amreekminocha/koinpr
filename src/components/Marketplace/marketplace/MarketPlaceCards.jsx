@@ -2,13 +2,17 @@ import { Avatar, Paper } from "@mui/material";
 import React, { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart, subtractQuantity } from "../../../redux/actions";
 import CancelIcon from '@mui/icons-material/Cancel';
 
 function MarketPlaceCards({ name, details, image, price = 10, data }) {
   const [showAddIcon,setShowAddIcon]=useState(true)
-
+  const[id,setId]=useState()
+const cartData=useSelector((state)=>state?.cart?.products)
+var cartDataId=cartData.map((el)=>el?.id)
+console.log(cartDataId,id,"cart")
+console.log(id,cartData,"addddd")
   //function to show details
   const navigate = useNavigate();
   const handleShowDetails = (data) => {
@@ -19,10 +23,19 @@ function MarketPlaceCards({ name, details, image, price = 10, data }) {
   };
 
   const dispatch = useDispatch();
+  const [cart, setCart] = useState([]);
   const handleAddToCart = () => {
-    const payload = { id: data?._id, name, details, image, price, quantity: 1 };
-    dispatch(addToCart(payload));
-    setShowAddIcon(false)
+    console.log(cartData,data?._id,"dattatat")
+    console.log(id,data?._id,"check")
+    if(cartDataId?.includes(data?._id)){
+      alert("Already added to the cart")
+    }else{
+
+      const payload = { id: data?._id, name, details, image, price, quantity: 1 };
+      dispatch(addToCart(payload));
+      setShowAddIcon(false)
+      setId(data?._id)
+    }
   };
 
   const handleRemoveFromCart = () => {
@@ -77,8 +90,10 @@ function MarketPlaceCards({ name, details, image, price = 10, data }) {
           }}
         >
           <p>${price}</p>
-          <span onClick={showAddIcon?handleAddToCart:handleRemoveFromCart}>
-            {showAddIcon?<AddCircleOutlineIcon />:<CancelIcon/>}
+          {/* {console.log(data?._id===cartData?.id)} */}
+          <span onClick={!cartDataId?.includes(data?._id)?handleAddToCart:handleRemoveFromCart}>
+            {/* <span style={{border:"1px solid red"}}>{id===data?._id?"yes":"no"}</span> */}
+            {!cartDataId?.includes(data?._id) ?<AddCircleOutlineIcon />:<CancelIcon/>}
           </span>
         </div>
       </div>

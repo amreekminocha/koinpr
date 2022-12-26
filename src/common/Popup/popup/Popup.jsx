@@ -97,9 +97,9 @@ const cookies = new Cookies();
   useEffect(()=>{
     const auth = cookies.get("auth-token");
     console.log(auth);
-    if (!auth) {
-      navigate("/sign-in");
-    }
+    // if (!auth) {
+    //   navigate("/sign-in");
+    // }
     axios
       .post(
         "/api/user/get-user-by-token",

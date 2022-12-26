@@ -5,7 +5,7 @@ import App from './components/App';
 import { Provider } from 'react-redux';
 import store from './store';
 import { createBrowserHistory } from 'history';
-import { QueryParamProvider } from 'use-query-params';
+// import { QueryParamProvider } from 'use-query-params';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 export const history = createBrowserHistory()
@@ -13,9 +13,9 @@ export const history = createBrowserHistory()
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <QueryParamProvider history={history }>
+    {/* <QueryParamProvider history={history }> */}
         <App />
-      </QueryParamProvider>
+      {/* </QueryParamProvider> */}
     </Provider>
   </React.StrictMode>
 );

@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from '../../axios';
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, subtractQuantity } from '../../redux/actions';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useRef } from 'react';
@@ -138,13 +138,21 @@ const Expanded = () => {
           });
       }
     }, [userId]);
-  
+    const[ids,setId]=useState()
+    const cartData=useSelector((state)=>state?.cart?.products)
+    var cartDataId=cartData.map((el)=>el?.id)
     const dispatch = useDispatch();
     const handleAddToCart = () => {
       const {_id,details,image,price}=displayData
+      if(cartDataId?.includes(ids)){
+        alert("Already added to the cart")
+      }else{
       const payload = { _id, name:displayData?.user?.fullName, image, price, quantity: 1 };
       dispatch(addToCart(payload));
       setShowAddIcon(false)
+      setId(_id)
+
+      }
     };
 
     const handleRemoveFromCart = () => {
@@ -169,7 +177,7 @@ const Expanded = () => {
                         <span className='data'>Todayq News is an online Cryptocurrency News, Analysis & Blockchain platform focused on covering daily happenings in the cryptocurrency and blockchain space. The website is presenting the latest developments from the market, offering a clear view of the performance and dynamics of Blockchain, Bitcoin, Ethereum, and other cryptocurrency projects.</span>
                         <div className='price'>
                             <span className='amount'>{displayData?.price?`$${displayData?.price}`:"$200"}</span>
-                            <span onClick={showAddIcon?handleAddToCart:handleRemoveFromCart}>{showAddIcon?<AddCircleOutlineIcon/>:<CancelIcon/>}</span>
+                            <span onClick={!cartDataId?.includes(displayData?._id)?handleAddToCart:handleRemoveFromCart}>{!cartDataId?.includes(displayData?._id)?<AddCircleOutlineIcon/>:<CancelIcon/>}</span>
                         </div>
                     </div>
                     <div className='right'>

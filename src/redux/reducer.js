@@ -40,12 +40,53 @@ export const CartReducers = (state = initialState, action) => {
       //   products: products,
       //   total: state.total + payload.quantity,
       // };
+      const {id} = payload;
 
-      return{
-        ...state,
-        products:[...state.products,payload],
-        total:state.total+1
-      }
+// const data=state.products.map((el)=>el?.id===payload?.id)
+const doesItemExist = state?.products?.find((item) => item.id === id);
+
+if(doesItemExist){
+  // return state?.products.map((item) => {
+  //  if(item.id === id){
+    
+    return {
+      ...state
+    };
+  //  }
+  // })                    
+} else {
+  // state?.products?.push({
+  //   ...payload, quantity: 1
+  // })
+  
+return{
+  ...state,
+  products:[...state.products,payload],
+  total:state.total+1
+}
+ 
+
+}
+// const products=data?[
+//   ...state.products
+// ]:[
+//   ...state.products,payload
+// ]
+//here data is coming true
+// if(!data) {
+//   return {
+
+//     ...state
+//   }
+// }
+// console.log(data,"reducer")
+      // return{
+      //   ...state,
+      //   products:[
+      //       ...state.products,payload
+      //     ],
+      //   total:state.total+1
+      // }
 
     // total: state?.products?.total + payload?.quantity,
 

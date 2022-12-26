@@ -45,7 +45,7 @@ function App(props) {
         {/* <CategoryExtended /> */}
         {/* <HomeExtended /> */}
         {/* <Desktop /> */}
-        <Desktop/>
+        {/* <Desktop/> */}
         <Routes>
           <Route path="/" exact element={<MarketPlace />} />
           <Route path="/expand/:id" exact element={<Expanded />} />

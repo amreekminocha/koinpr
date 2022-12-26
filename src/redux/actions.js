@@ -10,6 +10,7 @@ export const showIndividualMarketplaceData = (payload) => {
 
 export const addToCart = (payload) => {
   console.log(payload, "payload");
+  
   return {
     type: actionType.ADD_TO_CART,
     payload,

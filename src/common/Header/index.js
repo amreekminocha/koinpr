@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "../../axios";
 import Badge from "@mui/material/Badge";
@@ -98,10 +98,10 @@ console.log(userData,"userData")
 
   useEffect(() => {
     const auth = cookies.get("auth-token");
-    // if (!auth) {
-    //   setIsLoggedIn(false);
-    //   return;
-    // }
+    if (!auth) {
+      setIsLoggedIn(false);
+      return;
+    }
     axios
       .post(
         "/api/user/get-user-by-token",
@@ -210,6 +210,9 @@ if(userType==="PUBLISHER"){
             {/* <span onClick={signOutHandler}>
               {isLoggedIn ? "Sign Out" : "Sign-In"}
             </span> */}
+
+            {isLoggedIn?
+           
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -251,7 +254,15 @@ if(userType==="PUBLISHER"){
                   </Typography>
                 </MenuItem>
               </Menu>
-            </Box>
+            </Box>:
+            <span>
+              <Link to="/sign-in">
+              Log In
+              
+              </Link>
+
+            </span>
+          }
           </div>
         </div>
       </div>

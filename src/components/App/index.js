@@ -28,6 +28,8 @@ import StripeContainer from "../Cart/stripe/StripeContainer";
 import OrderSuccess from "../Cart/orderSuccess/OrderSuccess";
 import OrderDetails from "../Cart/orderSuccess/OrderSuccess";
 import { UserAuthentication } from "../../common/userAuthentication/UserAuthentication";
+import ForgotPassword from "../forgetPassword/ForgetPassword";
+import PasswordReset from "../passwordReset";
 
 // import Cart from "../Cart/cart/Cart";
 
@@ -82,6 +84,8 @@ function App(props) {
           />
           <Route path="/cart" exact element={<Cart />} />
           <Route path="/order-details" exact element={<OrderDetails />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+			<Route path="/password-reset/:id/:token" element={<PasswordReset />} />
           {/* <Route path='/profile' exact element={<ProfileAdvertiser />}/> */}
           {/* <Route path='/marketplace' exact element={<ProfileAdvertiser />}/> */}
           {/* <Expanded/> */}

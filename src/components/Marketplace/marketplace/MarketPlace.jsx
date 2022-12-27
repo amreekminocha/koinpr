@@ -35,7 +35,7 @@ import { getUserByJwtToken } from "../../../redux/actions";
 function MarketPlace(props) {
   const query = '';
 
-  const [listingFilter, setListingFilter] = useState();
+  const [listingFilter, setListingFilter] = useState("pressRelease");
   const [offerFilter, setOfferFilter] = useState();
 
   //for getting current location from the react-router
@@ -68,6 +68,20 @@ console.log(marketList,"marketList")
   // useEffect(() => {
   //   setMarketList(filteredData);
   // }, [param1, param2]);
+
+const searchQuery=(searchQuery)=>{
+  axios
+  .get(`/api/listing/get-all?${searchQuery}`)
+  .then((res) => {
+    if (res.data.success) {
+      setMarketList(res.data.data);
+    }
+    console.log(res.data);
+  })
+  .catch((err) => {
+    console.log(err, "err");
+  });
+}
 
   const getData = (lc, oc) => {
     let searchQuery = `userId=${userId}`;
@@ -148,6 +162,7 @@ console.log(marketList,"marketList")
           navigate("/sign-in");
         });
     // getUserByJwtToken()
+    searchQuery("pressRelease")
   },[])
 useEffect(()=>{
   getUserByJwtToken()

@@ -121,36 +121,36 @@ const dispatch=useDispatch()
 
   // Handling the response from Google
       
-const handleLogin = async googleData => {
-  alert("clicked")
-  const res = await axios.post("/api/google/auth",{
-      token: googleData.tokenId
+// const handleLogin = async googleData => {
+//   alert("clicked")
+//   const res = await axios.post("/api/google/auth",{
+//       token: googleData.tokenId
 
-  }).then((res)=>console.log(res,"response"))
-  //  fetch("/api/v1/auth/google", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //     token: googleData.tokenId
-  //   }),
-  //   headers: {
-  //     "Content-Type": "application/json"
-  //   }
-  // })
-  const data = await res.json()
-  console.log(data,"data")
-  navigate("/sign-in")
-  // store returned user in a context?
-}
-const clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
-useEffect(()=>{
-function start(){
-  gapi.client.init({
-    clientId:clientId,
-    scope:""
-  })
-};
-gapi.load("client:auth2",start)
-})
+//   }).then((res)=>console.log(res,"response"))
+//   //  fetch("/api/v1/auth/google", {
+//   //     method: "POST",
+//   //     body: JSON.stringify({
+//   //     token: googleData.tokenId
+//   //   }),
+//   //   headers: {
+//   //     "Content-Type": "application/json"
+//   //   }
+//   // })
+//   const data = await res.json()
+//   console.log(data,"data")
+//   navigate("/sign-in")
+//   // store returned user in a context?
+// }
+// const clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
+// useEffect(()=>{
+// function start(){
+//   gapi.client.init({
+//     clientId:clientId,
+//     scope:""
+//   })
+// };
+// gapi.load("client:auth2",start)
+// })
   //keyboard
   Usekey("Enter", submitHandler);
   Usekey("NumpadEnter", submitHandler);
@@ -261,13 +261,13 @@ gapi.load("client:auth2",start)
                 
               </div>
             </form>
-            <GoogleLogin
+            {/* <GoogleLogin
     clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
     buttonText="Sign up with Google"
-    onSuccess={handleLogin}
-    onFailure={handleLogin}
+    // onSuccess={handleLogin}
+    // onFailure={handleLogin}
     cookiePolicy={'single_host_origin'}
-/>
+/> */}
           </div>
         </div>
         <div className="allRight">

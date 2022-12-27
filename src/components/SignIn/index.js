@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "../../axios";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -168,7 +168,7 @@ const handleLogin = async googleData => {
     onFailure={handleLogin}
     cookiePolicy={'single_host_origin'}
 />
-        <a href="/forget-password" className="forgot">
+        <a href="/forgot-password" className="forgot">
           Forgot password?
         </a>
       </div>

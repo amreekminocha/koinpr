@@ -6,6 +6,7 @@ import styles from "./passwordReset.module.css";
 const PasswordReset = () => {
 	const [validUrl, setValidUrl] = useState(false);
 	const [password, setPassword] = useState("");
+	const [confpassword, setConfPassword] = useState("");
 	const [msg, setMsg] = useState("");
 	const [error, setError] = useState("");
 	const param = useParams();
@@ -50,10 +51,19 @@ const PasswordReset = () => {
 						<h1>Add New Password</h1>
 						<input
 							type="password"
-							placeholder="Password"
+							placeholder="Enter New Password"
 							name="password"
 							onChange={(e) => setPassword(e.target.value)}
 							value={password}
+							required
+							className={styles.input}
+						/>
+						<input
+							type="password"
+							placeholder="Confirm New Password"
+							name="password"
+							onChange={(e) => setConfPassword(e.target.value)}
+							value={confpassword}
 							required
 							className={styles.input}
 						/>

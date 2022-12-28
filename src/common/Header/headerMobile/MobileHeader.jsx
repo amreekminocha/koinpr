@@ -7,11 +7,12 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Avatar, Badge, Menu, MenuItem, Tooltip } from "@mui/material";
 import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../../../axios";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+import { is } from "immutable";
 
 export default function MobileHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -111,12 +112,16 @@ export default function MobileHeader() {
               A <span style={{ fontWeight: "bold" }}>Todayq</span> Product
             </p>
           </Typography>
+{isLoggedIn?
 
           <IconButton onClick={() => navigate("/cart")} aria-label="cart">
             <StyledBadge badgeContent={cartNumber} color="primary">
               <ShoppingCartIcon sx={{ color: "white" }} />
             </StyledBadge>
-          </IconButton>
+          </IconButton>:null
+}
+{isLoggedIn?
+
           <Box sx={{ flexGrow: 0, marginLeft: "3em" }}>
             <Tooltip title="Open Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -163,7 +168,13 @@ export default function MobileHeader() {
                 </Typography>
               </MenuItem>
             </Menu>
-          </Box>
+          </Box>:
+          <span>
+            <Link style={{marginLeft:"60px"}} to="/sign-in" >
+            Log In
+            </Link>
+          </span>
+}
         </Toolbar>
       </AppBar>
     </Box>

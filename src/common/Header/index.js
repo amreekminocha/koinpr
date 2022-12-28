@@ -185,7 +185,10 @@ if(userType==="PUBLISHER"){
             </span>
           </div>
           <div className="right">
-            <span onClick={() => navigate("/")}>Publishers</span>
+            {isLoggedIn?
+            
+            <span onClick={() => navigate("/")}>Publishers</span>:null
+          }
             {/* <span
               className="myAccount"
               onClick={(e) => {
@@ -202,11 +205,14 @@ if(userType==="PUBLISHER"){
                 </div>
               )}
             </span> */}
+            {isLoggedIn?
             <IconButton onClick={() => navigate("/cart")} aria-label="cart">
               <StyledBadge badgeContent={cartNumber} color="primary">
                 <ShoppingCartIcon sx={{ color: "white" }} />
               </StyledBadge>
-            </IconButton>
+            </IconButton>:null
+            
+          }
             {/* <span onClick={signOutHandler}>
               {isLoggedIn ? "Sign Out" : "Sign-In"}
             </span> */}
@@ -243,6 +249,14 @@ if(userType==="PUBLISHER"){
                 </MenuItem>
                 <MenuItem onClick={handleTelegram}>
                   <Typography textAlign="center">Telegram</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link to="/add-listing">
+                    
+                    Add Listing
+                    </Link>
+                    </Typography>
                 </MenuItem>
                 <MenuItem onClick={signOutHandler}>
                   <Typography textAlign="center">

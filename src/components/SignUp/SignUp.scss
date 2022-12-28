@@ -79,8 +79,8 @@
                     }
 
                     .round {
-                        width: 1.3em;
-                        height: 1.3em;
+                        width: 1em;
+                        height: 1em;
                         border: 1px solid black;
                         cursor: pointer;
                     }
@@ -111,13 +111,22 @@
             }
     
             .submit{
-                margin-top: 15px;
-                font-weight: 700;
-                font-size: 16px;
+                // margin-top: 15px;
+                // font-weight: 700;
+                // font-size: 16px;
+                // height: 66px;
+                // width: 120px;
+                // background-color: black;
+                // color: white;
+                // border: none;
+                // padding: 1em;
+                margin-top: 26px;
                 height: 43px;
-                width: 90px;
+                width: 113px;
                 background-color: black;
                 color: white;
+                font-size: 16px;
+                font-weight: 700;
                 border: none;
             }
                          

@@ -161,13 +161,13 @@ const handleLogin = async googleData => {
             <ArrowForwardIcon />
           </button>
         </form>
-        <GoogleLogin
+        {/* <GoogleLogin
     clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
     buttonText="Sign in with Google"
     onSuccess={handleLogin}
     onFailure={handleLogin}
     cookiePolicy={'single_host_origin'}
-/>
+/> */}
         <a href="/forgot-password" className="forgot">
           Forgot password?
         </a>

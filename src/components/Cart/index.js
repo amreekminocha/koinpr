@@ -13,6 +13,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 // import Stripe from "./stripe";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { CoinBaseCheckout } from "./CoinbaseCheckout";
 const Cart = () => {
   const [paymentMethod, setPaymentMethod] = useState("stripe");
   const [showAddIcon, setShowAddIcon] = useState(true);
@@ -112,9 +113,25 @@ const Cart = () => {
   };
 
   const handleCheckoutCoingate = () => {
-    alert(
-      "we are working on coingate payment method,Please choose stripe for now"
-    );
+    // alert(
+    //   "we are working on coingate payment method,Please choose stripe for now"
+    // );
+
+    var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+myHeaders.append("Accept", "application/json");
+myHeaders.append("X-CC-Version", "79cadb29-eda3-4ec1-b26f-34ac2c769e50");
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.commerce.coinbase.com/charges", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
   };
   return (
     <div className="Cart">
@@ -176,7 +193,8 @@ const Cart = () => {
                 </span>
 
                 <span>
-                  <img src={coingate} alt="coingate" />
+                  coinbase
+                  {/* <img src="https://www.investopedia.com/thmb/fqpBW1uX6MDMovj5Kh0dSRegdNE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Coinbase_Wordmark-719a982e55e945fc93a3b1770b6a9aa9.jpg" width="40%"  alt="coingate" /> */}
                 </span>
                 <input
                   type="radio"

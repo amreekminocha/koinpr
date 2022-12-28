@@ -255,7 +255,7 @@ const dispatch=useDispatch()
                 </div>
                 <button type="submit" className="submit">
                   Proceed
-                  <ArrowForwardIcon fontSize="10px" />
+                  <ArrowForwardIcon fontSize="10px" sx={{marginLeft:"5px"}} />
                 </button>
               
                 

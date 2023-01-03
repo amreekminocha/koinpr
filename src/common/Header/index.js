@@ -47,45 +47,61 @@ const Header = () => {
 
   const [userData, setUserData] = useState();
   const [userId, setUserId] = useState();
+
+  const token=useSelector((state)=>state.cart.token)
 // console.log(userData,"userData")
 
-  // useEffect(() => {
-  //   // let isCancelled=false;
-  //   const auth = cookies.get("auth-token");
-  //   console.log(auth);
-  //   if (!auth) {
-  //     navigate("/sign-in");
-  //   }
-  //   // if(!isCancelled){
+  useEffect(() => {
+    // let isCancelled=false;
+    // const auth = cookies.get("auth-token");
+    // console.log(auth);
+    // if (!auth) {
+    //   navigate("/sign-in");
+    // }
+    // if(!isCancelled){
 
-  //     axios
-  //       .post(
-  //         "/api/user/get-user-by-token",
-  //         {},
-  //         {
-  //           headers: {
-  //             Authorization: "Bearer " + auth,
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         if (!res.data.success) {
-  //           navigate("/sign-in");
-  //         }
-  //         setUserId(res.data.user._id);
-  //         setUserData(res?.data?.user)
-  //       })
-  //       .catch((err) => {
-  //         console.log(err, "err");
-  //         navigate("/sign-in");
-  //       });
-  //   // }
-  //   // UserAuthentication();
+      axios
+        .post(
+          "/api/user/get-user-by-token",
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
+        .then((res) => {
+          // if (!res.data.success) {
+          
+          //     const data={
+          //       notificationType: "error",
+          //   notificationMessage: "User is not Verified By Token",
+          //     }
+          //     dispatch(snackbarNotification(data));
 
-  //   // return ()=>{
-  //   //   isCancelled=true
-  //   // }
-  // }, []);
+            
+          //   navigate("/sign-in");
+          // }
+          const data={
+            notificationType: "success",
+        notificationMessage: "User is Verified By Token",
+          }
+          dispatch(snackbarNotification(data));
+          console.log("first",res)
+          setUserId(res.data.user._id);
+          setUserData(res?.data?.user)
+        })
+        // .catch((err) => {
+        //   console.log(err, "err");
+        //   navigate("/sign-in");
+        // });
+    // }
+    // UserAuthentication();
+
+    // return ()=>{
+    //   isCancelled=true
+    // }
+  }, [userId]);
 
   const handleClickOpen = () => {
     setOpen(true);

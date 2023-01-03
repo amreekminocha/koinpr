@@ -83,11 +83,11 @@ const dispatch=useDispatch();
           const payload={
             token:res?.data?.user?.token
           }
+          dispatch(SetTokenToRedux(payload))
           const data={
             notificationType: "success",
         notificationMessage: "You Logged In Successfully",
           }
-        dispatch(SetTokenToRedux(payload))
         dispatch(snackbarNotification(data));
           navigate("/");
           setOpen(true);
@@ -112,18 +112,18 @@ const dispatch=useDispatch();
       });
   };
 
-  const clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
+  // const clientId="990734078330-qteq6i15s9cni5apfkt9qv2okudhqk93.apps.googleusercontent.com"
 
 
-useEffect(()=>{
-function start(){
-  gapi.client.init({
-    clientId:clientId,
-    scope:""
-  })
-};
-gapi.load("client:auth2",start)
-})
+// useEffect(()=>{
+// function start(){
+//   gapi.client.init({
+//     clientId:clientId,
+//     scope:""
+//   })
+// };
+// gapi.load("client:auth2",start)
+// })
 
 const handleLogin = async googleData => {
   

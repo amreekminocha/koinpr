@@ -46,7 +46,7 @@ const Header = () => {
 
   const [userData, setUserData] = useState();
   const [userId, setUserId] = useState();
-console.log(userData,"userData")
+// console.log(userData,"userData")
 
   // useEffect(() => {
   //   // let isCancelled=false;
@@ -146,7 +146,7 @@ console.log(userData,"userData")
 
   };
   const handleUserTypeOrderHistory=(userType)=>{
-    console.log(userType,"userType")
+    // console.log(userType,"userType")
     setAnchorElUser(null);
 if(userType==="PUBLISHER"){
   navigate("/wallet-publisher")

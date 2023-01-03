@@ -41,7 +41,7 @@ const ProfileAdvertiser = () => {
   const [userId, setUserId] = useState();
   const [userData,setUserData]=useState()
 
-  console.log(input);
+  // console.log(input);
 
   useEffect(() => {
     const auth = cookies.get("auth-token");
@@ -76,14 +76,14 @@ const ProfileAdvertiser = () => {
   const handleAccountDetalsCheck = (e) => {
     // string passed in
     // a string returned by default
-    console.log(e.currentTarget.value);
+    // console.log(e.currentTarget.value);
     // add + to the event to make the value a number
     setStep(+e.currentTarget.value);
   };
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
-    console.log(name,value,"checked")
+    // console.log(name,value,"checked")
     if (name === "representCompany") {
       setInput({ ...input, representCompany: checked });
     } else if (name === "cryptoCurrency") {
@@ -156,7 +156,7 @@ const ProfileAdvertiser = () => {
           navigate("/");
           alert("Record Updated successfully");
         }
-        console.log(res);
+        // console.log(res);
         if (!res?.data.success) {
           // <CustomizedDialogs
           //   open={showDialog}

@@ -124,7 +124,7 @@ const handleLogin = async googleData => {
   //   }
   // })
   const data = await res.json()
-  console.log(data,"data")
+  // console.log(data,"data")
   navigate("/")
   // store returned user in a context?
 }

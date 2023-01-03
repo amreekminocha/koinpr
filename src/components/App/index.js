@@ -35,7 +35,6 @@ import PasswordReset from "../passwordReset";
 // import Cart from "../Cart/cart/Cart";
 
 function App(props) {
-  console.log(props, "pppp");
   return (
     <div className="App">
       <BrowserRouter>

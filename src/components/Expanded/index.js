@@ -137,7 +137,7 @@ const Expanded = () => {
             console.log(err, "err");
           });
       }
-    }, [userId]);
+    }, []);
     const[ids,setId]=useState()
     const cartData=useSelector((state)=>state?.cart?.products)
     var cartDataId=cartData.map((el)=>el?.id)

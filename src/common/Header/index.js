@@ -49,13 +49,13 @@ const Header = () => {
 console.log(userData,"userData")
 
   // useEffect(() => {
-  //   let isCancelled=false;
+  //   // let isCancelled=false;
   //   const auth = cookies.get("auth-token");
   //   console.log(auth);
   //   if (!auth) {
   //     navigate("/sign-in");
   //   }
-  //   if(!isCancelled){
+  //   // if(!isCancelled){
 
   //     axios
   //       .post(
@@ -78,13 +78,13 @@ console.log(userData,"userData")
   //         console.log(err, "err");
   //         navigate("/sign-in");
   //       });
-  //   }
+  //   // }
   //   // UserAuthentication();
 
-  //   return ()=>{
-  //     isCancelled=true
-  //   }
-  // }, [userId]);
+  //   // return ()=>{
+  //   //   isCancelled=true
+  //   // }
+  // }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -152,7 +152,7 @@ if(userType==="PUBLISHER"){
   navigate("/wallet-publisher")
 }else if(userType==="ADVERTISER"){
   //navigate to order history
-  navigate("/wallet-publisher")
+  navigate("/wallet-advertiser")
   
 }
   }
@@ -245,7 +245,7 @@ if(userType==="PUBLISHER"){
                   <Typography onClick={() => navigate("/profile")} textAlign="center">My Profile</Typography>
                 </MenuItem>
                 <MenuItem onClick={()=>handleUserTypeOrderHistory(userData?.userType)}>
-                  <Typography textAlign="center">{userData?.userType==="ADVERTISER"?"Order History":"Wallet History"}</Typography>
+                  <Typography textAlign="center">{userData?.userType==="ADVERTISER"?"Order History":userData?.userType==="PUBLISHER"?"Wallet History":null}</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleTelegram}>
                   <Typography textAlign="center">Telegram</Typography>
@@ -253,8 +253,8 @@ if(userType==="PUBLISHER"){
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">
                     <Link to="/add-listing">
+                    {userData?.userType==="PUBLISHER"?"Add Listing":null}
                     
-                    Add Listing
                     </Link>
                     </Typography>
                 </MenuItem>

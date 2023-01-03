@@ -10,22 +10,33 @@ import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    // backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.black,
+    fontWeight:"bold",
+    border:"1px solid black"
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
+  // border:"1px solid black",
+
   },
+  '&:nth-of-type(even)': {
+    backgroundColor: theme.palette.action.hover,
+  // border:"1px solid black",
+
+  },
+  // border:"1px solid black",
   // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
+  // '&:last-child td, &:last-child th': {
+  //   border: 0,
+  // },
 }));
 
 
@@ -39,43 +50,60 @@ const rows = [
 
 export default function WalletAdvertiserTableMobile() {
   return (
+
+    <>
+    <h3 style={{fontSize:"15px",fontWeight:600,margin:"10px 20px 20px 10px"}} >
+    Order History
+    </h3>
     <TableContainer component={Paper}>
-      <Table sx={{ width: 250 }} aria-label="customized table">
+      <Table sx={{ width: 300,margin:"auto" }} aria-label="customized table">
         {/* <TableHead> */}
         {rows.map((row)=>(
 <>
 
-          <TableRow>
+          <StyledTableRow >
             <StyledTableCell variant="head" align="center">Date</StyledTableCell>
             {/* <StyledTableCell align="center">ID</StyledTableCell>
             <StyledTableCell align="center">Description</StyledTableCell>
             <StyledTableCell align="center">Amount</StyledTableCell> */}
- <StyledTableCell align="center">
+ <StyledTableCell sx={{
+    border:"1px solid black"
+
+ }} align="center">
          {row.date}
        </StyledTableCell>
 
-          </TableRow>
-          <TableRow>
+          </StyledTableRow>
+          <StyledTableRow>
 
        <StyledTableCell variant="head" align="center">ID</StyledTableCell>
-          <StyledTableCell align="center">
+          <StyledTableCell sx={{
+    border:"1px solid black"
+
+ }} align="center">
           {row.id}
         </StyledTableCell>
-          </TableRow>
-          <TableRow>
+          </StyledTableRow>
+          <StyledTableRow>
 
        <StyledTableCell variant="head" align="center">Description</StyledTableCell>
-          <StyledTableCell align="center">
+          <StyledTableCell sx={{
+    border:"1px solid black"
+
+ }} align="center">
           {row.desc}
         </StyledTableCell>
-          </TableRow>
-          <TableRow>
+          </StyledTableRow>
+          <StyledTableRow>
 
        <StyledTableCell variant="head" align="center">Amount</StyledTableCell>
-          <StyledTableCell align="center">
+          <StyledTableCell sx={{
+    border:"1px solid black"
+
+ }} align="center">
           {row.amount}
         </StyledTableCell>
-          </TableRow>
+          </StyledTableRow>
           <br/>
 </>
  
@@ -84,5 +112,6 @@ export default function WalletAdvertiserTableMobile() {
    
       </Table>
     </TableContainer>
+    </>
   );
 }

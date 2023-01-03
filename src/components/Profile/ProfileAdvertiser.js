@@ -28,6 +28,7 @@ const ProfileAdvertiser = () => {
     accountNo:null,
     swiftCode:null,
     bankName:"",
+    doc:"",
 
   };
 
@@ -211,6 +212,7 @@ const ProfileAdvertiser = () => {
                 name="account"
                 onChange={handleAccountDetalsCheck}
                 checked={step === 2}
+                // disabled={input?.companyName.length==0 ||input?.companyId?.length==0}
               ></input>
             </div>
             {input?.representCompany && input?.userType==="PUBLISHER"?  (
@@ -338,15 +340,18 @@ const ProfileAdvertiser = () => {
                   <label>Choose Document Type</label>
                 </div>
                 <div className="wInput mt40">
-                  <input type="file" />
+                  <input type="file" name="doc" value={input?.doc} />
                 </div>
               </div>
               <p className="pBottom">
                 Max file size 5 MB. Supported file types: png, jpeg, pdf, doc.
               </p>
-              <button type="button" className="pButton mt40">
+              {input?.doc?.length>0?
+              <button  type="button" className="pButton mt40">
                 Proceed
-              </button>
+              </button>:null
+              
+            }
             </>
           )}
           {step === 3 && (

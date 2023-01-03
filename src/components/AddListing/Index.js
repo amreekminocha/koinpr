@@ -151,27 +151,28 @@ console.log(image)
     };
     axios
       .post(
-        "api/listing/add",formData,
+        "http://localhost:5000/api/listing/add",
         {
-          // email,
-          // userType,
-          // price,
-          // websiteLanguage,
-          // linkedin,
-          // googleNews,
-          // socialShare,
-          // facebook,
-          // twitter,
-          // offerTitle,
-          // listingCategory,
-          // image:image,
-          // noFollowLinkAllowed,
-          // doFollowLinkAllowed,
-          // indexedArticle,
-          // websiteLink,
-          // userType,
-          // userId: userId,
-          // image:image
+          // formData
+          email,
+          userType,
+          price,
+          websiteLanguage,
+          linkedin,
+          googleNews,
+          socialShare,
+          facebook,
+          twitter,
+          offerTitle,
+          listingCategory,
+          image:image,
+          noFollowLinkAllowed,
+          doFollowLinkAllowed,
+          indexedArticle,
+          websiteLink,
+          userType,
+          userId: userId,
+          image:image
         },
         config
       )

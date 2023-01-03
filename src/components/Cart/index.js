@@ -97,7 +97,7 @@ const Cart = () => {
   const handleCheckoutStripe = () => {
 
     axios
-      .post(`http://localhost:5000/api/stripe/create-checkout-session`, {
+      .post(`http://35.79.77.132/api/stripe/create-checkout-session`, {
         cartItems: cartDataArray,
         userId: 123,
       })

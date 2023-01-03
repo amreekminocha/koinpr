@@ -12,7 +12,7 @@ function MarketPlaceCards({ name, details, image, price = 10, data }) {
 const cartData=useSelector((state)=>state?.cart?.products)
 var cartDataId=cartData.map((el)=>el?.id)
 console.log(cartDataId,id,"cart")
-console.log(id,cartData,"addddd")
+console.log(data,"addddd")
   //function to show details
   const navigate = useNavigate();
   const handleShowDetails = (data) => {

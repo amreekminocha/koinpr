@@ -1,9 +1,23 @@
 import './WalletAdvertiser.scss';
 
 import React from 'react'
+import WalletPublisherTableVertical from '../WalletPublisher/walletPublisher/WalletPublisherVertical';
+import WalletAdvertiserTableMobile from './newWalletComponent/WalletAdvertiserMobile';
 
 const WalletAdvertiser = () => {
+
+
+
+//     const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
+// const product = await stripe.products.retrieve(
+//   'prod_N6FENKKNCsQc0H'
+// );
     return (
+        <>
+                    <div className="hidden md:block">
+
+
         <div className='WalletAdvertiser'>
             <div className='content'>
                 <div className='heading'>Order History</div>
@@ -49,6 +63,12 @@ const WalletAdvertiser = () => {
                 </div>
             </div>
         </div>
+        </div>
+        <div className="md:hidden sm:block">
+            <WalletAdvertiserTableMobile />
+
+            </div>
+        </>
     )
 }
 

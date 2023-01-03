@@ -17,7 +17,7 @@ import "./Header.scss";
 import MobileHeader from "./headerMobile/MobileHeader";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Avatar,
   Box,
@@ -31,6 +31,7 @@ import { AlertDialog } from "../alertDialogue/AlertDialog";
 // import Cookies from "universal-cookie";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { memo } from "react";
+import { snackbarNotification } from "../../redux/snackbar.action";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -95,7 +96,7 @@ const Header = () => {
   };
   const [isOpenAcc, setIsOpenAcc] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-
+const dispatch=useDispatch()
   useEffect(() => {
     const auth = cookies.get("auth-token");
     if (!auth) {
@@ -160,6 +161,12 @@ if(userType==="PUBLISHER"){
   const signOutHandler = () => {
     cookies.remove("auth-token");
     handleSignout();
+    const data={
+      notificationType: "success",
+        notificationMessage: "Logged Out Successfully",
+    }
+    dispatch(snackbarNotification(data));
+
     navigate("/sign-in");
     // setOpen(true);
     setAnchorElUser(null);

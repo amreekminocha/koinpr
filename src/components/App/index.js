@@ -31,6 +31,7 @@ import OrderDetails from "../Cart/orderSuccess/OrderSuccess";
 import { UserAuthentication } from "../../common/userAuthentication/UserAuthentication";
 import ForgotPassword from "../forgetPassword/ForgetPassword";
 import PasswordReset from "../passwordReset";
+import { SnackbarNotification } from "../../common/snackbar/SnackBarNotification";
 
 // import Cart from "../Cart/cart/Cart";
 
@@ -39,6 +40,7 @@ function App(props) {
     <div className="App">
       <BrowserRouter>
         <Header />
+        <SnackbarNotification />
 
           {/* <SettingsComponent /> */}
         {/* <NewsOpen /> */}

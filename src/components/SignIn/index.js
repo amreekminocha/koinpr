@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { SetTokenToRedux } from "../../redux/actions";
 import { useEffect } from "react";
 import { gapi } from "gapi-script";
+import { snackbarNotification } from "../../redux/snackbar.action";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -82,16 +83,32 @@ const dispatch=useDispatch();
           const payload={
             token:res?.data?.user?.token
           }
+          const data={
+            notificationType: "success",
+        notificationMessage: "You Logged In Successfully",
+          }
         dispatch(SetTokenToRedux(payload))
-
+        dispatch(snackbarNotification(data));
           navigate("/");
           setOpen(true);
-        } else {
-          console.log("error", res);
+        } 
+      else{
+        const data={
+          notificationType: "error",
+      notificationMessage: "Something went wrong",
         }
+        dispatch(snackbarNotification(data));
+
+      }
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log("err", err?.response?.data?.message);
+        const data={
+          notificationType: "error",
+      notificationMessage: err?.response?.data?.message,
+        }
+        dispatch(snackbarNotification(data));
+
       });
   };
 

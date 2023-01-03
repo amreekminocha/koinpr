@@ -48,25 +48,25 @@ const Header = () => {
   const [userData, setUserData] = useState();
   const [userId, setUserId] = useState();
 
-  const token=useSelector((state)=>state.cart.token)
-// console.log(userData,"userData")
-
+  var token=useSelector((state)=>state.cart)
+  // console.log(userData,"userData")
+  console.log(token,"token")
+  
   useEffect(() => {
     // let isCancelled=false;
-    // const auth = cookies.get("auth-token");
+    const auth = cookies.get("auth-token");
     // console.log(auth);
     // if (!auth) {
-    //   navigate("/sign-in");
-    // }
-    // if(!isCancelled){
-
+      //   navigate("/sign-in");
+      // }
+      // if(!isCancelled){
       axios
         .post(
           "/api/user/get-user-by-token",
           {},
           {
             headers: {
-              Authorization: "Bearer " + token,
+              Authorization: "Bearer " + auth,
             },
           }
         )

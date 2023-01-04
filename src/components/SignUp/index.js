@@ -12,6 +12,7 @@ import { SetTokenToRedux } from "../../redux/actions";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
+import { snackbarNotification } from "../../redux/snackbar.action";
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -99,16 +100,26 @@ const dispatch=useDispatch()
     };
 
     axios
-      .post("/api/user/sign-up", data)
+      .post("http://localhost:5000/api/user/sign-up", data)
       .then((res) => {
         cookies.set("auth-token", res?.data?.dataToSave?.jwtToken, {
           path: "/",
         });
         dispatch(SetTokenToRedux({token:res?.data?.dataToSave?.jwtToken}))
+         const data={
+            notificationType: "success",
+        notificationMessage: "You Are Registered Successfully",
+          }
+        dispatch(snackbarNotification(data));
         navigate("/");
       })
       .catch((err) => {
         console.log("err", err);
+        const data={
+          notificationType: "error",
+      notificationMessage: err?.response?.data?.message,
+        }
+        dispatch(snackbarNotification(data));
       });
   };
   // const googleAuth = () => {

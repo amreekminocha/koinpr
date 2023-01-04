@@ -52,6 +52,41 @@ const Header = () => {
   // console.log(userData,"userData")
   console.log(token,"token")
   
+
+const getUsetByToken=()=>{
+  axios
+  .post(
+    "/api/user/get-user-by-token",
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  )
+  .then((res) => {
+    // if (!res.data.success) {
+    
+    //     const data={
+    //       notificationType: "error",
+    //   notificationMessage: "User is not Verified By Token",
+    //     }
+    //     dispatch(snackbarNotification(data));
+
+      
+    //   navigate("/sign-in");
+    // }
+  //   const data={
+  //     notificationType: "success",
+  // notificationMessage: "User is Verified By Token",
+  //   }
+  //   dispatch(snackbarNotification(data));
+    console.log("first",res)
+    setUserId(res.data.user._id);
+    setUserData(res?.data?.user)
+  })
+}
+
   useEffect(() => {
     // let isCancelled=false;
     const auth = cookies.get("auth-token");
@@ -101,7 +136,10 @@ const Header = () => {
     // return ()=>{
     //   isCancelled=true
     // }
+    getUsetByToken()
   }, [userId]);
+
+
 
   const handleClickOpen = () => {
     setOpen(true);

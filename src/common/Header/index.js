@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "../../axios";
 import Badge from "@mui/material/Badge";
@@ -38,7 +38,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Header = () => {
   const cookies = new Cookies();
-
+const location=window.location.href
+console.log("params",location)
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -321,20 +322,24 @@ if(userType==="PUBLISHER"){
                 </MenuItem>
                 <MenuItem onClick={signOutHandler}>
                   <Typography textAlign="center">
-                    {isLoggedIn ? (
+                    {isLoggedIn ? 
                       <span onClick={handleSignout}>Sign Out</span>
-                    ) : (
-                      "Sign-In"
-                    )}
+                  : 
+                  location==="http://localhost:3000/sign-up"? "Sign In":"Sign Up"
+                    }
                   </Typography>
                 </MenuItem>
               </Menu>
             </Box>:
             <span>
-              <Link to="/sign-in">
+              {location==="http://localhost:3000/sign-up"?<Link to="/sign-in">
               Log In
               
-              </Link>
+              </Link>:<Link to="/sign-up">
+              Sign Up
+              
+              </Link>}
+              
 
             </span>
           }

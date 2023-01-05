@@ -190,7 +190,7 @@ const dispatch=useDispatch()
                 <p>Choose Your Account Type</p>
                 <div className="inputs">
                   <div onClick={() => setType("ADVERTISER")} className="input">
-                    <label htmlFor="adv">I'm an advertiser</label>
+                    <label style={{color:"#3D3C3C"}} htmlFor="adv">I'm an advertiser</label>
                     <input
                       type="radio"
                       name="account"
@@ -200,7 +200,7 @@ const dispatch=useDispatch()
                     />
                   </div>
                   <div onClick={() => setType("PUBLISHER")} className="input">
-                    <label htmlFor="pub">I'm a publisher</label>
+                    <label style={{color:"#3D3C3C"}} htmlFor="pub">I'm a publisher</label>
                     <input
                       type="radio"
                       name="account"
@@ -212,7 +212,10 @@ const dispatch=useDispatch()
                 </div>
               </div>
               <div className="caard textIp ">
+                <span>
+
                 <p>Enter Your Account Details</p>
+                </span>
                 <div className="inputs">
                   <div className="col">
                     <input

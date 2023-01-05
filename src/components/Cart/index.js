@@ -145,7 +145,7 @@ fetch("https://api.commerce.coinbase.com/charges", requestOptions)
                     <img src={el.image} alt={el.name} />
                   </span>
                   <span className="title">{el.name}</span>
-                  <span className="title">${el.price}</span>
+                  <span className="price">${el.price}</span>
                   <div onClick={() => handleRemoveFromCart(el)} className="title">
                     {<CancelIcon/>}
                   </div>

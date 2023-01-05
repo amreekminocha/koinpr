@@ -267,6 +267,73 @@ if(userType==="PUBLISHER"){
                 </div>
               )}
             </span> */}
+                 {isLoggedIn?
+           
+           <Box sx={{ flexGrow: 0 }}>
+             <Tooltip title="Open Account">
+               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Typography sx={{color:"white",fontWeight:600,fontSize:"16px"}}>
+
+                 My Account
+                </Typography>
+               </IconButton>
+             </Tooltip>
+             <Menu
+               sx={{ mt: "45px" }}
+               id="menu-appbar"
+               anchorEl={anchorElUser}
+               anchorOrigin={{
+                 vertical: "top",
+                 horizontal: "right",
+               }}
+               keepMounted
+               transformOrigin={{
+                 vertical: "top",
+                 horizontal: "right",
+               }}
+               open={Boolean(anchorElUser)}
+               onClose={handleCloseUserMenu}
+             >
+               <MenuItem  onClick={handleCloseUserMenu}>
+                 <Typography onClick={() => navigate("/profile")} textAlign="center">My Profile</Typography>
+               </MenuItem>
+               <MenuItem onClick={()=>handleUserTypeOrderHistory(userData?.userType)}>
+                 <Typography textAlign="center">{userData?.userType==="ADVERTISER"?"Order History":userData?.userType==="PUBLISHER"?"Wallet History":null}</Typography>
+               </MenuItem>
+               <MenuItem onClick={handleTelegram}>
+                 <Typography textAlign="center">Telegram</Typography>
+               </MenuItem>
+               <MenuItem onClick={handleCloseUserMenu}>
+                 <Typography textAlign="center">
+                   <Link to="/add-listing">
+                   {userData?.userType==="PUBLISHER"?"Add Listing":null}
+                   
+                   </Link>
+                   </Typography>
+               </MenuItem>
+               <MenuItem onClick={signOutHandler}>
+                 <Typography textAlign="center">
+                   {isLoggedIn ? 
+                     <span onClick={handleSignout}>Sign Out</span>
+                 : 
+                 location==="http://localhost:3000/sign-up"? "Sign In":"Sign Up"
+                   }
+                 </Typography>
+               </MenuItem>
+             </Menu>
+           </Box>:
+           <span>
+             {location==="http://localhost:3000/sign-up"?<Link to="/sign-in">
+             Log In
+             
+             </Link>:<Link to="/sign-up">
+             Sign Up
+             
+             </Link>}
+             
+
+           </span>
+         }
             {isLoggedIn?
             <IconButton onClick={() => navigate("/cart")} aria-label="cart">
               <StyledBadge badgeContent={cartNumber} color="primary">
@@ -279,70 +346,7 @@ if(userType==="PUBLISHER"){
               {isLoggedIn ? "Sign Out" : "Sign-In"}
             </span> */}
 
-            {isLoggedIn?
-           
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem  onClick={handleCloseUserMenu}>
-                  <Typography onClick={() => navigate("/profile")} textAlign="center">My Profile</Typography>
-                </MenuItem>
-                <MenuItem onClick={()=>handleUserTypeOrderHistory(userData?.userType)}>
-                  <Typography textAlign="center">{userData?.userType==="ADVERTISER"?"Order History":userData?.userType==="PUBLISHER"?"Wallet History":null}</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleTelegram}>
-                  <Typography textAlign="center">Telegram</Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">
-                    <Link to="/add-listing">
-                    {userData?.userType==="PUBLISHER"?"Add Listing":null}
-                    
-                    </Link>
-                    </Typography>
-                </MenuItem>
-                <MenuItem onClick={signOutHandler}>
-                  <Typography textAlign="center">
-                    {isLoggedIn ? 
-                      <span onClick={handleSignout}>Sign Out</span>
-                  : 
-                  location==="http://localhost:3000/sign-up"? "Sign In":"Sign Up"
-                    }
-                  </Typography>
-                </MenuItem>
-              </Menu>
-            </Box>:
-            <span>
-              {location==="http://localhost:3000/sign-up"?<Link to="/sign-in">
-              Log In
-              
-              </Link>:<Link to="/sign-up">
-              Sign Up
-              
-              </Link>}
-              
-
-            </span>
-          }
+       
           </div>
         </div>
       </div>

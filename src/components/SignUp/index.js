@@ -13,6 +13,9 @@ import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import { snackbarNotification } from "../../redux/snackbar.action";
+
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
 const SignUp = () => {
   const navigate = useNavigate();
 
@@ -22,6 +25,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] =useState(false);
+
 const dispatch=useDispatch()
   const cookies = new Cookies();
 
@@ -232,9 +237,13 @@ const dispatch=useDispatch()
                   </div>
                 </div>
                 <div className="inputs m-t-23">
-                  <div className="col">
+                  <div  className="col">
+                    < span  style={{display:"flex"}}>
+
                     <input
-                      type="password"
+                      // type="password"
+            type={showPassword ? "text" : "password"}
+
                       className={
                         errors.password ? "input-text err" : "input-text"
                       }
@@ -242,11 +251,20 @@ const dispatch=useDispatch()
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
+                    <span style={{marginTop:"10px",marginLeft:"-30px"}} onClick={() => setShowPassword(!showPassword)}>
+
+{showPassword ? <VisibilityOff /> : <Visibility />}
+</span>
+                    </span>
                     <span className="error">{errors.password}</span>
                   </div>
                   <div className="col">
+                    <span>
+
                     <input
-                      type="password"
+                      // type="password"
+            type={showPassword ? "text" : "password"}
+
                       className={
                         errors.cpassword ? "input-text err" : "input-text"
                       }
@@ -254,6 +272,11 @@ const dispatch=useDispatch()
                       value={cpassword}
                       onChange={(e) => setCpassword(e.target.value)}
                     />
+                          <span style={{marginTop:"10px",marginLeft:"-30px"}} onClick={() => setShowPassword(!showPassword)}>
+
+{showPassword ? <VisibilityOff /> : <Visibility />}
+</span>
+                    </span>
                     <span className="error">{errors.cpassword}</span>
                   </div>
                 </div>

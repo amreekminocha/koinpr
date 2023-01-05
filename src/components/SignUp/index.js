@@ -26,6 +26,7 @@ const SignUp = () => {
   const [cpassword, setCpassword] = useState("");
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] =useState(false);
+  const [showConfPassword, setShowConfPassword] =useState(false);
 
 const dispatch=useDispatch()
   const cookies = new Cookies();
@@ -263,7 +264,7 @@ const dispatch=useDispatch()
 
                     <input
                       // type="password"
-            type={showPassword ? "text" : "password"}
+            type={showConfPassword ? "text" : "password"}
 
                       className={
                         errors.cpassword ? "input-text err" : "input-text"
@@ -272,9 +273,9 @@ const dispatch=useDispatch()
                       value={cpassword}
                       onChange={(e) => setCpassword(e.target.value)}
                     />
-                          <span style={{marginTop:"10px",marginLeft:"-30px"}} onClick={() => setShowPassword(!showPassword)}>
+                          <span style={{marginTop:"10px",marginLeft:"-30px"}} onClick={() => setShowConfPassword(!showConfPassword)}>
 
-{showPassword ? <VisibilityOff /> : <Visibility />}
+{showConfPassword ? <VisibilityOff /> : <Visibility />}
 </span>
                     </span>
                     <span className="error">{errors.cpassword}</span>

@@ -233,6 +233,7 @@ if(userType==="PUBLISHER"){
   const handleTelegram=()=>{
     setAnchorElUser(null);
     setOpen(true);
+    
 
 
   }
@@ -379,23 +380,21 @@ if(userType==="PUBLISHER"){
             </Button>
           </DialogActions> */}
           <DialogContent>
- <div className='popup'>
+ <div className='popups'>
 
 
-        <div className='content'>
-            <DialogTitle className='title'>Add Your Telegram</DialogTitle>
-            <div className='input'>
-                <input className='ip' type='text' placeholder={"Your telegram @username"} />
-                {/* { props.input2 && <input className='ip ip1' type='text' placeholder={props.input2} />} */}
+        <div className='contents'>
+            <DialogTitle className='titles'>Add Your Telegram</DialogTitle>
+            <div className='inputs'>
+                <input className='ips' type='texts' placeholder={"Your telegram @username"} />
             </div>
-            <button  type='submit' className='submit'>Submit <ArrowForwardIcon/></button>
+            <button  type='submit' className='submits'>Submit <ArrowForwardIcon/></button>
 
             <div style={{width:"272px",margin:"auto"}}>
             This will help your account manager to commute with you faster.  
             </div>
-            {/* <div className='bottom'>Facing issues? <a href='/'>Contact support</a> </div> */}
         </div>
-          <Divider variant="middle" sx={{border:"3px solid black",background:"black"}}/>
+          <Divider variant="middle" sx={{border:"3px solid black",background:"black",marginTop:"33px"}}/>
     </div>
           </DialogContent>
         </Dialog>

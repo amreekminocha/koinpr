@@ -10,7 +10,7 @@ import { Divider, Paper } from "@mui/material";
 
 export default function DesktopLeftPaper({data}) {
   const [expanded, setExpanded] = React.useState(false);
-
+console.log(data[4])
   return (
     <Paper sx={{ width: "449px", padding: "39px" }}>
       <Typography

@@ -32,12 +32,13 @@ import { UserAuthentication } from "../../../common/userAuthentication/UserAuthe
 import "../Marketplace.scss"
 import { useEffectOnceWhen } from "../../../common/useEffectOnceWhen.js/useEffectOncewhen";
 import { getUserByJwtToken } from "../../../redux/actions";
+import { LoadingForm } from "../../../common/loader/Loader";
 function MarketPlace(props) {
   const query = '';
 
   const [listingFilter, setListingFilter] = useState("pressRelease");
   const [offerFilter, setOfferFilter] = useState();
-
+const [isLoading,setIsLoading]=useState(false)
   //for getting current location from the react-router
   // const location = useLocation();
   // console.log(location.search);
@@ -74,12 +75,15 @@ const searchQuery=(searchQuery)=>{
   .get(`/api/listing/get-all?${searchQuery}`)
   .then((res) => {
     if (res.data.success) {
+
       setMarketList(res.data.data);
+      setIsLoading(true)
     }
     // console.log(res.data);
   })
   .catch((err) => {
     console.log(err, "err");
+    
   });
 }
 
@@ -96,6 +100,7 @@ const searchQuery=(searchQuery)=>{
       .then((res) => {
         if (res.data.success) {
           setMarketList(res.data.data);
+          setIsLoading(false)
         }
         // console.log(res.data);
       })
@@ -167,7 +172,7 @@ const searchQuery=(searchQuery)=>{
 useEffect(()=>{
   getUserByJwtToken()
 
-},[])
+},[userId])
   useEffect(()=>{
     if(!userId){
       return;
@@ -290,7 +295,7 @@ useEffect(()=>{
             <Grid container spacing={2}>
               <Grid item xs={12} md={12} sx={{ marginLeft: "1em" }}>
                 <p
-                  className="sm:invisible md:visible"
+                  className="invisible md:visible"
                   style={{
                     fontSize: "16px",
                     fontWeight: "bold",
@@ -299,7 +304,9 @@ useEffect(()=>{
                 >
                   Search offerTitle
                 </p>
-                <FormControl sx={{ width: "98%" }} variant="outlined">
+                <span  className="invisible md:visible">
+
+                <FormControl sx={{ width: "95%" }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
                     Enter publisher name
                   </InputLabel>
@@ -323,11 +330,39 @@ useEffect(()=>{
                     }
                   />
                 </FormControl>
+                </span>
+                <span  className="sm:visible md:invisible">
+
+                <FormControl sx={{ width: "230px",marginTop:-10 }} variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Enter publisher name
+                  </InputLabel>
+
+                  <OutlinedInput
+                    size="small"
+                    fullWidth
+                    sx={{ p: "10px"}}
+                    id="outlined-basic"
+                    name="offerTitle"
+                    value={offerFilter}
+                    onChange={handleSearchKeys}
+                    label="Enter publisher name"
+                    variant="outlined"
+                    endAdornment={
+                      <InputAdornment position="start">
+                        <IconButton onClick={handleSearchKeys} edge="end">
+                          <SearchIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+                </span>
               </Grid>
               <Grid
                 xs={12}
                 md={12}
-                sx={{ marginLeft: "2em", marginTop: "35px" }}
+                sx={{ marginLeft: "2em", marginTop: "20px" }}
               >
                 <p
                   className="sm:invisible md:visible"
@@ -418,11 +453,13 @@ ADD
                 </Link>
               </Grid> */}
 
+
               {marketList
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 ?.map((el) => (
                   <Grid item xs={12} md={4}>
                     <MarketPlaceCards
+                    isLoading={isLoading}
                       data={el}
                       name={el?.user?.fullName}
                       details={"View Details"}

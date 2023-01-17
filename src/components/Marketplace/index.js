@@ -21,9 +21,9 @@ const Marketplace = (addToCart) => {
 
     useEffect(()=>{
         const auth = cookies.get('auth-token');
-        if(!auth){
-            navigate('/sign-in');
-        }
+        // if(!auth){
+        //     navigate('/sign-in');
+        // }
         axios.post('/api/user/get-user-by-token',{},{
             headers:{
                 Authorization: 'Bearer ' + auth

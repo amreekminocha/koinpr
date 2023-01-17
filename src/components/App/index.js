@@ -52,8 +52,8 @@ function App(props) {
         {/* <CategoryExtended /> */}
         {/* <HomeExtended /> */}
         {/* <Desktop /> */}
-        {/* <Desktop/> */}
         <Routes>
+          {/* <Route path="/" exact element={<Desktop />} /> */}
           <Route path="/" exact element={<MarketPlace />} />
           <Route path="/expand/:id" exact element={<Expanded />} />
           <Route path="/checkout" exact element={<StripeContainer />} />

@@ -104,7 +104,7 @@ const SignUpMobile = () => {
     }
 
     return (
-        <div className='w-11/12 m-auto p-4 bg-[#F9F9F9]' >
+        <div className='w-11/12 m-auto p-4 bg-[#F9F9F9] px-4 pl-10' >
 
             <div >
                 <div >

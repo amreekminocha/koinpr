@@ -73,7 +73,7 @@ const Header = () => {
   const getUsetByToken = () => {
     axios
       .post(
-        "/api/user/get-user-by-token",
+        "http://localhost:5000/api/user/get-user-by-token",
         {},
         {
           headers: {
@@ -116,7 +116,7 @@ const Header = () => {
     axios
       .post(
         "/api/user/get-user-by-token",
-        {},
+        // {},
         {
           headers: {
             Authorization: "Bearer " + auth,
@@ -176,11 +176,11 @@ const Header = () => {
     // }
     axios
       .post(
-        "/api/user/get-user-by-token",
+        "http://localhost:5000/api/user/get-user-by-token",
         {},
         {
           headers: {
-            Authorization: "Bearer " + auth,
+            authorization: "Bearer " + auth,
           },
         }
       )
@@ -211,7 +211,7 @@ const Header = () => {
   //     {},
   //     {
   //       headers: {
-  //         Authorization: "Bearer " + token,
+  //         authorization: "Bearer " + token,
   //       },
   //     }
   //   )
@@ -255,7 +255,7 @@ const Header = () => {
   //         {},
   //         {
   //           headers: {
-  //             Authorization: "Bearer " + auth,
+  //             authorization: "Bearer " + auth,
   //           },
   //         }
   //       )
@@ -320,7 +320,7 @@ const Header = () => {
   //         {},
   //         {
   //           headers: {
-  //             Authorization: "Bearer " + auth,
+  //             authorization: "Bearer " + auth,
   //           },
   //         }
   //       )
@@ -357,7 +357,7 @@ const Header = () => {
   //       {},
   //       {
   //         headers: {
-  //           Authorization: "Bearer " + auth,
+  //           authorization: "Bearer " + auth,
   //         },
   //       }
   //     )
@@ -593,7 +593,7 @@ const Header = () => {
           </DialogContent>
         </Dialog>
       </div>
-      <div className="md:hidden lg:hidden sm:block">
+      <div  className="md:hidden lg:hidden sm:block">
         <MobileHeader handleTelegram={handleTelegram} />
       </div>
     </>

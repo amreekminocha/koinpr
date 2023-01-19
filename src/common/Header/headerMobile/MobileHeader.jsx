@@ -30,7 +30,7 @@ export default function MobileHeader({handleTelegram}) {
   const [userId, setUserId] = useState();
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState();
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const authNew = cookies.get("auth-token");
 
@@ -90,6 +90,7 @@ export default function MobileHeader({handleTelegram}) {
   };
 
   const handleSignout = (event) => {
+    
     // setOpen(true);
   };
   // const handleTelegram = () => {
@@ -109,7 +110,7 @@ export default function MobileHeader({handleTelegram}) {
       // if(!isCancelled){
       axios
         .post(
-          "/api/user/get-user-by-token",
+          "http://localhost:5000/api/user/get-user-by-token",
           {},
           {
             headers: {
@@ -151,7 +152,7 @@ export default function MobileHeader({handleTelegram}) {
     //   isCancelled=true
     // }
     // getUsetByToken()
-  }, [authNew]);
+  }, [userId]);
 
 
   React.useEffect(() => {
@@ -162,7 +163,7 @@ export default function MobileHeader({handleTelegram}) {
     }
     axios
       .post(
-        "/api/user/get-user-by-token",
+        "http://localhost:5000/api/user/get-user-by-token",
         {},
         {
           headers: {
@@ -196,7 +197,7 @@ export default function MobileHeader({handleTelegram}) {
   const cartNumber = useSelector((state) => state?.cart?.total);
 
   return (
-    <Box sx={{ flexGrow: 1, marginBottom: "6em" }}>
+    <Box sx={{  marginBottom: "6em" }}>
       <AppBar sx={{ background: "black" }} position="fixed">
         <Toolbar sx={{ padding: "0.6em" }} variant="dense">
           {/* <IconButton
@@ -220,7 +221,7 @@ export default function MobileHeader({handleTelegram}) {
           </Typography>
           {isLoggedIn ?
 
-            <Box sx={{ flexGrow: 1, marginLeft: "15px" }}>
+            <Box sx={{  marginLeft: "15px" }}>
               <Tooltip title="Open Accout">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Typography sx={{ color: "white", fontWeight: 500, fontSize: "14px" }}>
@@ -268,7 +269,10 @@ export default function MobileHeader({handleTelegram}) {
                     {isLoggedIn ?
                       <span onClick={handleSignout}>Sign Out</span>
                       :
-                      location === "http://localhost:3000/sign-up" ? "Sign In" : "Sign Up"
+                      <span style={{border:"1px solid red"}}>
+
+                        location === "http://localhost:3000/sign-up" ? "Sign In" : "Sign Up"
+                      </span>
                     }
                   </Typography>
                 </MenuItem>
@@ -280,14 +284,26 @@ export default function MobileHeader({handleTelegram}) {
               {isLoggedIn ? 
                      <span onClick={handleSignout}>Sign Out</span>
                  : 
-                 location==="http://localhost:3000/sign-up"? "Sign In":"Sign Up"
+
+                   location==="http://localhost:3000/#/sign-up"?  <span style={{marginLeft:"70px"}}>
+                   <Link to="/sign-in">
+                   
+                   Sign in
+                   </Link>
+                </span>:
+                 <span style={{marginLeft:"70px"}}>
+                   <Link to="/sign-up">
+                   
+                    Sign Up
+                   </Link>
+                </span>
                    }
               </Link>
             </span>
           }
           {isLoggedIn ?
 
-            <IconButton onClick={() => navigate("/cart")} aria-label="cart">
+            <IconButton sx={{marginLeft:"80px"}} onClick={() => navigate("/cart")} aria-label="cart">
               <StyledBadge badgeContent={cartNumber} color="primary">
                 <ShoppingCartIcon sx={{ color: "white" }} />
               </StyledBadge>

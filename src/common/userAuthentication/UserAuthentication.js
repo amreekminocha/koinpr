@@ -17,7 +17,7 @@ function UserAuthentication() {
   }
   axios
     .post(
-      "/api/user/get-user-by-token",
+      "http://localhost:5000/api/user/get-user-by-token",
       {},
       {
         headers: {

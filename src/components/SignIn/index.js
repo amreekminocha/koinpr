@@ -124,7 +124,7 @@ const dispatch=useDispatch();
     };
 
     axios
-      .post("/api/user/login", data)
+      .post("https://koinpr.onrender.com/api/user/login", data)
       .then((res) => {
         if (res?.data?.success) {
           cookies.set("auth-token", res?.data?.user?.token, { path: "/" });

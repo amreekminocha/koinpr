@@ -24,7 +24,7 @@ const Marketplace = (addToCart) => {
         // if(!auth){
         //     navigate('/sign-in');
         // }
-        axios.post('/api/user/get-user-by-token',{},{
+        axios.post('http://localhost:5000/api/user/get-user-by-token',{},{
             headers:{
                 Authorization: 'Bearer ' + auth
             }
